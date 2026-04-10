@@ -1,0 +1,121 @@
+{
+  "repository": "tracking-memory-hackathon",
+  "generated_date": "2026-04-09",
+  "generated_by": "BaIAninho",
+  "source_document": "docs/backlog-melhorias-vault.md",
+  "issues": [
+    {
+      "id": 1,
+      "title": "Quick Fixes — Inconsistências Documentais",
+      "priority": "P3",
+      "labels": ["P3-low", "fix", "quick-fix"],
+      "assignee": null,
+      "body_file": "01-quick-fixes.md",
+      "estimate_hours": 0.5,
+      "type": "fix",
+      "description": "Correções rápidas de inconsistências menores"
+    },
+    {
+      "id": 2,
+      "title": "Nomenclatura Crítica — Campos com Risco de Implementação",
+      "priority": "P1", 
+      "labels": ["P1-high", "fix", "needs-validation"],
+      "assignee": "douglas-souza-wolff",
+      "body_file": "02-nomenclatura-critica.md",
+      "estimate_hours": 3,
+      "type": "fix",
+      "description": "Campos documentados incorretamente que podem gerar bugs"
+    },
+    {
+      "id": 3,
+      "title": "E06/E07 — Admin Discovery (Etapas Vazias)",
+      "priority": "P1",
+      "labels": ["P1-high", "documentation", "needs-sme", "admin"],
+      "assignee": "juliana-dos-santos",
+      "body_file": "03-admin-discovery.md",
+      "estimate_hours": 6,
+      "type": "research",
+      "description": "Descobrir informações sobre sistema Admin e processos E06/E07"
+    },
+    {
+      "id": 4,
+      "title": "Research — Sistemas e Termos Indefinidos",
+      "priority": "P2",
+      "labels": ["P2-medium", "research", "needs-sme"],
+      "assignee": "ricardo-tadeu-lima",
+      "body_file": "04-sistemas-indefinidos.md",
+      "estimate_hours": 4,
+      "type": "research",
+      "description": "Definir sistemas MONGOS, Corp, BAAN/LN/Workbench"
+    },
+    {
+      "id": 5,
+      "title": "Validação Técnica — Campos e Queries SQL",
+      "priority": "P2",
+      "labels": ["P2-medium", "validation", "sql", "technical"],
+      "assignee": "douglas-souza-wolff",
+      "body_file": "05-validacao-tecnica.md",
+      "estimate_hours": 3,
+      "type": "validation",
+      "description": "Validar aliases SQL e queries em ambiente real"
+    },
+    {
+      "id": 6,
+      "title": "Inventário e Coerência de Assets",
+      "priority": "P3",
+      "labels": ["P3-low", "documentation", "maintenance"],
+      "assignee": null,
+      "body_file": "06-inventory-assets.md",
+      "estimate_hours": 1.5,
+      "type": "maintenance",
+      "description": "Completar inventário de arquivos e verificar coerência de mock data"
+    }
+  ],
+  "labels": {
+    "priority": {
+      "P1-high": "Critical - blocks implementation",
+      "P2-medium": "Important - significant impact", 
+      "P3-low": "Quality improvement"
+    },
+    "type": {
+      "fix": "Correct inconsistencies or errors",
+      "documentation": "Create/update documentation",
+      "research": "Gather information from SMEs",
+      "validation": "Validate technical data",
+      "maintenance": "Organize artifacts"
+    },
+    "special": {
+      "quick-fix": "Resolution < 30 min",
+      "needs-sme": "Requires Subject Matter Expert",
+      "sql": "Involves SQL validation",
+      "admin": "Admin system specific",
+      "technical": "Technical validation/code"
+    }
+  },
+  "assignees": {
+    "douglas-souza-wolff": {
+      "role": "Technical Lead",
+      "expertise": "SQL, database schema, technical validation",
+      "mentioned_in": ["E08", "E09", "regras-exibicao-sku"]
+    },
+    "juliana-dos-santos": {
+      "role": "Business Analyst", 
+      "expertise": "Admin system, business processes",
+      "mentioned_in": ["E06", "E07", "discovery tracking"]
+    },
+    "ricardo-tadeu-lima": {
+      "role": "Infrastructure Lead",
+      "expertise": "Platform systems, infrastructure",
+      "mentioned_in": ["E09", "system architecture"]
+    }
+  },
+  "statistics": {
+    "total_issues": 6,
+    "p1_issues": 2,
+    "p2_issues": 2, 
+    "p3_issues": 2,
+    "total_estimated_hours": 18,
+    "assigned_issues": 4,
+    "unassigned_issues": 2
+  }
+}
