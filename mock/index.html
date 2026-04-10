@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GO — Tracking de Produtos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      background: #f4f5f7;
+      color: #1e1e2e;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── TOP BAR ──────────────────────────────── */
+    .topbar {
+      background: #003087; color: #fff; height: 44px;
+      display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; z-index: 100;
+    }
+    .topbar .logo { background: #fff; color: #003087; font-weight: 800; font-size: 11px; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
+    .topbar .app-name { font-weight: 600; font-size: 14px; color: #b3c8f0; }
+    .topbar-right { margin-left: auto; font-size: 12px; color: #b3c8f0; display: flex; align-items: center; gap: 10px; }
+    .topbar-avatar { width: 28px; height: 28px; border-radius: 50%; background: #4a90d9; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
+
+    /* ── LAYOUT ───────────────────────────────── */
+    .layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* ── SIDEBAR ──────────────────────────────── */
+    .sidebar { width: 220px; background: #fff; border-right: 1px solid #e2e8f0; overflow-y: auto; flex-shrink: 0; }
+    .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; cursor: pointer; color: #4a5568; font-size: 13px; border-left: 3px solid transparent; transition: background 0.15s; }
+    .sidebar-item:hover { background: #eaf0fb; color: #003087; }
+    .sidebar-item.active { background: #dce8f8; color: #003087; border-left-color: #003087; font-weight: 600; }
+    .sidebar-item.parent { font-weight: 600; color: #2d3748; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; padding-top: 14px; }
+    .sidebar-item.sub { padding-left: 32px; font-size: 12.5px; }
+    .sidebar-icon { font-size: 15px; opacity: 0.75; }
+    .sidebar-divider { height: 1px; background: #f0f0f0; margin: 4px 0; }
+
+    /* ── MAIN ─────────────────────────────────── */
+    .main { flex: 1; overflow-y: auto; }
+    .page { padding: 24px; display: flex; flex-direction: column; gap: 16px; animation: fadeIn 0.2s; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ── BREADCRUMB ───────────────────────────── */
+    .breadcrumb { font-size: 12px; color: #718096; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+    .breadcrumb a { color: #003087; text-decoration: none; cursor: pointer; }
+    .breadcrumb a:hover { text-decoration: underline; }
+
+    /* ── PAGE TITLE ───────────────────────────── */
+    .page-title { font-size: 18px; font-weight: 700; color: #1a202c; display: flex; align-items: center; gap: 10px; }
+    .btn-back { padding: 6px 14px; border-radius: 6px; border: 1px solid #cbd5e0; background: #fff; color: #2d3748; cursor: pointer; font-size: 12.5px; font-weight: 500; transition: background 0.15s; }
+    .btn-back:hover { background: #eaf0fb; color: #003087; border-color: #003087; }
+
+    /* ── BUTTONS ──────────────────────────────── */
+    .toolbar { display: flex; align-items: center; gap: 8px; }
+    .search-wrap { position: relative; flex: 1; max-width: 380px; }
+    .search-wrap input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; }
+    .search-wrap input:focus { border-color: #003087; box-shadow: 0 0 0 3px #ccdaf5; }
+    .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 15px; }
+    .btn { padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 12.5px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+    .btn:hover { opacity: 0.88; }
+    .btn-primary { background: #003087; color: #fff; }
+    .btn-outline { background: #fff; color: #003087; border: 1px solid #003087; }
+    .btn-ghost { background: #f7f8fa; color: #4a5568; border: 1px solid #e2e8f0; }
+
+    /* ── LIST TABLE ───────────────────────────── */
+    .table-wrap { background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; }
+    .table-count { padding: 10px 16px; font-size: 12px; color: #718096; border-bottom: 1px solid #f0f0f0; }
+    table { width: 100%; border-collapse: collapse; }
+    thead tr { background: #f7f8fa; }
+    th { padding: 10px 12px; text-align: left; font-size: 11.5px; font-weight: 600; color: #4a5568; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
+    td { padding: 10px 12px; border-bottom: 1px solid #f2f2f2; font-size: 12.5px; color: #2d3748; }
+    tr:hover td { background: #f0f5fd; cursor: pointer; }
+    tr:last-child td { border-bottom: none; }
+
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+    .badge-green  { background: #c6f6d5; color: #22543d; }
+    .badge-red    { background: #fed7d7; color: #742a2a; }
+    .badge-yellow { background: #fefcbf; color: #744210; }
+    .badge-gray   { background: #e2e8f0; color: #4a5568; }
+    .badge-blue   { background: #dce8f8; color: #003087; }
+
+    .action-btns { display: flex; gap: 6px; }
+    .action-btn { background: none; border: none; cursor: pointer; color: #a0aec0; font-size: 16px; padding: 2px 4px; border-radius: 4px; }
+    .action-btn:hover { color: #003087; }
+
+    /* ── DETAIL SECTIONS ──────────────────────── */
+    .detail-section { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+    .detail-section-title { padding: 12px 20px; font-size: 13px; font-weight: 700; color: #003087; border-bottom: 1px solid #e2e8f0; background: #f7faff; }
+    .detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
+    .detail-field { padding: 14px 20px; border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
+    .detail-label { font-size: 11px; color: #a0aec0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .detail-value { font-size: 13px; color: #1a202c; font-weight: 500; }
+    .detail-value.sku { font-size: 18px; font-weight: 700; color: #003087; }
+
+    /* ── PIPELINE STEPS ───────────────────────── */
+    .pipeline-steps-wrap { padding: 24px 20px; overflow-x: auto; }
+    .pipeline-steps { display: flex; align-items: flex-start; min-width: max-content; }
+    .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 115px; }
+    .step-circle { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; border: 2px solid; position: relative; z-index: 1; font-weight: 700; }
+    .step-circle.done    { background: #c6f6d5; border-color: #38a169; color: #22543d; }
+    .step-circle.fail    { background: #fed7d7; border-color: #e53e3e; color: #c53030; }
+    .step-circle.na      { background: #e2e8f0; border-color: #a0aec0; color: #718096; }
+    .step-circle.pending { background: #fefcbf; border-color: #d69e2e; color: #744210; }
+    .step-label { font-size: 10.5px; text-align: center; color: #2d3748; line-height: 1.35; font-weight: 600; }
+    .step-sub   { font-size: 10px; text-align: center; color: #718096; line-height: 1.3; }
+    .step-sys   { font-size: 9.5px; text-align: center; font-weight: 700; color: #fff; background: #003087; padding: 1px 6px; border-radius: 8px; white-space: nowrap; }
+    .step-connector { flex: 1; height: 2px; margin-top: 20px; min-width: 16px; background: #e2e8f0; }
+    .step-connector.done { background: #38a169; }
+
+    /* ── TRACKING TABLE ───────────────────────── */
+    .tracking-table-wrap { overflow-x: auto; }
+    .tracking-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 680px; }
+    .tracking-table th { padding: 10px 14px; background: #003087; color: #fff; font-size: 11px; font-weight: 600; text-align: left; border: 1px solid #1a4faa; white-space: nowrap; }
+    .tracking-table th.center { text-align: center; }
+    .tracking-table td { padding: 10px 14px; border: 1px solid #e8edf5; vertical-align: middle; }
+    .tracking-table td.center { text-align: center; }
+    .tracking-table tr.stripe { background: #f7faff; }
+    .tracking-table tr:hover td { background: #edf3fc; }
+
+    .status-sim  { color: #22543d; font-weight: 700; }
+    .status-nao  { color: #c53030; font-weight: 700; }
+    .status-na   { color: #718096; font-style: italic; }
+    .status-date { color: #2d3748; font-size: 12px; }
+
+    .ofensor-count { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+    .ofensor-count.has  { background: #fed7d7; color: #c53030; }
+    .ofensor-count.none { background: #c6f6d5; color: #22543d; }
+
+    .source-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; background: #dce8f8; color: #003087; }
+    .source-tag.orange { background: #fef3c7; color: #92400e; }
+
+    /* ── TRACKING DOTS ──────────────────────────── */
+    .track-dots { display: flex; gap: 3px; align-items: center; }
+    .track-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; flex-shrink: 0; }
+    .track-dot.sim  { background: #c6f6d5; color: #22543d; }
+    .track-dot.nao  { background: #fed7d7; color: #c53030; }
+    .track-dot.na   { background: #e2e8f0; color: #718096; }
+    .track-dot.base { background: #dce8f8; color: #003087; }
+    .track-dot-lbl  { font-size: 8.5px; color: #a0aec0; text-align: center; line-height: 1.2; white-space: nowrap; }
+    .track-step-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+    .th-step { font-size: 9.5px !important; text-align: center !important; padding: 6px 4px !important; min-width: 38px; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">CB</span>
+  <span class="app-name">GO — Gestão de Operações</span>
+  <div class="topbar-right">
+    <span>JULIANA DOS SANTOS PAIVA GALINI</span>
+    <div class="topbar-avatar">JG</div>
+    <span style="font-size:18px;cursor:pointer">↗</span>
+  </div>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">🏠</span> Início</div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-item parent"><span class="sidebar-icon">📦</span> Gestão de Produtos</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">🕓</span> Histórico de Atualizações</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">📥</span> Cadastro Massivo</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">📋</span> Registros de Massivo</div>
+    <div class="sidebar-item sub active" id="navProdutos" onclick="navigate(this); showList()"><span class="sidebar-icon">🔍</span> Produtos Cadastrados</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">🏷️</span> Consulta de EANs</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">💰</span> Oficialização Massiva de Preços</div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">📊</span> Tracking de Produtos</div>
+    <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">🔄</span> Histórico de Atualizações</div>
+  </nav>
+
+  <main class="main" id="mainContent"></main>
+</div>
+
+<script src="./data.js"></script>
+<script>
+const { products, stages: STAGES } = DATA;
+
+let currentSearch = 'samsung';
+let filtered = [...products];
+
+function navigate(el) {
+  document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── LIST ────────────────────────────────────────────────────
+function showList() {
+  filtered = products.filter(p =>
+    p.skuOff.includes(currentSearch) || p.skuOn.includes(currentSearch) ||
+    p.mercadoria.toLowerCase().includes(currentSearch.toLowerCase()) ||
+    p.categoria.toLowerCase().includes(currentSearch.toLowerCase())
+  );
+
+  const rows = filtered.map((p, i) => {
+    const trackDots = STAGES.map(s => {
+      const val = p.track[s.key];
+      let cls = 'base', icon = s.etapa.replace('E0','').replace('E','');
+      if (s.key === 'cadastro')  { cls = 'sim'; icon = '✓'; }
+      else if (val === 'Sim')    { cls = 'sim'; icon = '✓'; }
+      else if (val === 'Não')    { cls = 'nao'; icon = '✕'; }
+      else if (val === 'N/A')    { cls = 'na';  icon = '—'; }
+      return `<div class="track-step-col"><div class="track-dot ${cls}" title="${s.label}: ${val||s.key==='cadastro'?val:''}">${icon}</div><div class="track-dot-lbl">${s.sistema}</div></div>`;
+    }).join('');
+    const fails = STAGES.slice(1).filter(s => p.track[s.key] === 'Não').length;
+    return `<tr onclick="showDetail(${i})">
+      <td><strong>${p.skuOff}</strong></td>
+      <td>${p.skuOn}</td>
+      <td>${p.mercadoria}</td>
+      <td><span class="badge badge-gray">${p.tipo}</span></td>
+      <td>${p.categoria}</td>
+      <td>${p.status==='EM LINHA'?'<span class="badge badge-green">EM LINHA</span>':'<span class="badge badge-red">FORA DE LINHA</span>'}</td>
+      <td>${p.situacao==='OK'?'<span class="badge badge-gray">OK</span>':'<span class="badge badge-yellow">'+p.situacao+'</span>'}</td>
+      <td><div class="track-dots">${trackDots}</div></td>
+      <td>
+        <div class="action-btns">
+          <button class="action-btn" title="Detalhe" onclick="event.stopPropagation();showDetail(${i})">🔍</button>
+          <button class="action-btn" title="Site" onclick="event.stopPropagation()">👁</button>
+          <button class="action-btn" title="Editar" onclick="event.stopPropagation()">✏</button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="page">
+      <div class="breadcrumb"><a onclick="showList()">🏠</a> › <a onclick="showList()">Gestão de Produtos</a> › <strong>Produtos Cadastrados</strong></div>
+      <div class="page-title">← Produtos Cadastrados</div>
+      <div class="toolbar">
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" value="${currentSearch}" placeholder="Buscar por SKU OFF, SKU ON ou Mercadoria…"
+            oninput="currentSearch=this.value;showList()" id="searchInput"/>
+        </div>
+        <button class="btn btn-ghost">🔄 Atualizar</button>
+        <button class="btn btn-primary">+ Cadastrar Produto</button>
+        <button class="btn btn-outline">⚙ Filtro</button>
+      </div>
+      <div class="table-wrap">
+        <div class="table-count">Exibindo ${filtered.length} produto(s) — apenas 1P</div>
+        <table>
+          <thead><tr>
+            <th>SKU OFF</th><th>SKU ON</th><th>Mercadoria</th><th>Tipo</th>
+            <th>Categoria</th><th>Status</th><th>Situação Cadastral</th>
+            <th colspan="9" style="text-align:center;background:#1a4088">Tracking de Produtos</th>
+            <th>Ações</th>
+          </tr>
+          <tr style="background:#1a4088">
+            <th colspan="7" style="background:#f7f8fa"></th>
+            ${STAGES.map(s=>`<th class="th-step">${s.sistema}<br><span style="font-weight:400;font-size:8.5px">${s.area}</span></th>`).join('')}
+            <th style="background:#f7f8fa"></th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ─── DETAIL ──────────────────────────────────────────────────
+function showDetail(idx) {
+  const p = filtered[idx];
+  if (!p) return;
+
+  // Pipeline visual
+  let stepsHtml = '';
+  STAGES.forEach((s, i) => {
+    const val = p.track[s.key];
+    let cls = 'na', icon = '—';
+    if (s.key==='cadastro')  { cls='done'; icon='✓'; }
+    else if (val==='Sim')    { cls='done'; icon='✓'; }
+    else if (val==='Não')    { cls='fail'; icon='✕'; }
+    else if (val==='N/A')    { cls='na';   icon='—'; }
+    const prevOk = STAGES.slice(0,i).every(ps => p.track[ps.key] !== 'Não');
+    if (i > 0) stepsHtml += `<div class="step-connector ${prevOk && cls==='done'?'done':''}"></div>`;
+    stepsHtml += `<div class="step-item">
+      <div class="step-circle ${cls}">${icon}</div>
+      <div class="step-label">${s.etapa} — ${s.label}</div>
+      <div class="step-sub">${s.key==='cadastro'?val:(val||'—')}</div>
+      <div class="step-sys">${s.sistema}</div>
+    </div>`;
+  });
+
+  // Tracking table
+  const tRows = STAGES.map((s,i) => {
+    const val = p.track[s.key];
+    let sc;
+    if (s.key==='cadastro') sc=`<td class="center status-date">${val}</td>`;
+    else if (val==='Sim')   sc=`<td class="center status-sim">✓ Sim</td>`;
+    else if (val==='Não')   sc=`<td class="center status-nao">✕ Não</td>`;
+    else                    sc=`<td class="center status-na">N/A</td>`;
+    const oCount = filtered.filter(pr => pr.track[s.key]==='Não').length;
+    const oc = s.key==='cadastro'
+      ? `<td class="center" style="color:#a0aec0">—</td>`
+      : `<td class="center"><span class="ofensor-count ${oCount>0?'has':'none'}">${oCount>0?oCount:'✓'}</span></td>`;
+    return `<tr class="${i%2===0?'stripe':''}">
+      <td style="font-weight:700;color:#003087">${s.etapa}</td>
+      <td>${s.label}</td>
+      <td><span class="source-tag ${s.origemType==='orange'?'orange':''">${s.sistema}</span></td>
+      <td style="color:#718096;font-size:11.5px">${s.area}</td>
+      <td style="color:#718096;font-size:11.5px">${s.detalhe}</td>
+      ${sc}${oc}
+    </tr>`;
+  }).join('');
+
+  const fails = STAGES.slice(1).filter(s => p.track[s.key]==='Não').length;
+  const overallBadge = fails===0
+    ? `<span class="badge badge-green" style="padding:4px 12px;font-size:13px">✓ SKU ATIVO — Pipeline Completo</span>`
+    : `<span class="badge badge-red" style="padding:4px 12px;font-size:13px">⚠ ${fails} etapa(s) bloqueada(s)</span>`;
+
+  document.getElementById('mainContent').innerHTML = `
+    <div class="page">
+
+      <div class="breadcrumb">
+        <a onclick="showList()">🏠</a> ›
+        <a onclick="showList()">Gestão de Produtos</a> ›
+        <a onclick="showList()">Produtos Cadastrados</a> ›
+        <strong>Detalhes SKU OFF : ${p.skuOff} | SKU ON : ${p.skuOn}</strong>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <button class="btn-back" onclick="showList()">← Voltar</button>
+        <div class="page-title">Detalhes SKU OFF : ${p.skuOff} | SKU ON : ${p.skuOn}</div>
+        ${overallBadge}
+      </div>
+
+      <!-- DADOS GERAIS -->
+      <div class="detail-section">
+        <div class="detail-section-title">Dados gerais</div>
+        <div class="detail-grid">
+          <div class="detail-field"><div class="detail-label">SKU off</div><div class="detail-value sku">${p.skuOff}</div></div>
+          <div class="detail-field"><div class="detail-label">SKU on</div><div class="detail-value sku">${p.skuOn}</div></div>
+          <div class="detail-field"><div class="detail-label">Tipo de mercadoria</div><div class="detail-value">1 - ${p.tipo}</div></div>
+          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Descrição do sku</div><div class="detail-value">${p.mercadoria}</div></div>
+        </div>
+        <div class="detail-grid" style="border-top:1px solid #f0f0f0">
+          <div class="detail-field"><div class="detail-label">EAN tributário</div><div class="detail-value">${p.eanTributario}</div></div>
+          <div class="detail-field"><div class="detail-label">EAN master</div><div class="detail-value">${p.eanMaster}</div></div>
+          <div class="detail-field"><div class="detail-label">EAN operacional</div><div class="detail-value">${p.eanOperacional}</div></div>
+          <div class="detail-field"><div class="detail-label">Situação cadastral</div><div class="detail-value"><span class="badge ${p.situacao==='OK'?'badge-green':'badge-yellow'}">${p.situacao}</span></div></div>
+        </div>
+      </div>
+
+      <!-- CATEGORIZAÇÃO -->
+      <div class="detail-section">
+        <div class="detail-section-title">Categorização</div>
+        <div class="detail-grid">
+          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Diretoria</div><div class="detail-value">${p.diretoria}</div></div>
+          <div class="detail-field"><div class="detail-label">Categoria</div><div class="detail-value">${p.categoria2}</div></div>
+          <div class="detail-field"><div class="detail-label">Sub categoria</div><div class="detail-value">${p.subCategoria}</div></div>
+          <div class="detail-field"><div class="detail-label">Espécie</div><div class="detail-value">${p.especie}</div></div>
+          <div class="detail-field"><div class="detail-label">Sub espécie</div><div class="detail-value">${p.subEspecie}</div></div>
+        </div>
+      </div>
+
+      <!-- DADOS FABRICANTE -->
+      <div class="detail-section">
+        <div class="detail-section-title">Dados fabricante</div>
+        <div class="detail-grid">
+          <div class="detail-field"><div class="detail-label">CNPJ fornecedor</div><div class="detail-value">${p.cnpjFornecedor}</div></div>
+          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Nome fornecedor</div><div class="detail-value">${p.nomeFornecedor}</div></div>
+          <div class="detail-field"><div class="detail-label">Marca comercial</div><div class="detail-value">${p.marcaComercial}</div></div>
+          <div class="detail-field"><div class="detail-label">Garantia fabricante</div><div class="detail-value">${p.garantia} meses</div></div>
+        </div>
+        <div class="detail-grid" style="border-top:1px solid #f0f0f0">
+          <div class="detail-field"><div class="detail-label">Modelo</div><div class="detail-value">${p.modelo}</div></div>
+          <div class="detail-field"><div class="detail-label">Descrição modelo</div><div class="detail-value">${p.descricaoModelo}</div></div>
+          <div class="detail-field"><div class="detail-label">Código produto fornecedor (SKU)</div><div class="detail-value">${p.codigoProduto}</div></div>
+        </div>
+      </div>
+
+      <!-- PIPELINE VISUAL -->
+      <div class="detail-section">
+        <div class="detail-section-title">Tracking de Produtos — Pipeline 1P (E01 → E09)</div>
+        <div class="pipeline-steps-wrap">
+          <div class="pipeline-steps">${stepsHtml}</div>
+        </div>
+      </div>
+
+      <!-- TRACKING TABLE -->
+      <div class="detail-section">
+        <div class="detail-section-title">Detalhamento por Etapa</div>
+        <div class="tracking-table-wrap">
+          <table class="tracking-table">
+            <thead><tr>
+              <th style="width:50px">Etapa</th>
+              <th>Nome</th>
+              <th>Sistema</th>
+              <th>Área</th>
+              <th>Campos</th>
+              <th class="center" style="width:110px">Status — este SKU</th>
+              <th class="center" style="width:110px">Ofensores<br><span style="font-size:10px;font-weight:400">na busca atual</span></th>
+            </tr></thead>
+            <tbody>${tRows}</tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>`;
+
+  // scroll to top
+  document.getElementById('mainContent').scrollTop = 0;
+}
+
+showList();
+</script>
+</body>
+</html>
