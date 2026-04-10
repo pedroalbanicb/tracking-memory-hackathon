@@ -4,7 +4,7 @@ tipo: indice-externo
 status: ativo
 updated: 2026-04-09
 autor: Pedro Martins
-nota: "MONGOS = MongoDB do domínio Corp/Plataforma; termo corrigido de MANOS para MONGOS em 09/04/2026"
+nota: "MONGOS = MongoDB de Pricing (Mongo Pricing / Mongo Preço). Termo originado da transcrição 'MANOS PIRESing' = 'Mongo Pricing'. Corrigido de MANOS para MONGOS em 09/04/2026, significado confirmado em 10/04/2026"
 ---
 
 # Índice de Referências Confluence — Tracking GO

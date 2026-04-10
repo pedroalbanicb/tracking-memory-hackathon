@@ -73,7 +73,7 @@ fonte: Juliana Dos Santos
 
 ## Regras de Negócio
 
-- `produzido_loja_fisica = 'S'` é pré-requisito para exibição em loja física ([[E09-exibicao-site-loja]])
+- `produzido_loja_fisica = 'S'` é condição de negócio para exibição em loja física — o tracking verifica este estado independentemente ([[E09-exibicao-site-loja]])
 - O estado de loja física é **independente** do estado do site ([[E06-produzido]])
 - Um SKU pode estar produzido para o site mas não para loja, e vice-versa
 - SKUs do tipo `Digital/Download` geralmente não precisam de `produzido_loja_fisica`

@@ -73,7 +73,7 @@ fonte: Juliana Dos Santos
 
 ## Regras de Negócio
 
-- `produzido_site = 'S'` é pré-requisito para exibição no canal digital ([[E09-exibicao-site-loja]])
+- `produzido_site = 'S'` é condição de negócio para exibição no canal digital — o tracking verifica este estado independentemente ([[E09-exibicao-site-loja]])
 - Para loja física, ver [[E07-produzido-loja]]
 - SKUs do tipo `Digital/Download` precisam de `produzido_site` mas podem não precisar de `produzido_loja_fisica`
 

@@ -2,7 +2,7 @@
 tags: [tracking, discovery, status, hackathon, consolidado]
 tipo: tracker
 status: ativo
-updated: 2026-04-09
+updated: 2026-04-10
 autor: Pedro Martins
 ---
 
@@ -10,6 +10,7 @@ autor: Pedro Martins
 
 > Visão consolidada do progresso do discovery por etapa, gaps bloqueantes e próximas ações.
 > **Deadline: 10/04/2026** — o que falta para fechar o mapeamento do pipeline.
+> Varredura completa do vault concluída. Redundância removida.
 
 ---
 
@@ -44,8 +45,8 @@ autor: Pedro Martins
 | 3 | [[E03-proposta-comercial]] | ⚠️ Parcial | API Catálogo / LN | Campo `ContratoLiberado` na API (null quando sem contrato) | `data_emissao_contrato` path na composição; múltiplos contratos? | 4 abertos |
 | 4 | [[E04-agendamento]] | ⚠️ Parcial | LN → Neogrid | Sistemas confirmados (Juliana). **Falta documentar info do Alonso Dias Assuncao** (fluxo, Databricks, query SQL) | Método de integração; RFC-002 em draft | 5 abertos |
 | 5 | [[E05-estoque]] | ⚠️ Regras mapeadas | Banco Inventario (SQL) | Query SQL completa, schema `Inventario`, 14 campos confirmados | Método integração (API vs banco direto); valores `TipoEstoque` | 7 abertos (1 🔴) |
-| 8 | [[E08-ativacao-pricing]] | ⚠️ Flags confirmadas | SQL: `SkuLojista` / `SkuLojistaPreço` | `FlagAtiva` em ambas tabelas; pricing exclusivo do site | Interface de leitura (API vs SQL vs Corp); decisão [[decisao-fonte-dados-tracking]] | 5 abertos (1 🔴) |
-| 9 | [[E09-exibicao-site-loja]] | ⚠️ Regras mapeadas | SQL → MONGOS (MongoDB) | 14+ flags em 5 grupos (SkuLojista, Sku, Produto, Marca, Categoria), fluxo Rundeck | Endpoint API/MONGOS; coleção MongoDB; decisão API vs SQL | 8 abertos (3 🔴) |
+| 8 | [[E08-ativacao-pricing]] | ⚠️ Flags confirmadas | SQL: `SkuLojista` / `SkuLojistaPreço` | `FlagAtiva` em ambas tabelas; pricing exclusivo do site | Interface de leitura (SQL Corp direto ou via API); decisão [[decisao-fonte-dados-tracking]] | 5 abertos (1 🔴) |
+| 9 | [[E09-exibicao-site-loja]] | ⚠️ Regras mapeadas | SQL Corp → MONGOS (MongoDB de Pricing) | 14+ flags em 5 grupos (SkuLojista, Sku, Produto, Marca, Categoria), fluxo Rundeck | Endpoint API/MONGOS; coleção MongoDB; decisão SQL Corp vs MONGOS | 8 abertos (3 🔴) |
 
 ### 🟡 Sistema identificado — sem interface
 
@@ -95,15 +96,14 @@ autor: Pedro Martins
 
 ---
 
-## O que Falta para Amanhã (10/04)
+## Próximas Ações
 
-### Ações Imediatas (hoje)
+### Pendentes
 
-- [x] Varredura completa do vault — inconsistências corrigidas
 - [ ] **Documentar info do Alonso na E04** (fluxo LN→Neogrid, query Databricks, pessoas de referência)
 - [ ] Atualizar RFC-002 com opção Databricks
 
-### Ações para Amanhã
+### Prioridades
 
 | Prioridade | Ação | Quem contatar | Resultado esperado |
 |-----------|------|---------------|-------------------|

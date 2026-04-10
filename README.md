@@ -1,7 +1,7 @@
 ---
 tags: [tracking, indice, vault, go]
 tipo: home
-updated: 2026-04-09
+updated: 2026-04-10
 ---
 
 # Tracking de Produtos — Repositório de Arquitetura

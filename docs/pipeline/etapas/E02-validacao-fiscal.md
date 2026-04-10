@@ -11,7 +11,7 @@ fonte: Juliana Dos Santos
 
 # E02 — Validação Fiscal
 
-> Etapa que libera ou bloqueia o SKU para o fluxo de compra. Sem validação fiscal, o produto não avança no pipeline.
+> Etapa que verifica se o SKU está liberado ou bloqueado fiscalmente. O tracking consulta esse estado na API Catálogo.
 
 ## Visão Geral
 
@@ -72,16 +72,19 @@ fonte: Juliana Dos Santos
 - **Determinar se o SKU pode avançar** para a Proposta Comercial ([[E03-proposta-comercial]])
 - **Identificar SKUs travados nessa etapa** — relatório de bloqueio fiscal
 - **Calcular lead-time fiscal**: `data_liberacao_fiscal - data_cadastro` da [[E01-cadastro-inicial]]
-- **Filtro de elegibilidade** do painel de tracking: somente SKUs com `ok_fiscal = 'N'` são elegíveis
+- **Filtro de elegibilidade** do painel de tracking: somente SKUs com `FlagCompraBloqueada = 0` são elegíveis
 
 ---
 
 ## Regras de Negócio
 
-- SKU com `ok_fiscal = 'S'` ou nulo → **não avança** no pipeline
-- SKU com `ok_fiscal = 'N'` → `liberado_para_compra = 'S'` e pode seguir para [[E03-proposta-comercial]]
-- A liberação fiscal é pré-requisito obrigatório — não há exceções documentadas
+- SKU com `FlagCompraBloqueada = 1` (ou campo nulo) → **bloqueado** — tracking mostra estado "bloqueado" neste step
+- SKU com `FlagCompraBloqueada = 0` → **liberado para compra**
+- `FlagVendaBloqueada = 0` → venda liberada; `= 1` → venda bloqueada
+- A liberação fiscal é condição de negócio para o SKU avançar operacionalmente — o tracking apenas lê o estado
 - Revalidação pode ocorrer se atributos fiscais do produto forem alterados (a confirmar)
+
+> ℹ️ **Nota histórica:** documentação anterior referia `ok_fiscal = 'S'/'N'` — nomenclatura conceitual que não corresponde à API real. Os campos corretos são `FlagCompraBloqueada` e `FlagVendaBloqueada` com valores inteiros 0/1.
 
 ---
 

@@ -107,7 +107,7 @@ fonte: Juliana Dos Santos; Query SQL — reunião 09/04/2026
 - `GerarReserva` e `SeguirComReserva` controlam o comportamento de reserva por filial
 - `QuantidadeTotal = QuantidadeDisponivel + QuantidadeReservada`
 - `PrazoDias` no tipo de estoque define o prazo de entrega associado ao saldo
-- SKU sem nenhum saldo disponível **não avança** para [[E06-produzido]]
+- SKU sem nenhum saldo disponível → tracking mostra estado "sem estoque" neste step
   - Exceção: `Digital/Download` — não exige estoque físico
   - Exceção: `Pre-lancamento` — pode ser configurado para exibir sem estoque
 - O filtro do painel aplica `Com Estoque = Sim` como critério obrigatório de elegibilidade

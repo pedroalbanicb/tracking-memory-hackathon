@@ -6,6 +6,7 @@ status: integrado-parcialmente
 origem: API Catálogo / LN (Infor)
 escopo: 1P apenas
 updated: 2026-04-09
+fonte: curl testado em 2026-04-09; API Catálogo (campo ContratoLiberado)
 ---
 
 # E03 — Proposta Comercial
@@ -75,7 +76,7 @@ updated: 2026-04-09
 
 ## Regras de Negócio
 
-- SKU sem `contrato_liberado = true` não avança para [[E04-agendamento]]
+- SKU sem `contrato_liberado = true` → tracking mostra estado "sem contrato" neste step
 - O contrato pode envolver chamada de fornecedor ou de marca — ambos os casos são contemplados
 - Dados ficam nas tabelas BAAN do LN — requer acesso ao Workbench ou integração específica
 - O lead-time de emissão do primeiro contrato é uma **métrica chave** do domínio

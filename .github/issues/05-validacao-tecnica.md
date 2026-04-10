@@ -20,7 +20,7 @@ Vários aliases SQL marcados com `*` (a confirmar) que podem estar incorretos.
 
 ### Validation Tasks
 
-#### 🔍 Alias `p2` → `Marca`
+#### 🔍 Tabela `Marca` → confirmar origem
 ```sql
 -- Current documentation claims:
 -- p2.* → Marca table
@@ -34,7 +34,7 @@ Vários aliases SQL marcados com `*` (a confirmar) que podem estar incorretos.
 ```sql
 -- Contradiction documented:
 -- Douglas S. Wolff says: belongs to `Sku` table
--- But SQL alias is `sl` → which is alias for `SkuLojista`
+-- But query SQL suggests it belongs to `SkuLojista`
 ```
 - [ ] **DESCRIBE table:** `DESCRIBE Sku` and `DESCRIBE SkuLojista`
 - [ ] **Verify field:** Which table actually contains `FlagSkuSaldoDisponivel`

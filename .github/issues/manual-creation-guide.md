@@ -175,7 +175,7 @@ E06 e E07 têm estrutura completa mas **zero informação confirmada**. São as 
 **Problem:** Vários aliases SQL marcados com `*` (a confirmar)
 
 **Tasks:**
-- [ ] **Test alias `p2` → `Marca`:** Verificar se realmente aponta para Marca table
+- [ ] **Test `Marca` table:** Verificar se é realmente a tabela de origem da flag
 - [ ] **`FlagSkuSaldoDisponivel`:** Confirmar se pertence a `Sku` ou `SkuLojista`
 - [ ] **Execute real query:** E09 documentation em DEV environment
 - [ ] **Performance check:** Query execution time acceptable?

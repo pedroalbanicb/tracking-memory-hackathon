@@ -45,7 +45,7 @@ Cad.   Fiscal  Comercial  Agend.  Estoque  Prod.Site  Prod.Loja  Pricing  Exibi�
 | 6 | **Produzido Site** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E06-produzido.md` |
 | 7 | **Produzido Loja Física** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E07-produzido-loja.md` |
 | 8 | **Ativação Pricing** | GO/Admin → SQL (SkuLojista) | ⚠️ Flags SQL confirmadas — interface a definir | Flags confirmadas | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
-| 9 | **Exibição Site/Loja** | Corp / MONGOS (MongoDB) | ⚠️ Flags mapeadas — decisão API vs SQL pendente | Flags expandidas | `docs/pipeline/etapas/E09-exibicao-site-loja.md` |
+| 9 | **Exibição Site/Loja** | SQL Corp / MONGOS (MongoDB de Pricing) | ⚠️ Flags mapeadas — decisão API vs SQL pendente | Flags expandidas | `docs/pipeline/etapas/E09-exibicao-site-loja.md` |
 
 ---
 
@@ -69,18 +69,18 @@ AND E09 (TODAS as flags de exibição = 1, replicadas no MongoDB/MONGOS)
 
 ### Flags de Exibição (E09) — 5 Grupos, 11+ Flags
 
-| Grupo | Tabela | Flag | Alias SQL |
-|-------|--------|------|-----------|
-| Pricing | `SkuLojista` | `FlagAtiva` | `sl` |
-| Pricing | `SkuLojistaPreço` | `FlagAtiva` | — |
-| SKU | `Sku` | `FlagAtiva` | `s` |
-| SKU | `Sku` | `FlagAtivaERP` | `s` |
-| SKU | `Sku` | `FlagSkuProduzido` | `s` |
-| SKU | `Sku` | `FlagSkuSaldoDisponivel` | `sl`* |
-| Produto | `Produto` | `FlagAtiva` | `p` |
-| Produto | `Produto` | `FlagExibe` | `p` |
-| Marca | `Marca` | `FlagAtiva` | `p2`* |
-| Categoria | `Categoria` (4 níveis) | `FlagAtiva` | `c`, `c1`, `c2`, `c3` |
+| Grupo | Tabela | Flag |
+|-------|--------|------|
+| Pricing | `SkuLojista` | `FlagAtiva` |
+| Pricing | `SkuLojistaPreço` | `FlagAtiva` |
+| SKU | `Sku` | `FlagAtiva` |
+| SKU | `Sku` | `FlagAtivaERP` |
+| SKU | `Sku` | `FlagSkuProduzido` |
+| SKU | `Sku` | `FlagSkuSaldoDisponivel` |
+| Produto | `Produto` | `FlagAtiva` |
+| Produto | `Produto` | `FlagExibe` |
+| Marca | `Marca` | `FlagAtiva` |
+| Categoria | `Categoria` (4 níveis) | `FlagAtiva` |
 
 > Se **qualquer** flag estiver inativa ou não replicada no MongoDB (MONGOS), o SKU fica invisível no site.
 

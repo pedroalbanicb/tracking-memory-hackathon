@@ -48,10 +48,10 @@ fonte: Juliana Dos Santos; Ricardo Tadeu Lima; Douglas Souza Wolff — reunião 
 
 > Fonte: Douglas Souza Wolff, 09/04/2026
 
-| Tabela SQL | Flag | Alias SQL | Valor esperado | Descrição | Status |
-|-----------|------|-----------|---------------|-----------|--------|
-| `SkuLojista` | `FlagAtiva` | `sl` | `= 1` | Ativa o lojista para venda no canal | ✅ Confirmado |
-| `SkuLojistaPreço` | `FlagAtiva` | — | `= 1` | Ativa especificamente o preço de venda por canal (site/app) | ✅ Confirmado |
+| Tabela SQL | Flag | Valor esperado | Descrição | Status |
+|-----------|------|---------------|-----------|--------|
+| `SkuLojista` | `FlagAtiva` | `= 1` | Ativa o lojista para venda no canal | ✅ Confirmado |
+| `SkuLojistaPreço` | `FlagAtiva` | `= 1` | Ativa especificamente o preço de venda por canal (site/app) | ✅ Confirmado |
 
 > ⚠️ **A confirmar:** `SkuLojista` e `SkuLojistaPreço` são tabelas distintas ou schemas/views diferentes da mesma tabela? Impacta a query de integração. Gap #1 abaixo.
 

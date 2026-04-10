@@ -2,13 +2,13 @@
 tags: [meta, mapeamento, vault, indice, inconsistencias, tracking]
 tipo: meta-doc
 status: ativo
-updated: 2026-04-09
+updated: 2026-04-10
 autor: Pedro Martins
 ---
 
 # Mapeamento de Arquivos do Vault — Tracking GO
 
-> Inventário individual de cada arquivo do vault. Gerado em 09/04/2026 após leitura sequencial de todos os arquivos.
+> Inventário individual de cada arquivo do vault. Gerado em 09/04/2026, atualizado em 10/04/2026.
 > Fonte de verdade do pipeline: `mock/data.json` — 9 etapas (E01–E09).
 
 ---
@@ -54,9 +54,9 @@ autor: Pedro Martins
 | Atributo | Valor |
 |---|---|
 | Tipo | Arquivo HTML (visual/mockup) |
-| Status | ℹ️ Não analisado (binário/HTML) |
+| Status | ✅ Revisado 10/04 — E7→E8 corrigido, footer atualizado |
 
-**Conteúdo presumido:** Visualização estática do painel de tracking. Não avaliado quanto a inconsistências de conteúdo.
+**Conteúdo:** Visualização estática do painel de tracking. Auditado e corrigido em 10/04/2026.
 
 ---
 
@@ -143,6 +143,32 @@ autor: Pedro Martins
 
 ---
 
+### `/RFC/RFC-003-estoque.md`
+
+| Atributo | Valor |
+|---|---|
+| Tipo | RFC (draft) |
+| Status | ✅ Stub criado — aguardando decisão de integração |
+| Tags | `[rfc, tracking, estoque, inventario, integracao]` |
+| Frontmatter | `status: draft` · `autor: Pedro Martins` · `updated: 2026-04-10` |
+
+**Conteúdo:** Proposta de estratégia de integração para dados de estoque (E05). Opções: API, SQL direto ou evento Kafka. Vinculada à [[decisao-fonte-dados-tracking]].
+
+---
+
+### `/RFC/RFC-004-pricing-exibicao.md`
+
+| Atributo | Valor |
+|---|---|
+| Tipo | RFC (draft) |
+| Status | ✅ Stub criado — aguardando decisão de integração |
+| Tags | `[rfc, tracking, pricing, exibicao, integracao, skulojista, mongos]` |
+| Frontmatter | `status: draft` · `autor: Pedro Martins` · `updated: 2026-04-10` |
+
+**Conteúdo:** Proposta de estratégia de integração para pricing (E08) e exibição (E09). Opções: SQL Corp direto ou MongoDB/MONGOS. Vinculada à [[decisao-fonte-dados-tracking]].
+
+---
+
 ### `/docs/referencias-confluence.md`
 
 | Atributo | Valor |
@@ -154,11 +180,7 @@ autor: Pedro Martins
 
 **Conteúdo:** Mapeia páginas Confluence por tema, organizadas por etapa do pipeline. 9 seções.
 
-**Problema:** A seção de exibição está rotulada como `## 7. E09 — Exibição Site / Loja / MONGOS` com wikilink `[[E09-exibicao-site-loja]]`. O label E09 está correto (etapa 9), mas o wikilink referencia o arquivo pelo nome atual (E08) — ficará quebrado após renomeação para `E09-exibicao-site-loja.md`.
-
-**Wikilinks afetados após renomeação:**
-- `[[E08-ativacao-pricing]]` → `[[E08-ativacao-pricing]]`
-- `[[E09-exibicao-site-loja]]` → `[[E09-exibicao-site-loja]]`
+**Nenhuma inconsistência.** Wikilinks e labels verificados em 10/04/2026.
 
 ---
 
@@ -201,10 +223,10 @@ autor: Pedro Martins
 |---|---|
 | Tipo | Conceito de domínio |
 | Status | ✅ Íntegro — conteúdo expandido e correto |
-| Tags | `[conceito, exibicao, sku, flags, mongodb, MONGOS, corp, marca, categoria, sql]` |
+| Tags | `[conceito, exibicao, sku, flags, mongodb, MONGOS, sql-corp, marca, categoria, sql]` |
 | Frontmatter | `tipo: conceito` · `status: expandido` · `updated: 2026-04-09` |
 | Fontes | Ricardo Tadeu Lima, Douglas Souza Wolff |
-| Nota | "FLAVIA" interpretado como artefato de STT de "flag via" / "flag ativa"; "Handeck" corrigido para "Rundeck" |
+| Nota | "FLAVIA" era erro de transcrição (corrigido 10/04) — significado real: "flag atualiza"; "Handeck" corrigido para "Rundeck" |
 
 **Conteúdo:** Mapeamento completo das flags de exibição (11 flags em 5 grupos: SkuLojista, Sku, Produto, Marca, Categoria), fluxo de propagação via Rundeck, replicação para MongoDB (MONGOS), validação de divergência SQL↔MongoDB.
 
@@ -412,8 +434,8 @@ autor: Pedro Martins
 | Tipo | Etapa do pipeline |
 | Etapa | **9 de 9** (conforme frontmatter e mock/data.json) |
 | Status | ⚠️ Flags expandidas — integração a definir |
-| Tags | `[tracking, pipeline, etapa, exibicao, corp, site, loja-fisica, flags, handeck, flavia, MONGOS, mongodb, marca, categoria]` |
-| Frontmatter | `etapa: 9` · `status: flags-expandidas` · `origem: Corp / SKLogista / SKU / Produto / Marca / Categoria / MONGOS` · `updated: 2026-04-09` |
+| Tags | `[tracking, pipeline, etapa, exibicao, sql-corp, site, loja-fisica, flags, rundeck, mongos, mongodb, marca, categoria]` |
+| Frontmatter | `etapa: 9` · `status: flags-expandidas` · `origem: Corp / SkuLojista / SKU / Produto / Marca / Categoria / MONGOS` · `updated: 2026-04-10` |
 | Fontes | Juliana Dos Santos, Ricardo Tadeu Lima, Douglas Souza Wolff |
 
 **⛔ INCONSISTÊNCIA CRÍTICA:** O arquivo está nomeado `E08-exibicao-site-loja.md`, mas o frontmatter declara `etapa: 9` e o `mock/data.json` confirma `"etapa": "E09"`. O nome correto é **`E09-exibicao-site-loja.md`**.

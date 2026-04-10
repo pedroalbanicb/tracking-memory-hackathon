@@ -43,17 +43,17 @@ Ver detalhamento completo em [[sku-lifecycle]].
 
 Cada etapa tem documentação dedicada com fonte de dados, campos e uso:
 
-| #   | Etapa                                             | Doc                        |
-| --- | ------------------------------------------------- | -------------------------- |
-| 1   | Cadastro Inicial — GO/Catálogo                    | [[E01-cadastro-inicial]]   |
-| 2   | Validação Fiscal — Tax Web (via API Catálogo)     | [[E02-validacao-fiscal]]   |
-| 3   | Proposta Comercial — LN (Infor)                   | [[E03-proposta-comercial]] |
-| 4   | Agendamento — LN / Neogrid                        | [[E04-agendamento]]        |
-| 5   | Estoque — Banco Inventario (SQL)                  | [[E05-estoque]]            |
-| 6   | Produzido Site — Admin                            | [[E06-produzido]]          |
-| 7   | Produzido Loja Física — Admin                     | [[E07-produzido-loja]]     |
-| 8   | Ativação Pricing — GO / Admin                     | [[E08-ativacao-pricing]]   |
-| 9   | Exibição Site/Loja Física — Corp / MONGOS         | [[E09-exibicao-site-loja]] |
+| #   | Etapa                                         | Doc                        |
+| --- | --------------------------------------------- | -------------------------- |
+| 1   | Cadastro Inicial — GO/Catálogo                | [[E01-cadastro-inicial]]   |
+| 2   | Validação Fiscal — Tax Web (via API Catálogo) | [[E02-validacao-fiscal]]   |
+| 3   | Proposta Comercial — LN (Infor)               | [[E03-proposta-comercial]] |
+| 4   | Agendamento — LN / Neogrid                    | [[E04-agendamento]]        |
+| 5   | Estoque — Banco Inventario (SQL)              | [[E05-estoque]]            |
+| 6   | Produzido Site — Admin                        | [[E06-produzido]]          |
+| 7   | Produzido Loja Física — Admin                 | [[E07-produzido-loja]]     |
+| 8   | Ativação Pricing — GO / Admin                 | [[E08-ativacao-pricing]]   |
+| 9   | Exibição Site/Loja Física — Corp / MONGOS     | [[E09-exibicao-site-loja]] |
 
 ## Critérios de Aceite
 

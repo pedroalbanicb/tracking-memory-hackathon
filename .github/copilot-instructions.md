@@ -35,7 +35,7 @@ Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de
 | 6 | Produzido Site | Admin | `E06-produzido.md` |
 | 7 | Produzido Loja Física | Admin | `E07-produzido-loja.md` |
 | 8 | Ativação Pricing | GO / Admin (SQL: SkuLojista) | `E08-ativacao-pricing.md` |
-| 9 | Exibição Site/Loja | Corp / MONGOS (MongoDB) | `E09-exibicao-site-loja.md` |
+| 9 | Exibição Site/Loja | SQL Corp / MONGOS (MongoDB de Pricing) | `E09-exibicao-site-loja.md` |
 
 ## Escopo
 

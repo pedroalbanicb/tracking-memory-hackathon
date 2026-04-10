@@ -20,7 +20,7 @@ O sistema de tracking lida com dois planos de dados para as flags de exibição 
 
 | Plano | Sistema | Papel |
 |-------|---------|-------|
-| **Fonte** | SQL (banco relacional — `SKLogista`, `SKU`, `Produto`) | Origem das flags de ativação |
+| **Fonte** | SQL (banco relacional — `SkuLojista`, `SKU`, `Produto`) | Origem das flags de ativação |
 | **Réplica** | MongoDB — MONGOS | Serve os dados para o site e canais digitais |
 
 A sincronização entre esses dois sistemas é feita via job Rundeck (propaga flags SKU e Produto) e por pulso de estoque (evento). Ver [[regras-exibicao-sku]].
@@ -62,7 +62,7 @@ SE flag_sql(SKU.ativa) ≠ flag_mongo(SKU.ativa)
 SE flag_sql(Produto.ativa) ≠ flag_mongo(Produto.ativa)
    → ERRO DE SINCRONIZAÇÃO
 
-SE flag_sql(SKLogista.ativa) ≠ flag_mongo(SKLogista|SKLogistaPreco.ativa)
+SE flag_sql(SkuLojista.ativa) ≠ flag_mongo(SkuLojista|SkuLojistaPreco.ativa)
    → ERRO DE SINCRONIZAÇÃO
 ```
 

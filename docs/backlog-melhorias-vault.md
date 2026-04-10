@@ -2,102 +2,38 @@
 tags: [meta, backlog, melhorias, vault, tracking]
 tipo: backlog
 status: triagem
-updated: 2026-04-09
+updated: 2026-04-10
 autor: Pedro Martins
 ---
 
 # Backlog de Melhorias — Vault Tracking GO
 
-> Itens identificados na varredura completa de 09/04/2026 que **não são urgentes para o hackathon** mas devem ser tratados em outra sessão.
+> Itens identificados na varredura de 09/04/2026. Maioria resolvido em 10/04. Restam os itens abaixo.
 
 ---
 
-## 1. E02 — Nomenclatura legada nas regras de negócio
+## 1. E06 e E07 — Praticamente idênticos, muito vazios
 
-**Arquivo:** [[E02-validacao-fiscal]]  
-**Problema:** A seção "Regras de Negócio" ainda usa `ok_fiscal = 'S'/'N'` (nomenclatura conceitual antiga), enquanto a seção de Schema já documenta corretamente os campos reais `FlagCompraBloqueada` (0/1) e `FlagVendaBloqueada` (0/1). Gera confusão para quem lê só as regras.  
-**Sugestão:** Reescrever regras de negócio usando os nomes reais dos campos (`FlagCompraBloqueada = 0` → liberado).  
-**Impacto:** Baixo — é cosmético, mas pode confundir devs na implementação.
-
----
-
-## 2. sku-lifecycle — Seção E2 diz "GO / Catálogo" (parcialmente corrigido)
-
-**Arquivo:** [[sku-lifecycle]]  
-**Problema:** O sumário da ETAPA 2 na sku-lifecycle agora diz "Tax Web" corretamente nas flags, mas o sku-lifecycle pipeline table ainda mostra `**Tax Web** (via API Catálogo)` como origem, ao passo que o E02 doc deixa claro que Tax Web **escreve** e API Catálogo é a **interface de leitura**. A distinção escrita vs. leitura não está clara em todos os locais.  
-**Sugestão:** Padronizar formato "Tax Web → API Catálogo (leitura)" em todas as referências.  
-**Impacto:** Baixo — clareza editorial.
+**Arquivos:** [[E06-produzido]], [[E07-produzido-loja]]
+**Problema:** Ambos têm estrutura completa mas quase zero informação confirmada. A maioria dos campos é hipotética. São as etapas menos mapeadas do vault.
+**Ação:** Após discovery do Admin (Juliana / Time Conteúdo), preencher ou condensar em um único doc com duas seções (Site vs Loja).
+**Impacto:** Médio — etapas do pipeline que precisam de dados reais.
+**Depende de:** PENDENCIAS S1, S2, S3.
 
 ---
 
-## 3. mapeamento-arquivos.md — Incompleto
+## ✅ Resolvido em 10/04/2026
 
-**Arquivo:** `docs/mapeamento-arquivos.md`  
-**Problema:** O inventário de arquivos cobre apenas README, RFC-002 e overview.html. Faltam todas as etapas (E01-E09), conceitos, PRD e outros docs.  
-**Sugestão:** Completar o inventário ou considerar se esse doc é realmente necessário (o discovery-status.md pode substituí-lo parcialmente).  
-**Impacto:** Médio — útil para onboarding mas não bloqueia nada.
-
----
-
-## 4. RFC-003 e RFC-004 referenciadas mas não existem
-
-**Arquivos:** [[E05-estoque]] menciona `RFC-003-estoque`, E08/E09 mencionam possíveis RFC-004.  
-**Problema:** Os docs referenciam RFCs futuras que ainda não foram criadas. Os links ficam "vermelhos" no Obsidian.  
-**Sugestão:** Criar stubs mínimos para RFC-003 e RFC-004 (igual foi feito com RFC-002) ou remover as referências até que existam.  
-**Impacto:** Baixo — links quebrados no graph view, mas não afeta conteúdo.
-
----
-
-## 5. E06 e E07 — Praticamente idênticos, muito vazios
-
-**Arquivos:** [[E06-produzido]], [[E07-produzido-loja]]  
-**Problema:** Ambos têm estrutura de documento completa mas quase zero informação confirmada. A maioria dos campos é hipotética. São as etapas menos mapeadas de todo o vault.  
-**Sugestão:** Após o discovery do Admin (pessoa: Juliana ou Time Conteúdo), preencher de verdade ou, se forem etapas simples, condensar em um único doc com duas seções (Site vs Loja).  
-**Impacto:** Médio — são etapas do pipeline que precisam de dados reais.
-
----
-
-## 6. E03 — Falta `fonte` no frontmatter
-
-**Arquivo:** [[E03-proposta-comercial]]  
-**Problema:** O frontmatter não tem campo `fonte:`, ao contrário de todos os outros docs que citam fontes. A info veio de curl testado + API Catálogo — merece atribuição.  
-**Sugestão:** Adicionar `fonte: curl testado em 09/04/2026; API Catálogo`.  
-**Impacto:** Baixo — consistência de metadados.
-
----
-
-## 7. Wikilinks no sku-lifecycle apontam para E04-agendamento mas não para discovery-status
-
-**Arquivo:** [[sku-lifecycle]]  
-**Problema:** O doc não referencia [[discovery-status]] (recém-criado). Seria útil ter um link direto para o tracker.  
-**Sugestão:** Adicionar referência no final do sku-lifecycle.  
-**Impacto:** Baixo — navegabilidade.
-
----
-
-## 8. overview.html — Não avaliado
-
-**Arquivo:** `overview.html`  
-**Problema:** Arquivo HTML não foi auditado quanto a coerência com o conteúdo do vault.  
-**Sugestão:** Abrir e verificar se as etapas, nomes e status estão consistentes com os docs markdown.  
-**Impacto:** Baixo — é um artefato visual/demo.
-
----
-
-## 9. mock/data.json — Verificar coerência com etapas atuais
-
-**Arquivo:** `mock/data.json`  
-**Problema:** O mock data pode ter nomes de campos ou etapas que não refletem o mapeamento atualizado (ex: pode usar `ok_fiscal` em vez de `FlagCompraBloqueada`).  
-**Sugestão:** Fazer diff entre campos do mock e campos confirmados nos docs de etapas.  
-**Impacto:** Médio — afeta fidelidade do protótipo.
-
----
-
-## Prioridade Sugerida
-
-| # | Item | Prioridade | Quando |
-|---|------|-----------|--------|
-| 5 | E06/E07 vazios | P1 | Após discovery Admin |
+| # | Item | Resolução |
+|---|------|-----------|
+| 1 | E02 — nomenclatura legada `ok_fiscal` | Reescrito com `FlagCompraBloqueada`/`FlagVendaBloqueada` |
+| 2 | sku-lifecycle — distinção "Tax Web (escrita) → API Catálogo (leitura)" | Padronizado em todos os locais |
+| 3 | mapeamento-arquivos.md incompleto | Inventário atualizado com RFC-003/004, tags, datas |
+| 4 | RFC-003 e RFC-004 não existiam | Stubs criados com contexto |
+| 5 | E03 — falta `fonte` no frontmatter | Adicionado |
+| 6 | sku-lifecycle sem link para discovery-status | Adicionado |
+| 7 | overview.html não auditado | Corrigido (E7→E8, footer date) |
+| 8 | mock/data.json coerência | Verificado — já estava limpo |
 | 4 | RFC-003/004 stubs | P2 | Após decisão API vs SQL |
 | 3 | mapeamento-arquivos incompleto | P2 | Quando houver tempo |
 | 1 | E02 nomenclatura | P3 | Próxima sessão |
@@ -119,12 +55,10 @@ autor: Pedro Martins
 
 ---
 
-#### T01 — `FLAVIA` (sistema ou artefato de transcrição?)
+#### T01 — ~~`FLAVIA`~~ ✅ Resolvido 10/04 — erro de transcrição
 
 **Arquivo:** [[E09-exibicao-site-loja]], [[regras-exibicao-sku]]  
-**Problema:** Aparece como nome de sistema em "pulso de estoque (FLAVIA)" e está nos **tags oficiais do E09**. O frontmatter de `regras-exibicao-sku.md` tem nota interna dizendo que pode ser *artefato de speech-to-text de "flag via" / "flag ativa"* — ou seja, ninguém sabe se é um sistema real.  
-**Pergunta:** É um sistema real? É um evento/job? Ou é erro de transcrição que se propagou para os metadados?  
-**Responsável:** Ricardo Tadeu Lima / Time Plataforma
+**Resolução:** "FLAVIA atualiza" na transcrição da reunião = "flag atualiza" = flag atualizada automaticamente via pulso de estoque. Não é um sistema real. Tag removida do E09. Referências corrigidas para "flag atualizada via pulso de estoque".
 
 ---
 
@@ -137,7 +71,7 @@ autor: Pedro Martins
 
 ---
 
-#### T03 — `SKLogista` vs `SkuLojista` (mesmo objeto, dois nomes)
+#### T03 — ~~`SKLogista` vs `SkuLojista`~~ ✅ Resolvido 10/04
 
 **Arquivo:** [[sku-lifecycle]], [[regras-exibicao-sku]], [[validacao-sincronizacao-sql-mongo]] usam `SKLogista`; [[E08-ativacao-pricing]], [[E09-exibicao-site-loja]] usam `SkuLojista`.  
 **Problema:** A mesma tabela SQL aparece com dois nomes distintos em documentos do mesmo vault.  
@@ -198,7 +132,7 @@ autor: Pedro Martins
 #### T09 — `FlagSkuSaldoDisponivel` (tabela contraditória)
 
 **Arquivo:** [[E09-exibicao-site-loja]], [[regras-exibicao-sku]]  
-**Problema:** Douglas Souza Wolff atribui essa flag à tabela `Sku`, mas o alias SQL associado é `sl` — que é o alias de `SkuLojista`. Ambos os docs marcam com `*` e descrevem a contradição sem resolução.  
+**Problema:** Douglas Souza Wolff atribui essa flag à tabela `Sku`, mas a query SQL sugere que pertence à `SkuLojista`. Ambos os docs marcam a contradição sem resolução.  
 **Pergunta:** Essa flag pertence a `Sku` ou `SkuLojista`?  
 **Responsável:** Douglas Souza Wolff / Time Oferta
 
@@ -222,10 +156,10 @@ autor: Pedro Martins
 
 ---
 
-#### T12 — Alias SQL `p2` apontando para `Marca`
+#### T12 — Tabela `Marca` como origem da flag
 
 **Arquivo:** [[E09-exibicao-site-loja]], [[regras-exibicao-sku]]  
-**Problema:** O alias `p2` na query SQL é atribuído à tabela `Marca`, mas o prefixo `p` convencionalmente remete a `Produto`. Ambos os docs marcam com `p2*` e indicam "a confirmar".  
+**Problema:** A query SQL atribui a flag `FlagAtiva` à tabela `Marca`, mas precisa confirmação se essa é realmente a tabela de origem. Ambos os docs indicam "a confirmar".  
 **Pergunta:** Na query SQL real, `p2` realmente aponta para `Marca`?  
 **Responsável:** Douglas Souza Wolff
 
@@ -240,12 +174,11 @@ autor: Pedro Martins
 
 ---
 
-#### T14 — `Corp` (sistema sem definição)
+#### T14 — ~~`Corp` (sistema sem definição)~~ — ✅ Resolvido 10/04/2026
 
 **Arquivo:** [[E09-exibicao-site-loja]] (campo "Origem"), [[decisao-fonte-dados-tracking]]  
-**Problema:** Aparece como sistema de origem na Visão Geral de E09 ("Corp / MONGOS"). Pode ser: uma API, um time/tribe, o banco corporativo, ou o linked server `[CORP_PRD.dc.nova,1310]`. A seção "Como Obter os Dados" de E09 não esclarece o que "Corp" significa concretamente.  
-**Pergunta:** O que é "Corp"? É a `API Corp`? O linked server `CORP_PRD`? Um time?  
-**Responsável:** Ricardo Tadeu Lima / Douglas Souza Wolff
+**Resolução:** Corp = SQL Server corporativo (banco SQL compartilhado). Não é API, não é time, não é sistema separado. É o banco relacional que todos usam. O linked server `CORP_PRD` referencia esse mesmo banco.  
+**Fonte:** Pedro Martins, 10/04/2026
 
 ---
 
@@ -310,9 +243,9 @@ autor: Pedro Martins
 
 | ID | Termo | Arquivo(s) | Prioridade | Responsável |
 |----|-------|-----------|-----------|-------------|
-| T01 | `FLAVIA` | E09, regras-exibicao | 🔴 Alta | Ricardo / Time Plataforma |
+| T01 | ~~`FLAVIA`~~ | E09, regras-exibicao | ✅ Resolvido | Pedro Martins — 10/04 |
 | T02 | `ok_fiscal` (campo fantasma) | E02 | 🔴 Alta | Pedro Martins |
-| T03 | `SKLogista` vs `SkuLojista` | múltiplos | 🔴 Alta | Douglas Wolff / Time Oferta |
+| T03 | ~~`SKLogista` vs `SkuLojista`~~ | múltiplos | ✅ Resolvido | Pedro Martins — 10/04 |
 | T04 | `SkuLojistaPreço` (acento em tabela) | E08, E09 | 🔴 Alta | Douglas Wolff / Time Oferta |
 | T05 | `MONGOS` (sem definição) | E09, conceitos | 🟡 Média | Ricardo / Time Infra |
 | T06 | `handeck` nos tags de E09 | E09 | 🟡 Média | Pedro Martins (quick fix) |
@@ -321,12 +254,12 @@ autor: Pedro Martins
 | T09 | `FlagSkuSaldoDisponivel` (tabela?) | E09, regras-exibicao | 🟡 Média | Douglas Wolff |
 | T10 | `FlagAtivaERP` (qual ERP?) | E09 | 🟡 Média | Ricardo / Time Plataforma |
 | T11 | `CategoriaNeto` (informal) | E09, regras-exibicao | 🟡 Média | Time Catálogo |
-| T12 | Alias `p2` para Marca | E09, regras-exibicao | 🟡 Média | Douglas Wolff |
+| T12 | Tabela `Marca` (a confirmar) | E09, regras-exibicao | 🟡 Média | Douglas Wolff |
 | T13 | `Pulso de estoque` (indefinido) | E09, regras-exibicao | 🟡 Média | Ricardo / Time Plataforma |
-| T14 | `Corp` (sistema?) | E09, decisao-fonte | 🟡 Média | Ricardo / Douglas |
+| T14 | ~~`Corp` (sistema?)~~ | E09, decisao-fonte | ✅ Resolvido | Pedro Martins — Corp = SQL Server corporativo |
 | T15 | `Tax Web` (não introduzida) | E02 | 🟠 Baixa | Juliana Dos Santos |
 | T16 | `Admin` (mesmo sistema em 3?) | E06, E07, E08 | 🟠 Baixa | Juliana Dos Santos |
 | T17 | `Manhattan WMS` (só no frontmatter) | E05 | 🟠 Baixa | Juliana / Abastecimento |
 | T18 | `OMS` (não definido) | E05 | 🟠 Baixa | Time OMS / Plataforma |
-| T19 | Dois "Douglas" ambíguos | decisao-fonte | 🟠 Baixa | Pedro Martins (quick fix) |
+| T19 | ~~Dois "Douglas" ambíguos~~ | decisao-fonte | ✅ Resolvido | Pedro Martins — nomes completos + papel |
 | T20 | `id_mapa_comercializacao` (hipotético) | E03 | 🟠 Baixa | Pedro Martins / Catálogo |

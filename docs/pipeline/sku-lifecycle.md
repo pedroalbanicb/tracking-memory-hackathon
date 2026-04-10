@@ -11,7 +11,16 @@ updated: 2026-04-09
 
 ## Objetivo
 
-Mapear em qual etapa um SKU se encontra desde o **cadastramento inicial** até o momento em que ele está **disponível para compra** no site ou loja física.
+Mapear em qual **estado** um SKU se encontra em cada ponto de verificação do pipeline — desde o **cadastramento inicial** até a **disponibilidade para compra** no site ou loja física.
+
+> ⚠️ **Modelo de Steps Independentes (atualizado 10/04/2026)**
+>
+> Cada step é uma **consulta de estado independente** a uma aplicação/sistema. O tracking **lê** o estado atual em cada ponto — não controla nem impõe progressão sequencial. Um SKU pode ter estoque (E05) antes de ter contrato liberado (E03). A numeração (E01–E09) é ordenação lógica para visualização, **não dependência obrigatória**.
+>
+> Para cada step, o tracking precisa responder:
+> 1. **Qual sistema** contém o dado?
+> 2. **Como consultar** esse dado? (API, query SQL, evento Kafka)
+> 3. **O que mostrar** ao gestor sobre o estado atual naquele ponto?
 
 ---
 
@@ -32,7 +41,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 
 ## Etapas do Pipeline
 
-> Cada etapa tem documentação detalhada com fonte de dados, campos e uso. Clique para acessar.
+> Cada etapa é um **checkpoint de estado independente**. A numeração é ordenação lógica, não dependência sequencial. Cada step consulta um sistema diferente para verificar o estado do SKU naquele ponto.
 
 | # | Etapa | Origem | Status |
 |---|-------|--------|--------|
@@ -44,7 +53,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 | 6 | [[E06-produzido\|Produzido Site]] | **Admin** | Sistema identificado — integração a mapear |
 | 7 | [[E07-produzido-loja\|Produzido Loja Física]] | **Admin** | Sistema identificado — integração a mapear |
 | 8 | [[E08-ativacao-pricing\|Ativação Pricing]] | **GO / Admin** (SQL: `SkuLojista`, `SkuLojistaPreço`) | Flags confirmadas — integração a definir |
-| 9 | [[E09-exibicao-site-loja\|Exibição Site/Loja]] | **SKLogista / SKU / Produto / MONGOS** | Regras mapeadas — flags e propagação documentados |
+| 9 | [[E09-exibicao-site-loja\|Exibição Site/Loja]] | **SkuLojista / SKU / Produto / MONGOS** | Regras mapeadas — flags e propagação documentados |
 
 > ℹ️ Origens das etapas 2, 4, 5, 6, 7 e 8 confirmadas por **Juliana Dos Santos** em 2026-04-09. Regras de negócio de **E05** (estoque) e **E09** (exibição) mapeadas em reunião com **Ricardo Tadeu Lima e Douglas Souza Wolff** em 09/04/2026. Interface de **E01**, **E02** e **E03** confirmadas via curl testado em 2026-04-09 (endpoint `GET /api/v1/produto-sku/selecionar` da API Catálogo).
 
@@ -63,7 +72,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 
 **Observações:**
 - SKUs novos nascem com **Compra Bloqueada**
-- A liberação de compra depende da validação fiscal (Etapa 2)
+- A liberação de compra acontece na validação fiscal (Step 2) — mas o tracking verifica ambos os estados independentemente
 
 ---
 
@@ -71,7 +80,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 
 > Detalhamento completo: [[E02-validacao-fiscal]]
 
-**Origem dos dados:** Tax Web (via API Catálogo)
+**Origem dos dados:** Tax Web (escrita) → API Catálogo (leitura)
 
 | Campo | Descrição |
 |-------|----------|
@@ -249,5 +258,13 @@ SKU Cadastrado
 
 ---
 
-*Última atualização: 2026-04-09*
+## Referências
+
+- [[discovery-status]] — Status consolidado do discovery por etapa
+- [[PRD-001-tracking-sku-lifecycle]] — Requisitos do produto
+- [[regras-exibicao-sku]] — Regras de exibição no site
+
+---
+
+*Última atualização: 2026-04-10*
 *Migrado por: Pedro Martins*

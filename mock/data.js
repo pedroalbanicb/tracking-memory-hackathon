@@ -12,7 +12,7 @@ const DATA = {
     { key: 'produzidoSite', label: 'Produzido Site',        etapa: 'E06', sistema: 'ADMIN',    area: 'Produção de Conteúdo', origemType: 'blue',   detalhe: 'Flag Produzido - Site' },
     { key: 'produzidoLoja', label: 'Produzido Loja Física',  etapa: 'E07', sistema: 'ADMIN',    area: 'Produção de Conteúdo', origemType: 'blue',   detalhe: 'Flag Produzido - Loja Física' },
     { key: 'pricing',       label: 'Ativação Pricing',       etapa: 'E08', sistema: 'GO/ADMIN', area: 'Pricing',              origemType: 'blue',   detalhe: 'Precificado Site' },
-    { key: 'exibicao',      label: 'Exibição Site/Loja',     etapa: 'E09', sistema: 'Corp / MONGOS', area: 'Site / Loja Física', origemType: 'blue',   detalhe: 'FlagAtiva (SKU · Produto · Marca · Categoria)' },
+    { key: 'exibicao',      label: 'Exibição Site/Loja',     etapa: 'E09', sistema: 'SQL Corp / MONGOS', area: 'Site / Loja Física', origemType: 'blue',   detalhe: 'FlagAtiva (SKU · Produto · Marca · Categoria)' },
   ],
   products: [
     {

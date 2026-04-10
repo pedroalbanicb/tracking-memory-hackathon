@@ -1,5 +1,5 @@
 ---
-tags: [conceito, decisao, arquitetura, tracking, api, sql, mongodb, MONGOS]
+tags: [conceito, decisao, arquitetura, tracking, sql-corp, sql, mongodb, MONGOS]
 tipo: decisao-pendente
 status: em-aberto
 updated: 2026-04-09
@@ -19,7 +19,7 @@ O sistema de tracking precisa verificar se as flags de exibição de um SKU est�
 
 | Plano | Sistema | O que representa |
 |-------|---------|-----------------|
-| **API / Site** | API Oferta ou API Corp (MongoDB/MONGOS) | O que o **cliente e o gestor enxergam** no site |
+| **API / Site** | API Oferta ou MONGOS (MongoDB de Pricing) | O que o **cliente e o gestor enxergam** no site |
 | **SQL direto** | Banco relacional — `SkuLojista`, `Sku`, `Produto`, etc. | **Fonte de verdade** — onde os dados são escritos originalmente |
 
 ---
@@ -32,7 +32,7 @@ O sistema de tracking precisa verificar se as flags de exibição de um SKU est�
 
 **Argumento:** O tracking deve refletir a **experiência real do usuário**. Se a API não retorna um SKU, é o que importa para o gestor. A investigação começa depois, a partir da divergência detectada.
 
-**Risco identificado pelo próprio Douglas:** *"Pegando direto da API, pode ser que problemas de Integração — API não esteja funcionando — e aí a gente vai dar falso positivo."*
+**Risco identificado pelo próprio Douglas Souza Wolff (SQL/flags):** *"Pegando direto da API, pode ser que problemas de Integração — API não esteja funcionando — e aí a gente vai dar falso positivo."*
 
 ### Ricardo Tadeu Lima — SQL é a fonte de verdade (usado no checkout)
 
@@ -75,7 +75,7 @@ No MVP, o tracking mostra **um** dos dois planos. Na V2, é possível comparar a
 |-------|-------|
 | Status | 🔴 **Em aberto** |
 | Decisão até | — |
-| Responsáveis | Time de Plataforma / William / Douglas |
+| Responsáveis | Time de Plataforma / Douglas Willian De Castro (arquitetura) / Douglas Souza Wolff (SQL/flags) |
 | Impacto | Arquitetura da integração de [[E09-exibicao-site-loja]] |
 | Relacionado | [[validacao-sincronizacao-sql-mongo]], [[E09-exibicao-site-loja]], [[regras-exibicao-sku]] |
 
@@ -83,7 +83,7 @@ No MVP, o tracking mostra **um** dos dois planos. Na V2, é possível comparar a
 
 ## Próximos Passos
 
-- [ ] Alinhar posição final com William (Douglas Willian De Castro) e Douglas Wolf
-- [ ] Verificar se existe endpoint de API Corp que retorne as flags consolidadas por SKU
+- [ ] Alinhar posição final com Douglas Willian De Castro (arquitetura) e Douglas Souza Wolff (SQL/flags)
+- [ ] Verificar se existe endpoint que retorne as flags consolidadas por SKU (SQL Corp ou API Oferta)
 - [ ] Confirmar se a query SQL usada no checkout pode ser reutilizada no tracking
 - [ ] Registrar decisão final aqui e atualizar frontmatter `status: decidido`

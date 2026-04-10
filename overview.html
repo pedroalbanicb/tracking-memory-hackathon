@@ -237,11 +237,11 @@
       <div>
         <div class="concept-row">
           <div class="concept-label">MONGOS</div>
-          <div class="concept-desc">MongoDB interno que <strong>serve os dados para o site</strong>. Réplica das flags do SQL. Falha de replicação = SKU invisível no site.</div>
+          <div class="concept-desc">MongoDB de <strong>Pricing</strong> (Mongo Pricing) — serve os dados de preço e flags para o site. Réplica das flags do SQL. Falha de replicação = SKU invisível no site.</div>
         </div>
         <div class="concept-row">
           <div class="concept-label">Rundeck</div>
-          <div class="concept-desc">Sistema de automação de jobs que propaga as flags de SKU e Produto após ativação no backoffice (SKLogista → SKU → Produto, ~1 min).</div>
+          <div class="concept-desc">Sistema de automação de jobs que propaga as flags de SKU e Produto após ativação no backoffice (SkuLojista → SKU → Produto, ~1 min).</div>
         </div>
       </div>
     </div>
@@ -343,7 +343,7 @@
         <div class="step-num num-partial">8</div>
         <div class="step-body">
           <div class="step-name">Ativação Pricing</div>
-          <div class="step-sub">Flags <code>SKLogista.ativa</code> e <code>SKLogista Preço.ativa</code> — ponto de entrada do fluxo de precificação por canal.</div>
+          <div class="step-sub">Flags <code>SkuLojista.FlagAtiva</code> e <code>SkuLojistaPreço.FlagAtiva</code> — ponto de entrada do fluxo de precificação por canal.</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
           <div class="step-origin">GO / Admin</div>
@@ -358,7 +358,7 @@
           <div class="step-sub">3 flags simultâneas obrigatórias (ver abaixo). Réplica via MongoDB MONGOS para servir ao site.</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="step-origin">SKLogista / SKU / Produto / MONGOS</div>
+          <div class="step-origin">SkuLojista / SKU / Produto / MONGOS</div>
           <div class="badge badge-green">Regras mapeadas</div>
         </div>
       </div>
@@ -379,7 +379,7 @@
         <div class="flag-row">
           <div class="flag-icon">💰</div>
           <div>
-            <div class="flag-name">SKLogista · SKLogista Preço</div>
+            <div class="flag-name">SkuLojista · SkuLojistaPreço</div>
             <div class="flag-detail"><code>FlagAtiva = 1</code> em ambas — Regula precificação (site, app, loja)</div>
           </div>
         </div>
@@ -430,7 +430,7 @@
           <div class="icon">⚙️</div>
           <div>
             <strong>Rundeck</strong>
-            <small>Job de automação: propaga SKLogista → SKU → Produto</small>
+            <small>Job de automação: propaga SkuLojista → SKU → Produto</small>
           </div>
         </div>
         <div class="arch-arrow">↓ após ativação no backoffice</div>
@@ -495,18 +495,18 @@
       <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Os termos abaixo estão documentados mas precisam de confirmação final com especialistas. Podem impactar a nomenclatura e clareza do painel.</p>
       <div>
         <div class="question">
-          <div class="q-dot" style="background:var(--red)"></div>
+          <div class="q-dot" style="background:var(--green)"></div>
           <div>
-            <div class="q-text"><strong>FLAVIA</strong> — Sistema ou erro de transcrição?</div>
-            <div class="q-note">Usado em "pulso de estoque (FLAVIA)" na E9. Pode ser artefato de speech-to-text. Impacta entendimento da propagação automática de flags.</div>
+            <div class="q-text"><strong>~~FLAVIA~~</strong> — ✅ Resolvido: erro de transcrição (speech-to-text)</div>
+            <div class="q-note">"FLAVIA atualiza" na reunião = "flag atualiza" = flag atualizada automaticamente via pulso de estoque. Não é um sistema.</div>
           </div>
-          <div class="badge badge-red">Crítico</div>
+          <div class="badge badge-green">Resolvido</div>
         </div>
 
         <div class="question">
           <div class="q-dot" style="background:var(--red)"></div>
           <div>
-            <div class="q-text"><strong>SKLogista vs SkuLojista</strong> — Qual é o nome real da tabela?</div>
+            <div class="q-text"><strong>~~SKLogista vs SkuLojista~~</strong> — ✅ Confirmado: nome real é <code>SkuLojista</code></div>
             <div class="q-note">Nomes usados inconsistentemente. Afeta mapeamento técnico de E8 (Pricing) e pode confundir documentação futuro.</div>
           </div>
           <div class="badge badge-red">Crítico</div>
@@ -522,12 +522,12 @@
         </div>
 
         <div class="question">
-          <div class="q-dot" style="background:var(--yellow)"></div>
+          <div class="q-dot" style="background:var(--green)"></div>
           <div>
-            <div class="q-text"><strong>MONGOS</strong> — Nome do cluster ou componente de sharding?</div>
-            <div class="q-note">Impacta arquitetura técnica e entendimento da replicação para o site.</div>
+            <div class="q-text"><strong>~~MONGOS~~</strong> — ✅ Confirmado: MongoDB de Pricing (Mongo Pricing)</div>
+            <div class="q-note">Transcrição "MANOS PIRESing" = "Mongo Pricing". É o MongoDB que serve dados de preço e flags para o site.</div>
           </div>
-          <div class="badge" style="background:rgba(245,197,66,.13);color:var(--yellow);border:1px solid rgba(245,197,66,.3)">Revisar</div>
+          <div class="badge badge-green">Resolvido</div>
         </div>
       </div>
       <p style="font-size:11px;color:var(--muted);margin-top:12px">✅ Status: 20 termos analisados. Backlog de revisão: <code>docs/backlog-melhorias-vault.md</code></p>
@@ -547,7 +547,7 @@
           <div class="q-dot" style="background:var(--yellow)"></div>
           <div>
             <div class="q-text">Qual <strong>endpoint de Oferta</strong> fornece o status de Pricing?</div>
-            <div class="q-note">Flags <code>SKLogista</code> / <code>SKLogista Preço</code> mapeadas por Ricardo Tadeu Lima (09/04). Endpoint de acesso ainda a confirmar.</div>
+            <div class="q-note">Flags <code>SkuLojista</code> / <code>SkuLojistaPreço</code> mapeadas por Ricardo Tadeu Lima (09/04). Endpoint de acesso ainda a confirmar.</div>
           </div>
           <div class="badge badge-yellow">Parcial</div>
         </div>
@@ -564,8 +564,8 @@
         <div class="question">
           <div class="q-dot" style="background:var(--muted)"></div>
           <div>
-            <div class="q-text"><strong>SKLogista vs SKLogista Preço</strong> — tabelas distintas ou alias?</div>
-            <div class="q-note">Impacta mapeamento de E7 (Ativação Pricing).</div>
+            <div class="q-text"><strong>~~SKLogista vs SkuLojistaPreço~~</strong> — ✅ Confirmado: tabelas distintas</div>
+            <div class="q-note">Impacta mapeamento de E8 (Ativação Pricing). Resolvido 10/04.</div>
           </div>
           <div class="badge" style="background:rgba(136,146,164,.15);color:var(--muted);border:1px solid var(--border)">A confirmar</div>
         </div>
@@ -574,7 +574,7 @@
           <div class="q-dot" style="background:var(--accent2)"></div>
           <div>
             <div class="q-text">Validação de divergência <strong>SQL ↔ MongoDB (MONGOS)</strong></div>
-            <div class="q-note">Definido como V2. Douglas: "pelo menos dizer — aqui deveria ter integrado, as informações deveriam estar iguais nos dois locais, não estão."</div>
+            <div class="q-note">Definido como V2. Douglas Willian De Castro (arquitetura): "pelo menos dizer — aqui deveria ter integrado, as informações deveriam estar iguais nos dois locais, não estão."</div>
           </div>
           <div class="badge" style="background:rgba(124,92,191,.15);color:var(--accent2);border:1px solid rgba(124,92,191,.3)">V2</div>
         </div>
@@ -598,7 +598,7 @@
 </main>
 
 <footer>
-  Tracking de Produtos GO — Casas Bahia Tech · Atualizado em 09/04/2026 · Levantamento de 20 termos em revisão · Vault: <strong>tracking-memory-hackathon</strong>
+  Tracking de Produtos GO — Casas Bahia Tech · Atualizado em 10/04/2026 · Levantamento de 20 termos em revisão · Vault: <strong>tracking-memory-hackathon</strong>
 </footer>
 
 </body>

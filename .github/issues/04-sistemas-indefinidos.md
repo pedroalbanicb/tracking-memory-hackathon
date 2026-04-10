@@ -29,14 +29,14 @@ Sistema origem documentado como "Corp / MONGOS" mas ambos nunca foram formalment
 - [ ] **Como acessar:** Connection string, ambiente, responsável
 - [ ] **Estrutura:** Quantos shards, configuração, collections relevantes
 
-#### 🔍 Corp
-- [ ] **O que é "Corp"?**
-  - API Corp específica?
-  - Linked server `[CORP_PRD.dc.nova,1310]`?
-  - Time/tribe Corp?
-  - Banco corporativo?
-- [ ] **Como obter dados:** Endpoint, query, processo
-- [ ] **Responsável:** Quem mantém, documentação técnica
+#### ✅ Corp — Resolvido 10/04/2026
+- [x] **O que é "Corp"?** → SQL Server corporativo (banco SQL compartilhado). Não é API, não é time.
+  - ~~API Corp específica?~~
+  - Linked server `[CORP_PRD.dc.nova,1310]` referencia esse mesmo banco
+  - ~~Time/tribe Corp?~~
+  - ✅ Banco corporativo
+- [x] **Como obter dados:** Query SQL direto no Corp (mesmo banco do checkout)
+- [x] **Responsável:** Time Plataforma / Infra BD
 
 #### 🔍 Integração Corp + MONGOS
 - [ ] **Fluxo de dados:** Corp → MONGOS? Ou consulta paralela?
@@ -52,15 +52,15 @@ Sistema origem documentado como "Corp / MONGOS" mas ambos nunca foram formalment
 - **Owner:** [Team responsible]
 
 ## Corp
-- **Definição:** [System type]
-- **Access:** [API/Query method]
-- **Data:** [What tracking data comes from here]
-- **Owner:** [Team responsible]
+- **Definição:** SQL Server corporativo (banco relacional compartilhado)
+- **Access:** Query SQL / linked server CORP_PRD
+- **Data:** Flags de exibição (SkuLojista, Sku, Produto, Marca, Categoria)
+- **Owner:** Time Plataforma / Infra BD
 
 ## Integration
-- **Data Flow:** [Corp→MONGOS or parallel]
-- **Frequency:** [Real-time/batch]
-- **Tracking Access:** [How to get combined data]
+- **Data Flow:** SQL Corp (fonte de verdade) → MONGOS (réplica MongoDB para o site)
+- **Frequency:** Por evento (Rundeck + pulso de estoque)
+- **Tracking Access:** A definir — query SQL direto ou via MONGOS
 ```
 
 ---
