@@ -271,10 +271,10 @@
         <div class="step-num num-mapped">2</div>
         <div class="step-body">
           <div class="step-name">Validação Fiscal</div>
-          <div class="step-sub"><code>Ok Fiscal = S/N</code> · <code>Liberado para Compra</code> — sem fiscal, compra bloqueada.</div>
+          <div class="step-sub"><code>FlagCompraBloqueada = 0</code> · <code>FlagVendaBloqueada = 0</code> — sem validação fiscal, compra bloqueada.</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="step-origin">Tax Web</div>
+          <div class="step-origin">Tax Web (via API Catálogo)</div>
           <div class="badge badge-green">Mapeado</div>
         </div>
       </div>
@@ -292,14 +292,14 @@
       </div>
 
       <div class="step">
-        <div class="step-num num-todo">4</div>
+        <div class="step-num num-partial">4</div>
         <div class="step-body">
           <div class="step-name">Agendamento</div>
-          <div class="step-sub">Em alguns casos será N/A. Origem ainda a confirmar (hipótese: LN / Neogrid).</div>
+          <div class="step-sub">Agendamento de recebimento/entrega. Em alguns casos será N/A para produtos digitais.</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-          <div class="step-origin">LN / Neogrid (?)</div>
-          <div class="badge badge-red">Não mapeado</div>
+          <div class="step-origin">LN / Neogrid</div>
+          <div class="badge badge-yellow">Sistema confirmado</div>
         </div>
       </div>
 
@@ -370,14 +370,17 @@
   <div class="grid-2">
 
     <div class="card">
-      <h2><span class="icon">🚦</span>Regras de Exibição — 3 Flags Simultâneas</h2>
-      <p style="font-size:12px;color:var(--red);margin-bottom:14px">Se qualquer flag estiver inativa, o SKU não aparece — mesmo que as demais estejam corretas.</p>
+      <h2><span class="icon">🚦</span>Regras de Exibição — Múltiplas Flags Simultâneas</h2>
+      <p style="font-size:12px;color:var(--red);margin-bottom:14px">Se qualquer flag abaixo estiver inativa, o SKU não aparece — mesmo que as demais estejam corretas.</p>
+      <div style="font-size:12px;margin-bottom:14px;padding:10px;background:rgba(245,197,66,.08);border:1px solid rgba(245,197,66,.25);border-radius:8px;color:var(--text)">
+        <strong style="color:var(--yellow)">⚠️ Simplificação:</strong> O fluxo de propagação começa pelas 3 flags abaixo (caminho crítico). Mas a exibição real requer também Marca e 4 níveis de Categoria — ver detalhe completo em <code>docs/conceitos/regras-exibicao-sku.md</code>
+      </div>
       <div class="flags-grid">
         <div class="flag-row">
           <div class="flag-icon">💰</div>
           <div>
-            <div class="flag-name">SKLogista <em style="font-weight:400;font-size:12px;color:var(--muted)">ou</em> SKLogista Preço</div>
-            <div class="flag-detail"><code>ativa = true</code> — Regula precificação por canal (site, app, loja)</div>
+            <div class="flag-name">SKLogista · SKLogista Preço</div>
+            <div class="flag-detail"><code>FlagAtiva = 1</code> em ambas — Regula precificação (site, app, loja)</div>
           </div>
         </div>
         <div class="flag-connector">↓ Job Rundeck propaga (~imediato)</div>
@@ -385,7 +388,7 @@
           <div class="flag-icon">📦</div>
           <div>
             <div class="flag-name">SKU</div>
-            <div class="flag-detail"><code>ativa = true</code> — Visibilidade do SKU no backoffice</div>
+            <div class="flag-detail"><code>FlagAtiva = 1</code> · <code>FlagAtivaERP = 1</code> · <code>FlagSkuProduzido = 1</code> · <code>FlagSkuSaldoDisponivel = 1</code></div>
           </div>
         </div>
         <div class="flag-connector">↓ replica para Produto (~1 minuto)</div>
@@ -393,13 +396,20 @@
           <div class="flag-icon">🛍️</div>
           <div>
             <div class="flag-name">Produto</div>
-            <div class="flag-detail"><code>ativa = true</code> — Visibilidade do Produto pai</div>
+            <div class="flag-detail"><code>FlagAtiva = 1</code> · <code>FlagExibe = 1</code> (atualizado automaticamente via pulso de estoque)</div>
           </div>
         </div>
         <div class="flag-connector">↓ replicado para MongoDB (MONGOS) → site</div>
+        <div class="flag-row">
+          <div class="flag-icon">🏷️</div>
+          <div>
+            <div class="flag-name">Marca + Categoria (4 níveis)</div>
+            <div class="flag-detail">Marca.FlagAtiva = 1 · Categoria.FlagAtiva = 1 (e CategoriaPai, CategoriaNeto, Departamento)</div>
+          </div>
+        </div>
       </div>
       <div style="margin-top:14px;padding:10px;background:rgba(229,83,83,.08);border:1px solid rgba(229,83,83,.25);border-radius:8px;font-size:12px;color:var(--muted)">
-        <strong style="color:var(--red)">Cenário de falha:</strong> As 3 flags podem estar corretas no SQL mas o SKU não aparece no site se a replicação MONGOS falhar.
+        <strong style="color:var(--red)">Cenário de falha:</strong> Todas as flags podem estar corretas no SQL mas o SKU não aparece no site se a replicação MONGOS falhar.
       </div>
     </div>
 
@@ -481,7 +491,47 @@
     </div>
 
     <div class="card">
-      <h2><span class="icon">❓</span>Perguntas em Aberto</h2>
+      <h2><span class="icon">🚨</span>Pontos de Atenção — Termos em Revisão</h2>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Os termos abaixo estão documentados mas precisam de confirmação final com especialistas. Podem impactar a nomenclatura e clareza do painel.</p>
+      <div>
+        <div class="question">
+          <div class="q-dot" style="background:var(--red)"></div>
+          <div>
+            <div class="q-text"><strong>FLAVIA</strong> — Sistema ou erro de transcrição?</div>
+            <div class="q-note">Usado em "pulso de estoque (FLAVIA)" na E9. Pode ser artefato de speech-to-text. Impacta entendimento da propagação automática de flags.</div>
+          </div>
+          <div class="badge badge-red">Crítico</div>
+        </div>
+
+        <div class="question">
+          <div class="q-dot" style="background:var(--red)"></div>
+          <div>
+            <div class="q-text"><strong>SKLogista vs SkuLojista</strong> — Qual é o nome real da tabela?</div>
+            <div class="q-note">Nomes usados inconsistentemente. Afeta mapeamento técnico de E8 (Pricing) e pode confundir documentação futuro.</div>
+          </div>
+          <div class="badge badge-red">Crítico</div>
+        </div>
+
+        <div class="question">
+          <div class="q-dot" style="background:var(--red)"></div>
+          <div>
+            <div class="q-text"><strong>SkuLojistaPreço</strong> — Acento em nome de tabela SQL?</div>
+            <div class="q-note">Incomum em bancos relacionais. Pode ser alias conceitual ou nome real. Impacta query de integração.</div>
+          </div>
+          <div class="badge badge-red">Crítico</div>
+        </div>
+
+        <div class="question">
+          <div class="q-dot" style="background:var(--yellow)"></div>
+          <div>
+            <div class="q-text"><strong>MONGOS</strong> — Nome do cluster ou componente de sharding?</div>
+            <div class="q-note">Impacta arquitetura técnica e entendimento da replicação para o site.</div>
+          </div>
+          <div class="badge" style="background:rgba(245,197,66,.13);color:var(--yellow);border:1px solid rgba(245,197,66,.3)">Revisar</div>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--muted);margin-top:12px">✅ Status: 20 termos analisados. Backlog de revisão: <code>docs/backlog-melhorias-vault.md</code></p>
+    </div>
       <div>
 
         <div class="question">
@@ -548,7 +598,7 @@
 </main>
 
 <footer>
-  Tracking de Produtos GO — Casas Bahia Tech · Atualizado em 09/04/2026 · Vault Obsidian: <strong>tracking-memory-hackathon</strong>
+  Tracking de Produtos GO — Casas Bahia Tech · Atualizado em 09/04/2026 · Levantamento de 20 termos em revisão · Vault: <strong>tracking-memory-hackathon</strong>
 </footer>
 
 </body>
