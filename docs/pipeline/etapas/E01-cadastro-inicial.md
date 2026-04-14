@@ -28,16 +28,16 @@ updated: 2026-04-09
 
 ## Como Obter os Dados
 
-| Método | Detalhe |
-|--------|----------|
-| Sistema | Portal GO / Catálogo |
-| Interface | ✅ **API CATÁLOGO — confirmado** |
-| Endpoint | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar` |
-| Autenticação | Header `apikey: [API_KEY_ENV]` |
-| Parâmetro chave | `IdSkuSite={id_sku}` |
-| Seleção de campos | `composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.DadosBasicos.FlagVendaBloqueada;Mercadorias.Controle.DataCadastro` |
-| Frequência de atualização | Por evento (quando SKU é cadastrado) |
-| Chave de rastreamento | `IdSkuSite` |
+| Método                    | Detalhe                                                                                                                                                                                                                           |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sistema                   | Portal GO / Catálogo                                                                                                                                                                                                              |
+| Interface                 | ✅ **API CATÁLOGO — confirmado**                                                                                                                                                                                                   |
+| Endpoint                  | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar`                                                                                                                                           |
+| Autenticação              | Header `apikey: [API_KEY_ENV]`                                                                                                                                                                                                    |
+| Parâmetro chave           | `IdSkuSite={id_sku}`                                                                                                                                                                                                              |
+| Seleção de campos         | `composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.DadosBasicos.FlagVendaBloqueada;Mercadorias.Controle.DataCadastro` |
+| Frequência de atualização | Por evento (quando SKU é cadastrado)                                                                                                                                                                                              |
+| Chave de rastreamento     | `IdSkuSite`                                                                                                                                                                                                                       |
 
 ### Exemplo de Requisição (HLG)
 

@@ -15,13 +15,13 @@ fonte: Juliana Dos Santos
 
 ## Visão Geral
 
-| Atributo | Valor |
-|----------|-------|
-| Etapa | 4 de 9 |
-| Sistema de Origem | **LN (Infor) / Neogrid** |
+| Atributo             | Valor                                          |
+| -------------------- | ---------------------------------------------- |
+| Etapa                | 4 de 9                                         |
+| Sistema de Origem    | **LN (Infor) / Neogrid**                       |
 | Status do Mapeamento | **Sistema identificado — integração a mapear** |
-| Etapa anterior | [[E03-proposta-comercial]] |
-| Próxima etapa | [[E05-estoque]] |
+| Etapa anterior       | [[E03-proposta-comercial]]                     |
+| Próxima etapa        | [[E05-estoque]]                                |
 
 > 🔴 **RFC em andamento.** Ver [[RFC-002-agendamento]].
 
