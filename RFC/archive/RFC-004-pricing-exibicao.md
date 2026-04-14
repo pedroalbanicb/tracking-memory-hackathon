@@ -1,11 +1,13 @@
 ---
-tags: [rfc, tracking, pricing, exibicao, integracao, skulojista, mongos]
-status: draft
+tags: [rfc, tracking, pricing, exibicao, integracao, skulojista, mongos, archive]
+status: accepted
 autor: Pedro Martins
 data: 2026-04-10
 prd-relacionado: [[PRD-001-tracking-sku-lifecycle]]
 revisores: []
-updated: 2026-04-10
+updated: 2026-04-14
+implementado: true
+nota: Arquivado — SQL Corp direto implementado em TrackingPricingRepositorio e TrackingExibicaoRepositorio
 ---
 
 # RFC-004 — Integração de Pricing e Exibição (E08/E09)

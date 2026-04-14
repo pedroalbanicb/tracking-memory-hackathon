@@ -8,6 +8,13 @@ Propostas técnicas que requerem discussão do time **antes** da implementação
 |---|--------|--------|------|
 | RFC-002 | [[RFC-002-agendamento\|Agendamento — Integração LN/Neogrid]] | Draft | — |
 
+## Arquivadas
+
+| # | Título | Status | Motivo |
+|---|--------|--------|--------|
+| RFC-003 | Integração de Dados de Estoque | Accepted | Implementado — SQL direto Banco Inventário |
+| RFC-004 | Integração de Pricing e Exibição (E08/E09) | Accepted | Implementado — SQL Corp direto |
+
 ## Quando abrir uma RFC?
 
 - Mudança que afeta mais de um sistema/squad

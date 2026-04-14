@@ -1,11 +1,13 @@
 ---
-tags: [rfc, tracking, estoque, inventario, integracao]
-status: draft
+tags: [rfc, tracking, estoque, inventario, integracao, archive]
+status: accepted
 autor: Pedro Martins
 data: 2026-04-10
 prd-relacionado: [[PRD-001-tracking-sku-lifecycle]]
 revisores: []
-updated: 2026-04-10
+updated: 2026-04-14
+implementado: true
+nota: Arquivado — SQL direto no Banco Inventário implementado em TrackingEstoqueRepositorio
 ---
 
 # RFC-003 — Integração de Dados de Estoque
