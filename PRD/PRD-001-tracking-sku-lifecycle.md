@@ -81,7 +81,7 @@ Ver: [[sku-on-off-1p-3p]]
 
 | # | Pergunta | Responsável | Status |
 |---|----------|-------------|--------|
-| 1 | Qual é a origem dos dados de Agendamento? | A definir | � Parcial — Juliana confirmou LN/Neogrid (09/04/2026). Alonso detalhou fluxo e fonte Databricks. Ver [[E04-agendamento]], [[RFC-002-agendamento]] |
+| 1 | Qual é a origem dos dados de Agendamento? | A definir | ⚠️ Parcial — Juliana confirmou LN/Neogrid (09/04/2026). Alonso detalhou fluxo e fonte Databricks. Ver [[E04-agendamento]] |
 | 2 | Qual a fonte de dados para o status de Pricing e Exibição? | Time Plataforma | 🟡 Flags SQL confirmadas por Douglas Souza Wolff (09/04/2026): `SkuLojista.FlagAtiva`, `SkuLojistaPreço.FlagAtiva` + flags de `Sku`, `Produto`, `Marca`, `Categoria` (4 níveis). Decisão API vs SQL direto em aberto. Ver [[regras-exibicao-sku]], [[E08-ativacao-pricing]], [[decisao-fonte-dados-tracking]] |
 | 3 | Estoque físico x fingido — qual sistema é fonte de verdade? | A definir | 🟡 Parcial — banco relacional `Inventario.SaldoEstoqueRestricao` identificado como fonte consultável (`QuantidadeDisponivel > 0`). Tipos de estoque (físico vs. fingido) via `TipoEstoque` ainda a mapear. Ver [[regras-estoque-inventario]] e [[E05-estoque]] |
 | 4 | Como detectar divergência entre SQL e MongoDB (MONGOS)? | Time Plataforma | 🟡 Regra definida — posicionada como **V2** (fora do MVP). Ver [[validacao-sincronizacao-sql-mongo]] |

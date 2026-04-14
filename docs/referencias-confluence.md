@@ -64,8 +64,8 @@ nota: "MONGOS = MongoDB de Pricing (Mongo Pricing / Mongo Preço). Termo origina
 
 ## 4. E04 — Agendamento (LN / Neogrid)
 
-> Relacionado: [[E04-agendamento]], [[RFC-002-agendamento]]
-> Status no vault: sistemas identificados — integração a mapear; RFC a criar
+> Relacionado: [[E04-agendamento]]
+> Status no vault: sistemas identificados — integração a mapear
 
 | Tema | Espaço | Página | Link |
 |------|--------|--------|------|

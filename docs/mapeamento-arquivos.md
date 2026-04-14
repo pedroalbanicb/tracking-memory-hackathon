@@ -17,7 +17,6 @@ autor: Pedro Martins
 
 > ✅ **Arquivos de etapas renomeados corretamente** (E08-ativacao-pricing.md, E09-exibicao-site-loja.md) — verificado em 2026-04-09.
 > ✅ **README, PRD-001 e sku-lifecycle** atualizados com pipeline de 9 etapas e wikilinks corretos.
-> ✅ **RFC-002** movida para `RFC/RFC-002-agendamento.md` e populada com template + contexto.
 > ✅ **mock/data.json** regenerado como JSON válido a partir de `data.js`.
 > ✅ **sku-on-off-1p-3p.md** — labels de exibição corrigidos (E07→E08, E08→E09).
 > ✅ **sku-lifecycle.md** — typo `lifecyle` corrigido no frontmatter.
@@ -37,15 +36,9 @@ autor: Pedro Martins
 
 ---
 
-### `/RFC/RFC-002-agendamento.md`
+### `/RFC/RFC-002-agendamento.md` (removido — arquivado)
 
-| Atributo | Valor |
-|---|---|
-| Tipo | RFC (rascunho) |
-| Status | ✅ Populado — draft com template e contexto |
-| Frontmatter | `tags: [rfc, tracking, agendamento, ln, neogrid]` · `status: draft` · `autor: Pedro Martins` |
-
-**Conteúdo:** RFC preenchida com motivação, hipóteses de interface (LN, Neogrid ou ambos), plano de rollout e perguntas em aberto. Aguardando discovery com time de Operações/GO.
+Arquivo removido. RFC foi simplificada — integração de agendamento (LN/Neogrid) permanece como pendência de discovery sem RFC formal.
 
 ---
 
@@ -126,7 +119,7 @@ autor: Pedro Martins
 | Atributo | Valor |
 |---|---|
 | Tipo | Índice da pasta RFC |
-| Status | ✅ Íntegro — RFC-002 listada |
+| Status | ✅ Íntegro |
 
 ---
 
@@ -347,9 +340,9 @@ autor: Pedro Martins
 | Frontmatter | `etapa: 4` · `status: mapeado-parcialmente` · `origem: LN / Neogrid` · `updated: 2026-04-09` |
 | Fonte | Juliana Dos Santos |
 
-**Conteúdo:** Sistemas confirmados: LN (Infor) e/ou Neogrid. Campos ainda hipóteses. RFC-002 referenciada. Produtos `Digital/Download` provavelmente pulam esta etapa.
+**Conteúdo:** Sistemas confirmados: LN (Infor) e/ou Neogrid. Campos ainda hipóteses. Produtos `Digital/Download` provavelmente pulam esta etapa.
 
-**Problema:** Wikilink `[[RFC-002-agendamento]]` aponta para arquivo vazio na raiz — RFC não preenchida.
+**Problema:** Wikilink de etapa anterior/próxima a validar.
 
 ---
 
@@ -502,8 +495,7 @@ Pipeline conforme `data.json`:
 |---|---|---|---|
 | M1 | `README.md` | Tabela pipeline com 8 etapas — falta E07-produzido-loja, wikilinks errados | Atualizar tabela para 9 etapas |
 | M2 | `PRD/PRD-001-tracking-sku-lifecycle.md` | Tabela pipeline com 8 etapas — falta E07-produzido-loja | Atualizar tabela para 9 etapas |
-| M3 | `RFC-002-agendamento.md` | Arquivo vazio na raiz — deveria estar em `RFC/` e ter conteúdo | Mover para `RFC/` e preencher |
-| M4 | `RFC/README.md` | Índice diz "Nenhuma RFC ainda" — inconsistente com RFC-002 | Atualizar após mover a RFC |
+| M3 | `RFC/README.md` | Índice diz "Nenhuma RFC ainda" — inconsistente | Atualizado após arquivamento |
 
 ### ℹ️ Wikilinks que quebrarão após renomeação (C1 e C2)
 

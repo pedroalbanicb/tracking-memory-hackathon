@@ -23,7 +23,7 @@ autor: Pedro Martins
 | ⚠️ Parcialmente mapeadas (fonte confirmada, integração pendente) | 5 (E03, E04, E05, E08, E09) |
 | 🟡 Sistema identificado apenas | 2 (E06, E07) |
 | 🔴 Totalmente sem mapeamento | 0 |
-| RFCs abertas | 1 (RFC-002 Agendamento — draft) |
+| RFCs abertas | 0 |
 | ADRs registradas | 0 |
 | Decisões arquiteturais em aberto | 1 (API vs SQL — [[decisao-fonte-dados-tracking]]) |
 
@@ -43,7 +43,7 @@ autor: Pedro Martins
 | # | Etapa | Status | Fonte de Dados | O que temos | O que falta | Gaps Bloqueantes |
 |---|-------|--------|----------------|-------------|-------------|-----------------|
 | 3 | [[E03-proposta-comercial]] | ⚠️ Parcial | API Catálogo / LN | Campo `ContratoLiberado` na API (null quando sem contrato) | `data_emissao_contrato` path na composição; múltiplos contratos? | 4 abertos |
-| 4 | [[E04-agendamento]] | ⚠️ Parcial | LN → Neogrid | Sistemas confirmados (Juliana). **Falta documentar info do Alonso Dias Assuncao** (fluxo, Databricks, query SQL) | Método de integração; RFC-002 em draft | 5 abertos |
+| 4 | [[E04-agendamento]] | ⚠️ Parcial | LN → Neogrid | Sistemas confirmados (Juliana). **Falta documentar info do Alonso Dias Assuncao** (fluxo, Databricks, query SQL) | Método de integração pendente | 5 abertos |
 | 5 | [[E05-estoque]] | ⚠️ Regras mapeadas | Banco Inventario (SQL) | Query SQL completa, schema `Inventario`, 14 campos confirmados | Método integração (API vs banco direto); valores `TipoEstoque` | 7 abertos (1 🔴) |
 | 8 | [[E08-ativacao-pricing]] | ⚠️ Flags confirmadas | SQL: `SkuLojista` / `SkuLojistaPreço` | `FlagAtiva` em ambas tabelas; pricing exclusivo do site | Interface de leitura (SQL Corp direto ou via API); decisão [[decisao-fonte-dados-tracking]] | 5 abertos (1 🔴) |
 | 9 | [[E09-exibicao-site-loja]] | ⚠️ Regras mapeadas | SQL Corp → MONGOS (MongoDB de Pricing) | 14+ flags em 5 grupos (SkuLojista, Sku, Produto, Marca, Categoria), fluxo Rundeck | Endpoint API/MONGOS; coleção MongoDB; decisão SQL Corp vs MONGOS | 8 abertos (3 🔴) |
@@ -101,8 +101,6 @@ autor: Pedro Martins
 ### Pendentes
 
 - [ ] **Documentar info do Alonso na E04** (fluxo LN→Neogrid, query Databricks, pessoas de referência)
-- [ ] Atualizar RFC-002 com opção Databricks
-
 ### Prioridades
 
 | Prioridade | Ação | Quem contatar | Resultado esperado |
@@ -143,5 +141,4 @@ autor: Pedro Martins
 
 - [[sku-lifecycle]] — Pipeline completo
 - [[PRD-001-tracking-sku-lifecycle]] — Requisitos do produto
-- [[RFC-002-agendamento]] — Proposta integração agendamento
 - [[decisao-fonte-dados-tracking]] — Decisão API vs SQL (em aberto)

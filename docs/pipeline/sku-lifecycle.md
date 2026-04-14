@@ -127,7 +127,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 | data_agendamento | Data prevista de entrega pelo fornecedor |
 | tipo_agendamento | Entrega, crossdocking, etc. |
 
-> ⚠️ Sistemas confirmados (LN e Neogrid). Método de integração pendente. Ver [[RFC-002-agendamento]].
+> ⚠️ Sistemas confirmados (LN e Neogrid). Método de integração pendente.
 
 ---
 
@@ -252,7 +252,7 @@ SKU Cadastrado
 
 | Gap | Etapa | Ação Sugerida |
 |-----|-------|---------------|
-| Origem de dados do Agendamento não mapeada | 4 | Abrir RFC-002 |
+| Origem de dados do Agendamento não mapeada | 4 | Discovery pendente — LN/Neogrid |
 | Origem de dados do Estoque não mapeada | 5 | Abrir RFC-003 |
 | Confirmar se Oferta é realmente a fonte de Pricing/Exibição | 7, 8 | Abrir RFC-004 |
 

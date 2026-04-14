@@ -40,7 +40,7 @@ Cad.   Fiscal  Comercial  Agend.  Estoque  Prod.Site  Prod.Loja  Pricing  Exibi�
 | 1 | **Cadastro Inicial** | GO / API Catálogo | ✅ `GET /api/v1/produto-sku/selecionar` | Integrado | `docs/pipeline/etapas/E01-cadastro-inicial.md` |
 | 2 | **Validação Fiscal** | Tax Web → API Catálogo | ✅ Mesmo endpoint E01 | Integrado | `docs/pipeline/etapas/E02-validacao-fiscal.md` |
 | 3 | **Proposta Comercial** | LN (Infor) → API Catálogo | ⚠️ `ContratoLiberado` (null se sem contrato) | Parcial | `docs/pipeline/etapas/E03-proposta-comercial.md` |
-| 4 | **Agendamento** | LN / Neogrid | 🔴 Integração a mapear (RFC-002) | Draft | `docs/pipeline/etapas/E04-agendamento.md` |
+| 4 | **Agendamento** | LN / Neogrid | 🔴 Integração a mapear | Pendente | `docs/pipeline/etapas/E04-agendamento.md` |
 | 5 | **Estoque** | Banco Inventario (SQL) | ⚠️ Query SQL confirmada — API a definir | Regras mapeadas | `docs/pipeline/etapas/E05-estoque.md` |
 | 6 | **Produzido Site** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E06-produzido.md` |
 | 7 | **Produzido Loja Física** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E07-produzido-loja.md` |
@@ -131,7 +131,7 @@ Campos disponíveis: `Geral.Nome`, `DataCadastro`, `NomeTipoSku`, `FlagCompraBlo
 | Decisão | Status | Doc |
 |---------|--------|-----|
 | Fonte de dados: API vs SQL direto | 🔴 Em aberto | `docs/conceitos/decisao-fonte-dados-tracking.md` |
-| Integração agendamento (LN/Neogrid) | 🔴 RFC-002 draft | `RFC/RFC-002-agendamento.md` |
+| Integração agendamento (LN/Neogrid) | 🔴 Em aberto | `docs/pipeline/etapas/E04-agendamento.md` |
 | Método integração estoque (API vs banco) | 🔴 Em aberto | `docs/pipeline/etapas/E05-estoque.md` |
 | Método integração Admin (E06/E07) | 🔴 Em aberto | `docs/pipeline/etapas/E06-produzido.md` |
 | Endpoint leitura flags pricing | 🔴 Em aberto | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
@@ -157,7 +157,7 @@ tracking-memory-hackathon/
 ├── PRD/                              # Product Requirements Documents
 │   └── PRD-001-tracking-sku-lifecycle.md   # PRD principal — requisitos do tracking
 ├── RFC/                              # Request for Comments
-│   └── RFC-002-agendamento.md        # Integração LN/Neogrid (draft)
+│   └── archive/                      # RFCs arquivadas (implementadas)
 ├── ADR/                              # Architecture Decision Records
 │   └── (nenhuma ADR ainda)
 ├── docs/

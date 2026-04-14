@@ -23,8 +23,6 @@ fonte: Juliana Dos Santos
 | Etapa anterior       | [[E03-proposta-comercial]]                     |
 | Próxima etapa        | [[E05-estoque]]                                |
 
-> 🔴 **RFC em andamento.** Ver [[RFC-002-agendamento]].
-
 ---
 
 ## Como Obter os Dados
@@ -88,7 +86,6 @@ fonte: Juliana Dos Santos
 ## Próximos Passos
 
 - [ ] Agendar discovery com time de Operações / GO para mapear esta etapa
-- [ ] Criar RFC-002 para propor estratégia de integração
 - [ ] Atualizar este documento após o discovery
 
 ---

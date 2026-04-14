@@ -4,9 +4,7 @@ Propostas técnicas que requerem discussão do time **antes** da implementação
 
 ## Índice
 
-| # | Título | Status | Data |
-|---|--------|--------|------|
-| RFC-002 | [[RFC-002-agendamento\|Agendamento — Integração LN/Neogrid]] | Draft | — |
+> Nenhuma RFC ativa no momento.
 
 ## Arquivadas
 
