@@ -6,7 +6,7 @@ Registro permanente de decisões técnicas e arquiteturais tomadas pelo time.
 
 | # | Título | Status | Data |
 |---|--------|--------|------|
-| — | Nenhuma ADR ainda | — | — |
+| 001 | [[ADR-001-implementacao-services-pipeline-steps\|Implementação de Services para Steps do Pipeline]] | Proposed | 2026-04-14 |
 
 ## Sobre ADRs
 
