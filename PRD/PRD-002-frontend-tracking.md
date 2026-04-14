@@ -104,7 +104,7 @@ A tabela exibe as seguintes colunas, nesta ordem:
 
 > **E04 (Agendamento) não é exibido como coluna da tabela** — omitido do design conforme [Figma IC-Table](https://www.figma.com/design/QNFpM0akFGXYC2gfcjkHba/Tracking?node-id=122-5896).  
 > As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do pipeline [[sku-lifecycle]].  
-> Ver sistema de ícones em § 6.2.
+> Ver sistema de ícones em § 6.1.
 
 ---
 
@@ -182,17 +182,7 @@ Referência de etapas: [[sku-lifecycle]].
 
 ## 6. Componentes Visuais
 
-### 6.1 Badges de Status
-
-| Componente         | Valores               | Cores                                 |
-| ------------------ | --------------------- | ------------------------------------- |
-| Status do SKU      | `EM LINHA`            | Fundo verde, texto verde-escuro       |
-| Status do SKU      | `FORA DE LINHA`       | Fundo vermelho, texto vermelho-escuro |
-| Tipo SKU           | `NORMAL`, `KIT`, etc. | Fundo cinza, texto cinza-escuro       |
-| Situação Cadastral | `OK`                  | Fundo cinza, texto cinza              |
-| Situação Cadastral | `DEFASADO`            | Fundo amarelo, texto âmbar            |
-
-### 6.2 Ícones e Backgrounds de Etapa
+### 6.1 Ícones e Backgrounds de Etapa
 
 Usados tanto nas colunas da tabela da lista (§ 5.2.3) quanto nos cards de etapa do detalhe (§ 5.3.5):
 
@@ -201,7 +191,7 @@ Usados tanto nas colunas da tabela da lista (§ 5.2.3) quanto nos cards de etapa
 | Concluído | `✓`   | Verde                        | Etapa satisfeita |
 | Bloqueado | `✗`   | Vermelho                     | Etapa com falha  |
 
-### 6.3 Cabeçalho da Aplicação (Topbar)
+### 6.2 Cabeçalho da Aplicação (Topbar)
 
 O módulo herda a topbar do sistema GO, que inclui:
 

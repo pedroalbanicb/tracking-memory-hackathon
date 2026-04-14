@@ -1,32 +1,36 @@
 {
-	"folders": [
-		{
-			"name": "Tracking do Produto",
-			"path": "."
-		},
-		{
-			"name": "Gestao Produto Plataforma API",
-			"path": "../gestaoproduto-plataforma-api"
-		}
-	],
-	"settings": {
-		"chat.useAgentsMdFile": true,
-		"github.copilot.chat.mcp.servers": {
-			"dev-ai-hub": {
-				"type": "http",
-				"url": "https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot"
-			}
-		},
-		"git.repositoryScanMaxDepth": 5,
-		"task.allowAutomaticTasks": "on",
-		"mcp": {
-			"servers": {
-				"https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot": {
-					"url": "https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot",
-					"type": "http"
-				}
-			},
-			"inputs": []
-		}
-	}
+  "folders": [
+    {
+      "name": "Tracking do Produto",
+      "path": ".",
+    },
+    {
+      "name": "Gestao Produto Plataforma API",
+      "path": "../gestaoproduto-plataforma-api",
+    },
+    {
+      "name": "Gestao Produto Plataforma Front-end",
+      "path": "../gestaoproduto-plataforma-web",
+    },
+  ],
+  "settings": {
+    "chat.useAgentsMdFile": true,
+    "github.copilot.chat.mcp.servers": {
+      "dev-ai-hub": {
+        "type": "http",
+        "url": "https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot",
+      },
+    },
+    "git.repositoryScanMaxDepth": 5,
+    "task.allowAutomaticTasks": "on",
+    "mcp": {
+      "servers": {
+        "https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot": {
+          "url": "https://backstage.grupocasasbahia.com.br/api/dev-ai-hub/mcp?tool=github-copilot",
+          "type": "http",
+        },
+      },
+      "inputs": [],
+    },
+  },
 }
