@@ -86,28 +86,25 @@ Critérios disponíveis ao expandir o painel: 🟡 a confirmar — ver [Pergunta
 
 A tabela exibe as seguintes colunas, nesta ordem:
 
-| #   | Coluna             | Tipo           | Valores possíveis / Notas                       |
-| --- | ------------------ | -------------- | ----------------------------------------------- |
-| 1   | SKU OFF            | Texto          | Identificador backoffice do SKU                 |
-| 2   | SKU ON             | Texto          | Identificador do SKU no site                    |
-| 3   | Mercadoria         | Texto          | Descrição do SKU                                |
-| 4   | Tipo SKU           | Badge          | `NORMAL`, `KIT`, etc.                           |
-| 5   | Categoria          | Texto          | Ex: `TELEFONIA CELULAR`                         |
-| 6   | Status             | Badge colorido | `EM LINHA` (verde) · `FORA DE LINHA` (vermelho) |
-| 7   | Tipo Negociação    | Texto          | `N/A`, `Crossdocking`, `Pré-Lançamento`, etc.   |
-| 8   | Cadastro           | Ícone          | `✓` verde (E01)                                 |
-| 9   | Validação Fiscal   | Ícone          | `✓` verde · `✗` vermelho (E02)                  |
-| 10  | Proposta Comercial | Ícone          | `✓` verde · `✗` vermelho (E03)                  |
-| 11  | Agendamento        | Ícone          | `✓` verde · `✗` vermelho (E04)                  |
-| 12  | Estoque            | Ícone          | `✓` verde · `✗` vermelho (E05)                  |
-| 13  | Produzido Site     | Ícone          | `✓` verde · `✗` vermelho (E06)                  |
-| 14  | Produzido LF       | Ícone          | `✓` verde · `✗` vermelho (E07 — Loja Física)    |
-| 15  | Ativação Pricing   | Ícone          | `✓` verde · `✗` vermelho (E08)                  |
-| 16  | Exibição Site      | Ícone          | `✓` verde · `✗` vermelho (E09)                  |
-| 17  | Detalhes           | Ícone 👁       | Abre a tela de detalhe do SKU (§ 5.3)           |
+| #   | Coluna             | Tipo     | Valores possíveis / Notas                                                          |
+| --- | ------------------ | -------- | ---------------------------------------------------------------------------------- |
+| 1   | SKU OFF            | Texto    | Identificador backoffice do SKU                                                    |
+| 2   | SKU ON             | Texto    | Identificador do SKU no site                                                       |
+| 3   | Mercadoria         | Texto    | Descrição do SKU                                                                   |
+| 4   | Tipo Negociação    | Texto    | `N/A`, `Crossdocking`, `Estoque Físico`, `Estoque Virtual`, `Pré-Lançamento`, etc. |
+| 5   | Cadastro           | Ícone    | `✓` verde (E01)                                                                    |
+| 6   | Validação Fiscal   | Ícone    | `✓` verde · `✗` vermelho (E02)                                                     |
+| 7   | Proposta Comercial | Ícone    | `✓` verde · `✗` vermelho (E03)                                                     |
+| 8   | Estoque            | Ícone    | `✓` verde · `✗` vermelho (E05)                                                     |
+| 9   | Produzido Site     | Ícone    | `✓` verde · `✗` vermelho (E06)                                                     |
+| 10  | Produzido LF       | Ícone    | `✓` verde · `✗` vermelho (E07 — Loja Física)                                       |
+| 11  | Ativação Pricing   | Ícone    | `✓` verde · `✗` vermelho (E08)                                                     |
+| 12  | Exibição Site      | Ícone    | `✓` verde · `✗` vermelho (E09)                                                     |
+| 13  | Detalhes           | Ícone 👁 | Abre a tela de detalhe do SKU (§ 5.3)                                              |
 
-> As colunas **Cadastro** a **Exibição Site** representam as 9 etapas do pipeline [[sku-lifecycle]].  
-> Ver sistema de ícones em § 6.2.
+> **E04 (Agendamento) não é exibido como coluna da tabela** — omitido do design conforme [Figma IC-Table](https://www.figma.com/design/QNFpM0akFGXYC2gfcjkHba/Tracking?node-id=122-5896).  
+> As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do pipeline [[sku-lifecycle]].  
+> Ver sistema de ícones em § 6.1.
 
 ---
 
@@ -185,17 +182,7 @@ Referência de etapas: [[sku-lifecycle]].
 
 ## 6. Componentes Visuais
 
-### 6.1 Badges de Status
-
-| Componente         | Valores               | Cores                                 |
-| ------------------ | --------------------- | ------------------------------------- |
-| Status do SKU      | `EM LINHA`            | Fundo verde, texto verde-escuro       |
-| Status do SKU      | `FORA DE LINHA`       | Fundo vermelho, texto vermelho-escuro |
-| Tipo SKU           | `NORMAL`, `KIT`, etc. | Fundo cinza, texto cinza-escuro       |
-| Situação Cadastral | `OK`                  | Fundo cinza, texto cinza              |
-| Situação Cadastral | `DEFASADO`            | Fundo amarelo, texto âmbar            |
-
-### 6.2 Ícones e Backgrounds de Etapa
+### 6.1 Ícones e Backgrounds de Etapa
 
 Usados tanto nas colunas da tabela da lista (§ 5.2.3) quanto nos cards de etapa do detalhe (§ 5.3.5):
 
@@ -204,7 +191,7 @@ Usados tanto nas colunas da tabela da lista (§ 5.2.3) quanto nos cards de etapa
 | Concluído | `✓`   | Verde                        | Etapa satisfeita |
 | Bloqueado | `✗`   | Vermelho                     | Etapa com falha  |
 
-### 6.3 Cabeçalho da Aplicação (Topbar)
+### 6.2 Cabeçalho da Aplicação (Topbar)
 
 O módulo herda a topbar do sistema GO, que inclui:
 
@@ -222,7 +209,7 @@ O módulo herda a topbar do sistema GO, que inclui:
 
 - [ ] O item "Tracking" aparece na sidebar do GO e navega para a tela de lista
 - [ ] A busca filtra a tabela por SKU OFF, SKU ON, Mercadoria e Categoria
-- [ ] A tabela exibe as 17 colunas na ordem definida em § 5.2.3
+- [ ] A tabela exibe as 13 colunas na ordem definida em § 5.2.3
 - [ ] As colunas de pipeline (Cadastro a Exibição Site) exibem `✓` verde ou `✗` vermelho conforme o status de cada etapa
 - [ ] O ícone 👁 na coluna "Detalhes" navega para a tela de detalhe do SKU correspondente
 - [ ] O badge geral exibe corretamente "SKU Ativo" ou "N etapa(s) bloqueada(s)" com a contagem correta
