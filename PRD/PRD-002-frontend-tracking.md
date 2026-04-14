@@ -106,6 +106,77 @@ A tabela exibe as seguintes colunas, nesta ordem:
 > As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do pipeline [[sku-lifecycle]].  
 > Ver sistema de ícones em § 6.1.
 
+#### 5.2.4 Contrato de API — Listagem da Tabela
+
+Para suportar a renderização da tabela de listagem, o backend deve expor um contrato único de leitura.
+
+**Endpoint sugerido:** `GET /api/tracking/skus`
+
+##### Parâmetros de request
+
+| Parâmetro              | Tipo     | Obrigatório | Descrição                                          |
+| ---------------------- | -------- | ----------- | -------------------------------------------------- |
+| `sku`                  | string   | Não         | Busca por SKU OFF, SKU ON, Mercadoria ou Categoria |
+| `pagina`               | integer  | Não         | Página atual (default: 1)                          |
+| `filtroEtapa`          | string[] | Não         | Etapas para filtrar por bloqueio/conclusão         |
+| `filtroTipoNegociacao` | string[] | Não         | Ex.: `N_A`, `CROSSDOCKING`, `ESTOQUE_FISICO`       |
+| `filtroCategoria`      | string[] | Não         | Categoria/subcategoria                             |
+
+> Os parâmetros de filtro permanecem sob validação funcional (ver § 10).
+
+##### Response ideal (listagem)
+
+```json
+{
+  "data": {
+    "items": [
+      {
+        "id": "5163847",
+        "skuOff": "5163847",
+        "skuOn": "55052266",
+        "mercadoria": "BATATA PRINGLES QUEIJO CHEDDAR",
+        "tipoNegociacao": "NORMAL",
+        "cadastro": true,
+        "validacaoFiscal": false,
+        "propostaComercial": true,
+        "estoque": true,
+        "produzidoSite": true,
+        "produzidoLf": true,
+        "ativacaoPricing": true,
+        "exibicaoSite": true
+      }
+    ],
+    "total": 2847
+  }
+}
+```
+
+##### Regras de payload para colunas de etapa
+
+- As colunas de etapa (Cadastro até Exibição Site) devem ser booleanas (`true`/`false`)
+- O frontend é responsável por mapear:
+  - `true` → `✓` verde
+  - `false` → `✗` vermelho
+- Não retornar objeto de apresentação por etapa (`status`, `icon`, `color`)
+
+##### Mapeamento campo API → coluna da tabela
+
+| Coluna UI                | Campo API           | Tipo    |
+| ------------------------ | ------------------- | ------- |
+| SKU OFF                  | `skuOff`            | string  |
+| SKU ON                   | `skuOn`             | string  |
+| Mercadoria               | `mercadoria`        | string  |
+| Tipo Negociação          | `tipoNegociacao`    | string  |
+| Cadastro (E01)           | `cadastro`          | boolean |
+| Validação Fiscal (E02)   | `validacaoFiscal`   | boolean |
+| Proposta Comercial (E03) | `propostaComercial` | boolean |
+| Estoque (E05)            | `estoque`           | boolean |
+| Produzido Site (E06)     | `produzidoSite`     | boolean |
+| Produzido LF (E07)       | `produzidoLf`       | boolean |
+| Ativação Pricing (E08)   | `ativacaoPricing`   | boolean |
+| Exibição Site (E09)      | `exibicaoSite`      | boolean |
+| Detalhes                 | `id`                | string  |
+
 ---
 
 ### 5.3 Tela 2 — Detalhe do SKU
@@ -228,10 +299,10 @@ O módulo herda a topbar do sistema GO, que inclui:
 
 ## 10. Perguntas em Aberto
 
-| #   | Pergunta                                                                                                         | Responsável                | Status         |
-| --- | ---------------------------------------------------------------------------------------------------------------- | -------------------------- | -------------- |
-| 1   | Quais campos compõem o painel de filtros avançados? (ex: etapa bloqueada, categoria, bandeira, tipo negociação…) | Lucas Rocha / Pedro Albani | 🔴 Não mapeado |
-| 2   | A seleção de bandeira (CB/EX/PF) é feita na topbar global do GO ou dentro da tela de Tracking?                   | Lucas Rocha                | 🔴 Não mapeado |
-| 3   | O botão "Reload Data" exibe indicador de "última atualização" (timestamp)?                                       | Lucas Rocha                | 🟡 A confirmar |
-| 4   | Existem restrições de permissão por persona? (ex: TI/Suporte vs. Analista GO)                                    | Pedro Albani               | 🔴 Não mapeado |
-| 5   | Qual o comportamento de empty state quando a busca não retorna resultados?                                       | Lucas Rocha                | 🟡 A confirmar |
+| #   | Pergunta                                                                                                                                                        | Responsável           | Status         |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- | -------------- |
+| 1   | Quais parâmetros de filtros avançados da API de listagem serão oficialmente suportados e validados? (ex: etapa bloqueada, categoria, bandeira, tipo negociação) | Lucas Rocha / Juliana | 🔴 Não mapeado |
+| 2   | A seleção de bandeira (CB/EX/PF) é feita na topbar global do GO ou dentro da tela de Tracking?                                                                  | Lucas Rocha           | 🔴 Não mapeado |
+| 3   | O botão "Reload Data" exibe indicador de "última atualização" (timestamp)?                                                                                      | Lucas Rocha           | 🟡 A confirmar |
+| 4   | Existem restrições de permissão por persona? (ex: TI/Suporte vs. Analista GO)                                                                                   | Pedro Albani          | 🔴 Não mapeado |
+| 5   | Qual o comportamento de empty state quando a busca não retorna resultados?                                                                                      | Lucas Rocha           | 🟡 A confirmar |

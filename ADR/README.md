@@ -4,9 +4,9 @@ Registro permanente de decisões técnicas e arquiteturais tomadas pelo time.
 
 ## Índice
 
-| # | Título | Status | Data |
-|---|--------|--------|------|
-| — | Nenhuma ADR ainda | — | — |
+| #   | Título            | Status | Data |
+| --- | ----------------- | ------ | ---- |
+| —   | Nenhuma ADR ainda | —      | —    |
 
 ## Sobre ADRs
 
