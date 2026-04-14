@@ -66,6 +66,24 @@ O **Tracking de Produtos GO** cobre o ciclo completo de um SKU desde o cadastram
 3. Abra PR — mínimo 1 review do tech lead ou arquiteto de domínio
 4. Merge gera a decisão como oficial
 
+## Padrao Operacional do Time
+
+Para manter consistencia entre todos os devs que pegarem o tracking:
+
+- Board oficial de trabalho: **TCD** (Jira Board 2291)
+- Epico guarda-chuva do tracking: **TCD-9910**
+- Sempre vincular mudancas a uma task Jira antes de abrir PR
+- Prefixo de commit obrigatorio:
+    - Com task: `[TCD-XXXX] - Descricao da mudanca`
+    - Sem task: `[NO-JIRA] - Descricao da mudanca`
+- Branch recomendada: `feature/TCD-XXXX-descricao-curta`
+
+Exemplos de commit:
+
+- `[TCD-9911] - Cria models de tracking no domain`
+- `[TCD-9912] - Cria interfaces de service do pipeline`
+- `[NO-JIRA] - Ajusta links de navegacao do vault`
+
 ## Referências Externas (Confluence)
 
 [[referencias-confluence|Ver índice de páginas Confluence por tema →]]
