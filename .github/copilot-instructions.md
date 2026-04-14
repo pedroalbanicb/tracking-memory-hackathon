@@ -4,6 +4,10 @@
 
 Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de Produtos GO** — Casas Bahia Tech. Cobre o ciclo completo de um SKU 1P desde o cadastro até a exibição no site/loja.
 
+**Responsável:** Guilherme Maesta Domke de Thomaz (guilherme.thomaz@viavarejo.com.br)
+**Jira:** Projeto TCD — Board [2291](https://casasbahiatech.atlassian.net/jira/software/c/projects/TCD/boards/2291/backlog)
+**Épico Tracking:** [TCD-9910](https://casasbahiatech.atlassian.net/browse/TCD-9910)
+
 ## Estrutura
 
 | Pasta | Conteúdo |
