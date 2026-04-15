@@ -2,7 +2,7 @@
 tags: [meta, mapeamento, vault, indice, inconsistencias, tracking]
 tipo: meta-doc
 status: ativo
-updated: 2026-04-10
+updated: 2026-04-15
 autor: Pedro Martins
 ---
 
@@ -58,10 +58,55 @@ Arquivo removido. RFC foi simplificada — integração de agendamento (LN/Neogr
 | Atributo | Valor |
 |---|---|
 | Tipo | Índice da pasta ADR |
-| Status | ✅ Íntegro |
+| Status | ⚠️ Desatualizado |
 | Conteúdo | Descreve o propósito das ADRs, quando criar, status possíveis e padrão de nomenclatura |
 
-**Nenhuma inconsistência.** Índice declara corretamente que não há ADRs ainda.
+**Inconsistência:** O README diz "nenhuma ADR ainda" mas existem 5 ADRs criadas durante o hackathon (ADR-002 a ADR-006).
+
+---
+
+### `/ADR/ADR-002-contrato-api-tracking-skus-fase-1-graphql.md`
+
+| Atributo | Valor |
+|---|---|
+| Status frontmatter | `accepted` |
+| Conteúdo | Contrato do endpoint `POST /api/v1/tracking/skus/listar` com discriminador `tipoBusca` (sku/nome) via GraphQL |
+
+---
+
+### `/ADR/ADR-003-complementacao-dados-api-catalogo.md`
+
+| Atributo | Valor |
+|---|---|
+| Status frontmatter | `accepted` |
+| Conteúdo | Complementação de E01/E02/E03/E06/E07 via `GET /api/v1/produto-sku/selecionar` da API Catálogo |
+
+---
+
+### `/ADR/ADR-004-integracao-api-oferta-e05-e08.md`
+
+| Atributo | Valor |
+|---|---|
+| Status frontmatter | `accepted` |
+| Conteúdo | E05 (estoque via `DisponibilidadeEstoque`) e E08 (pricing via `Valido`) via API Oferta |
+
+---
+
+### `/ADR/ADR-005-analise-ia-gemini-vertex-tracking-sku.md`
+
+| Atributo | Valor |
+|---|---|
+| Status frontmatter | `accepted` |
+| Conteúdo | Análise IA de SKU via Google Vertex AI (Gemini 2.5 Flash). Implementação atual é stub — Gemini pendente. |
+
+---
+
+### `/ADR/ADR-006-componente-frontend-analise-ia-tracking-sku.md`
+
+| Atributo | Valor |
+|---|---|
+| Status frontmatter | `proposed` |
+| Conteúdo | Componente React `AnaliseIAPanel` no detalhe do SKU (frontend) — aguarda implementação |
 
 ---
 
