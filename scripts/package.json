@@ -4,12 +4,20 @@
   "description": "GraphQL test scripts for Tracking do Produto",
   "scripts": {
     "test:graphql": "node test-graphql.js",
-    "test:python": "python test-graphql.py"
+    "test:python": "python test-graphql.py",
+    "inspect:produto": "node inspect-produto-collection.js",
+    "capture:tracking-mock-inputs": "node capture-tracking-mock-inputs.js",
+    "generate:tracking-mocks": "node generate-tracking-mock-payload.js"
+  },
+  "dependencies": {
+    "mongodb": "^6.16.0"
   },
   "keywords": [
     "graphql",
     "tracking",
-    "teste"
+    "teste",
+    "mock",
+    "mongodb"
   ],
   "author": "Tracking Team",
   "license": "MIT"
