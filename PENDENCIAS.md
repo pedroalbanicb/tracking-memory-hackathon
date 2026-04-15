@@ -1,7 +1,7 @@
 ---
 tags: [tracking, pendencias, consolidado]
 status: ativo
-updated: 2026-04-10
+updated: 2026-04-15
 autor: Pedro Martins
 ---
 
@@ -13,16 +13,16 @@ autor: Pedro Martins
 
 ## 🔴 SME — Precisam de resposta de alguém
 
-| # | O que precisa | Pendência específica | Arquivo | Quem |
-|---|---------------|----------------------|---------|------|
-| S1 | API/tabela do Admin (site) | Qual endpoint ou tabela fornece `FlagSkuProduzido`? Admin tem API REST, evento Kafka ou é só interface gráfica? | [[E06-produzido]] | Juliana |
-| S2 | API/tabela do Admin (loja) | Qual endpoint ou tabela fornece `FlagSkuProduzidoLojaFisica`? Mesmo fluxo do site ou diferente? | [[E07-produzido-loja]] | Juliana |
-| S3 | Evento Kafka de conteúdo | Existe topic Kafka quando conteúdo do SKU é produzido no Admin? Se sim, qual? | [[E06-produzido]], [[E07-produzido-loja]] | Juliana |
-| S4 | Nome oficial do ERP | BAAN, LN e Infor — qual é o nome que o time usa? | [[E03-proposta-comercial]] | Ricardo |
-| S5 | Workbench é módulo ou sistema? | Citado como "Mapa de Comercialização → Contrato de Compras" — é tela dentro do LN ou app separado? | [[E04-agendamento]] | Ricardo |
-| S6 | Tabela de FlagSkuSaldoDisponivel | Douglas atribui ao `Sku`, query SQL sugere `SkuLojista` — qual tabela é a real? | [[E09-exibicao-site-loja]] | Douglas Wolff |
-| S7 | Valores EstoqueRestricao.Tipo | Só `'BT'` (bloqueio total) ou existem outros? `'BP'` (parcial) existe? | [[E05-estoque]] | Douglas Wolff |
-| S8 | Marca = tabela real? | Tabela `Marca` é realmente a origem da flag na query E09? | [[E09-exibicao-site-loja]] | Douglas Wolff |
+| # | O que precisa | Pendência específica | Arquivo | Quem | Status |
+|---|---------------|----------------------|---------|------|--------|
+| ~~S1~~ | ~~API/tabela do Admin (site)~~ | ~~`FlagSkuProduzido` endpoint?~~ | [[E06-produzido]] | ~~Juliana~~ | ✅ Resolvido: `Mercadorias[].Geral.FlagSkuProduzido` via API Catálogo (ADR-003) |
+| ~~S2~~ | ~~API/tabela do Admin (loja)~~ | ~~`FlagSkuProduzidoLojaFisica` endpoint?~~ | [[E07-produzido-loja]] | ~~Juliana~~ | ✅ Resolvido: `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` via API Catálogo (ADR-003) |
+| ~~S3~~ | ~~Evento Kafka de conteúdo~~ | ~~Topic Kafka quando SKU produzido?~~ | [[E06-produzido]], [[E07-produzido-loja]] | ~~Juliana~~ | ✅ Não necessário: dados via API Catálogo (leitura) |
+| S4 | Nome oficial do ERP | BAAN, LN e Infor — qual é o nome que o time usa? | [[E03-proposta-comercial]] | Ricardo | 🔴 Aberta |
+| S5 | Workbench é módulo ou sistema? | Citado como "Mapa de Comercialização → Contrato de Compras" — é tela dentro do LN ou app separado? | [[E04-agendamento]] | Ricardo | 🔴 Aberta |
+| S6 | Tabela de FlagSkuSaldoDisponivel | Douglas atribui ao `Sku`, query SQL sugere `SkuLojista` — qual tabela é a real? | [[E09-exibicao-site-loja]] | Douglas Wolff | 🔴 Aberta |
+| S7 | Valores EstoqueRestricao.Tipo | Só `'BT'` (bloqueio total) ou existem outros? `'BP'` (parcial) existe? | [[E05-estoque]] | Douglas Wolff | 🟡 Nice-to-have (E05 implementado via API Oferta) |
+| S8 | Marca = tabela real? | Tabela `Marca` é realmente a origem da flag na query E09? | [[E09-exibicao-site-loja]] | Douglas Wolff | 🔴 Aberta |
 
 ---
 
