@@ -34,19 +34,21 @@ updated: 2026-04-09
 | Interface                 | ✅ **API CATÁLOGO — confirmado**                                                                                                                                                                                                   |
 | Endpoint                  | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar`                                                                                                                                           |
 | Autenticação              | Header `apikey: [API_KEY_ENV]`                                                                                                                                                                                                    |
-| Parâmetro chave           | `IdSkuSite={id_sku}`                                                                                                                                                                                                              |
-| Seleção de campos         | `composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.DadosBasicos.FlagVendaBloqueada;Mercadorias.Controle.DataCadastro` |
+| Parâmetro chave           | `idSkuSite={id_sku}` ou `idSkuLoja={id_sku}`                                                                                                                                                                                                              |
+| Seleção de campos         | `composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.Controle.DataCadastro;Mercadorias.DadosBasicos.FlagContratoLiberado;Mercadorias.Geral.FlagSkuProduzido;Mercadorias.Geral.FlagSkuProduzidoLojaFisica` |
 | Frequência de atualização | Por evento (quando SKU é cadastrado)                                                                                                                                                                                              |
-| Chave de rastreamento     | `IdSkuSite`                                                                                                                                                                                                                       |
+| Chave de rastreamento     | `idSkuSite` ou `idSkuLoja`                                                                                                                                                                                                                       |
 
 ### Exemplo de Requisição (HLG)
 
 ```bash
 curl --request GET \
-  --url 'https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar?composicao=Geral.Nome%3BMercadorias.DadosBasicos.NomeTipoSku%3BMercadorias.DadosBasicos.FlagCrossDocking%3BMercadorias.DadosBasicos.FlagCompraBloqueada%3BMercadorias.Controle.DataCadastro&IdSkuSite={ID_SKU}' \
+  --url 'https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar?composicao=Geral.Nome%3BMercadorias.DadosBasicos.NomeTipoSku%3BMercadorias.DadosBasicos.FlagCrossDocking%3BMercadorias.DadosBasicos.FlagCompraBloqueada%3BMercadorias.Controle.DataCadastro%3BMercadorias.DadosBasicos.FlagContratoLiberado%3BMercadorias.Geral.FlagSkuProduzido%3BMercadorias.Geral.FlagSkuProduzidoLojaFisica&idSkuSite={ID_SKU}' \
   --header 'Content-Type: application/json' \
   --header 'apikey: [API_KEY_HLG]'
 ```
+
+> ℹ️ O parâmetro chave aceita tanto `idSkuSite` quanto `idSkuLoja`, dependendo do identificador disponível.
 
 ### Exemplo de Resposta
 
@@ -59,9 +61,13 @@ curl --request GET \
     {
       "DadosBasicos": {
         "FlagCrossDocking": 0,
-        "FlagVendaBloqueada": 0,
         "FlagCompraBloqueada": 0,
-        "NomeTipoSku": "NORMAL"
+        "NomeTipoSku": "NORMAL",
+        "FlagContratoLiberado": null
+      },
+      "Geral": {
+        "FlagSkuProduzido": 0,
+        "FlagSkuProduzidoLojaFisica": 0
       },
       "Controle": {
         "DataCadastro": "2026-02-13T00:00:00"
@@ -93,14 +99,16 @@ curl --request GET \
 
 ## Campos / Schema
 
-| Campo API | Campo Interno | Tipo | Descrição | Obrigatório |
-|-----------|---------------|------|-----------|-------------|
-| `Geral.Nome` | `nome` | string | Nome do produto | Sim |
-| `Mercadorias[].Controle.DataCadastro` | `data_cadastro` | datetime | Data/hora de criação no sistema | Sim |
-| `Mercadorias[].DadosBasicos.NomeTipoSku` | `tipo_produto` | enum | Normal, Crossdocking, Digital/Download, Pré-Lançamento | Sim |
-| `Mercadorias[].DadosBasicos.FlagCompraBloqueada` | `compra_bloqueada` | int (0/1) | `0` = liberado, `1` = bloqueado. Flag padrão ao nascer: `1` | Sim |
-| `Mercadorias[].DadosBasicos.FlagVendaBloqueada` | `venda_bloqueada` | int (0/1) | `0` = liberada, `1` = bloqueada | Sim |
-| `Mercadorias[].DadosBasicos.FlagCrossDocking` | `crossdocking` | int (0/1) | `0` = não, `1` = crossdocking | Sim |
+| Campo API | Campo Interno | Tipo | Descrição | Obrigatório | Etapa |
+|-----------|---------------|------|-----------|-------------|-------|
+| `Geral.Nome` | `nome` | string | Nome do produto | Sim | E01 |
+| `Mercadorias[].Controle.DataCadastro` | `data_cadastro` | datetime | Data/hora de criação no sistema | Sim | E01 |
+| `Mercadorias[].DadosBasicos.NomeTipoSku` | `tipo_produto` | enum | Normal, Crossdocking, Digital/Download, Pré-Lançamento | Sim | E01 |
+| `Mercadorias[].DadosBasicos.FlagCompraBloqueada` | `compra_bloqueada` | int (0/1) | `0` = liberado, `1` = bloqueado. Flag padrão ao nascer: `1` | Sim | E02 |
+| `Mercadorias[].DadosBasicos.FlagCrossDocking` | `crossdocking` | int (0/1) | `0` = não, `1` = crossdocking | Sim | E01 |
+| `Mercadorias[].DadosBasicos.FlagContratoLiberado` | `contrato_liberado` | boolean/null | `true` = contrato emitido, `null` = sem contrato | Sim | E03 |
+| `Mercadorias[].Geral.FlagSkuProduzido` | `produzido_site` | int (0/1) | `0` = não produzido, `1` = produzido para o site | Sim | E06 |
+| `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` | `produzido_loja_fisica` | int (0/1) | `0` = não produzido, `1` = produzido para loja física | Sim | E07 |
 
 ### Tipo Produto — Valores Possíveis
 
@@ -118,7 +126,12 @@ curl --request GET \
 - **Identificação do SKU** no painel de tracking — toda busca começa pelo `id_sku`
 - **Tipo de produto** determina quais etapas subsequentes se aplicam (ex: Digital/Download pula Estoque físico)
 - **Data de cadastro** é o marco zero para cálculo de lead-time total do SKU
-- **Compra bloqueada** sinaliza que o SKU está travado antes mesmo de chegar à E02
+- **Compra bloqueada** (E02) sinaliza que o SKU está travado antes mesmo de chegar à E03
+- **Contrato liberado** (E03) indica se a proposta comercial foi concluída no LN
+- **Produzido site** (E06) indica se o conteúdo do produto está pronto para publicação no site
+- **Produzido loja física** (E07) indica se o conteúdo do produto está pronto para loja física
+
+> ℹ️ Uma **única chamada** à API Catálogo retorna os dados necessários para as etapas E01, E02, E03, E06 e E07 do tracking. Isso simplifica a composição de dados no BFF.
 
 ---
 

@@ -95,15 +95,16 @@ A tabela exibe as seguintes colunas, nesta ordem:
 | 5   | Cadastro           | Ícone    | `✓` verde (E01)                                                                    |
 | 6   | Validação Fiscal   | Ícone    | `✓` verde · `✗` vermelho (E02)                                                     |
 | 7   | Proposta Comercial | Ícone    | `✓` verde · `✗` vermelho (E03)                                                     |
-| 8   | Estoque            | Ícone    | `✓` verde · `✗` vermelho (E05)                                                     |
-| 9   | Produzido Site     | Ícone    | `✓` verde · `✗` vermelho (E06)                                                     |
-| 10  | Produzido LF       | Ícone    | `✓` verde · `✗` vermelho (E07 — Loja Física)                                       |
-| 11  | Ativação Pricing   | Ícone    | `✓` verde · `✗` vermelho (E08)                                                     |
-| 12  | Exibição Site      | Ícone    | `✓` verde · `✗` vermelho (E09)                                                     |
-| 13  | Detalhes           | Ícone 👁 | Abre a tela de detalhe do SKU (§ 5.3)                                              |
+| 8   | Agendamento        | Ícone    | `✓` verde · `✗` vermelho · `—` cinza (E04)                                             |
+| 9   | Estoque            | Ícone    | `✓` verde · `✗` vermelho (E05)                                                     |
+| 10  | Produzido Site     | Ícone    | `✓` verde · `✗` vermelho (E06)                                                     |
+| 11  | Produzido LF       | Ícone    | `✓` verde · `✗` vermelho (E07 — Loja Física)                                       |
+| 12  | Ativação Pricing   | Ícone    | `✓` verde · `✗` vermelho (E08)                                                     |
+| 13  | Exibição Site      | Ícone    | `✓` verde · `✗` vermelho (E09)                                                     |
+| 14  | Detalhes           | Ícone 👁 | Abre a tela de detalhe do SKU (§ 5.3)                                              |
 
-> **E04 (Agendamento) não é exibido como coluna da tabela** — omitido do design conforme [Figma IC-Table](https://www.figma.com/design/QNFpM0akFGXYC2gfcjkHba/Tracking?node-id=122-5896).  
-> As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do tracking de produtos [[sku-lifecycle]].  
+> As colunas **Cadastro** a **Exibição Site** representam as 9 etapas do tracking de produtos [[sku-lifecycle]].  
+> O campo **Agendamento (E04)** foi adicionado ao contrato para manter alinhamento com o pipeline de 9 etapas (ver [[ADR-003-complementacao-dados-api-catalogo]]).  
 > Ver sistema de ícones em § 6.1.
 
 #### 5.2.4 Contrato de API — Listagem da Tabela
@@ -139,6 +140,7 @@ Para suportar a renderização da tabela de listagem, o backend deve expor um co
         "cadastro": true,
         "validacaoFiscal": false,
         "propostaComercial": true,
+        "agendamento": null,
         "estoque": true,
         "produzidoSite": true,
         "produzidoLf": true,
@@ -170,6 +172,7 @@ Para suportar a renderização da tabela de listagem, o backend deve expor um co
 | Cadastro (E01)           | `cadastro`          | boolean |
 | Validação Fiscal (E02)   | `validacaoFiscal`   | boolean |
 | Proposta Comercial (E03) | `propostaComercial` | boolean |
+| Agendamento (E04)        | `agendamento`       | boolean/null |
 | Estoque (E05)            | `estoque`           | boolean |
 | Produzido Site (E06)     | `produzidoSite`     | boolean |
 | Produzido LF (E07)       | `produzidoLf`       | boolean |

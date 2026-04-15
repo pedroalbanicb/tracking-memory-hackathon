@@ -19,12 +19,12 @@ autor: Pedro Martins
 | Métrica | Valor |
 |---------|-------|
 | Etapas totais | 9 |
-| ✅ Integradas (endpoint + campos testados) | 2 (E01, E02) |
-| ⚠️ Parcialmente mapeadas (fonte confirmada, integração pendente) | 5 (E03, E04, E05, E08, E09) |
-| 🟡 Sistema identificado apenas | 2 (E06, E07) |
+| ✅ Integradas (endpoint + campos testados) | 5 (E01, E02, E03, E06, E07) |
+| ⚠️ Parcialmente mapeadas (fonte confirmada, integração pendente) | 2 (E04, E05) |
+| 🟡 Flags confirmadas — interface a definir | 2 (E08, E09) |
 | 🔴 Totalmente sem mapeamento | 0 |
 | RFCs abertas | 0 |
-| ADRs registradas | 0 |
+| ADRs registradas | 2 (ADR-002, ADR-003) |
 | Decisões arquiteturais em aberto | 1 (API vs SQL — [[decisao-fonte-dados-tracking]]) |
 
 ---
@@ -36,7 +36,10 @@ autor: Pedro Martins
 | # | Etapa | Status | Fonte de Dados | Interface Testada | Gaps Abertos |
 |---|-------|--------|----------------|-------------------|-------------|
 | 1 | [[E01-cadastro-inicial]] | ✅ Integrado | API Catálogo | `GET /api/v1/produto-sku/selecionar` — testado via curl | 3 (nenhum bloqueante) |
-| 2 | [[E02-validacao-fiscal]] | ✅ Integrado | Tax Web → API Catálogo | Mesmo endpoint E01 — `FlagCompraBloqueada`, `FlagVendaBloqueada` | 3 (nenhum bloqueante) |
+| 2 | [[E02-validacao-fiscal]] | ✅ Integrado | Tax Web → API Catálogo | Mesmo endpoint E01 — `FlagCompraBloqueada` confirmado | 3 (nenhum bloqueante) |
+| 3 | [[E03-proposta-comercial]] | ✅ Integrado | API Catálogo / LN (Infor) | Mesmo endpoint — `FlagContratoLiberado` confirmado | 4 (nenhum bloqueante) |
+| 6 | [[E06-produzido]] | ✅ Integrado | Admin (escrita) / API Catálogo (leitura) | Mesmo endpoint — `FlagSkuProduzido` confirmado | 3 (nenhum bloqueante) |
+| 7 | [[E07-produzido-loja]] | ✅ Integrado | Admin (escrita) / API Catálogo (leitura) | Mesmo endpoint — `FlagSkuProduzidoLojaFisica` confirmado | 4 (nenhum bloqueante) |
 
 ### ⚠️ Fonte confirmada — integração a definir
 
@@ -50,10 +53,7 @@ autor: Pedro Martins
 
 ### 🟡 Sistema identificado — sem interface
 
-| # | Etapa | Status | Fonte de Dados | O que temos | O que falta | Gaps Bloqueantes |
-|---|-------|--------|----------------|-------------|-------------|-----------------|
-| 6 | [[E06-produzido]] | 🟡 Sistema ID | Admin | Nome do sistema (Juliana) | Tudo: API/tabela, campos reais, eventos | 4 abertos |
-| 7 | [[E07-produzido-loja]] | 🟡 Sistema ID | Admin | Nome do sistema (Juliana) | Tudo: API/tabela, campos reais, eventos | 5 abertos |
+> Nenhuma etapa nesta categoria. E06 e E07 foram promovidas para ✅ Integrado após confirmação de campos na API Catálogo (ADR-003, 2026-04-15).
 
 ---
 

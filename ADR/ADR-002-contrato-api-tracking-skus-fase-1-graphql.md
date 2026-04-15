@@ -88,11 +88,12 @@ Fonte: payload/query GraphQL compartilhado na discussao tecnica, 2026-04-14.
         "mercadoria": "MOEDOR DE CAFE MONDIAL MCF-01-BI PT/INOX 220V",
         "tipoNegociacao": "NORMAL",
         "cadastro": true,
-        "validacaoFiscal": null,
+        "validacaoFiscal": true,
         "propostaComercial": null,
+        "agendamento": null,
         "estoque": null,
-        "produzidoSite": null,
-        "produzidoLf": null,
+        "produzidoSite": false,
+        "produzidoLf": false,
         "ativacaoPricing": null,
         "exibicaoSite": null
       }
@@ -101,6 +102,8 @@ Fonte: payload/query GraphQL compartilhado na discussao tecnica, 2026-04-14.
   }
 }
 ```
+
+> **Nota (ADR-003):** Apos a consulta GraphQL, o BFF complementa os dados de cada item com uma chamada a API Catalogo (`GET /api/v1/produto-sku/selecionar`) para preencher E01, E02, E03, E06 e E07. O campo `agendamento` (E04) foi adicionado ao contrato para alinhamento com o pipeline de 9 etapas. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
 ### 2. Estrategia de query GraphQL por tipo de busca
 
@@ -148,16 +151,19 @@ where: {
 | `skuOn` | `items.dePara.idSkuOn` | map direto |
 | `mercadoria` | `items.nome` | map direto |
 | `tipoNegociacao` | `items.tipoMercadoria.nome` | uppercase na API |
-| `cadastro` (E01) | existencia do item + `situacaoCadastral.tipoSituacaoCadastral.nome` | `true` quando item encontrado |
-| `validacaoFiscal` (E02) | nao disponivel no GraphQL atual | `null` |
-| `propostaComercial` (E03) | nao disponivel no GraphQL atual | `null` |
+| `cadastro` (E01) | existencia do item + API Catalogo | `true` quando item encontrado (sempre true) |
+| `validacaoFiscal` (E02) | API Catalogo: `FlagCompraBloqueada` | `true` quando `FlagCompraBloqueada = 0` |
+| `propostaComercial` (E03) | API Catalogo: `FlagContratoLiberado` | `true` quando `FlagContratoLiberado = true`, `false` quando `false`, `null` quando ausente |
+| `agendamento` (E04) | nao disponivel — integracao a mapear | `null` |
 | `estoque` (E05) | nao disponivel no GraphQL atual | `null` |
-| `produzidoSite` (E06) | nao disponivel no GraphQL atual | `null` |
-| `produzidoLf` (E07) | nao disponivel no GraphQL atual | `null` |
+| `produzidoSite` (E06) | API Catalogo: `FlagSkuProduzido` | `true` quando `FlagSkuProduzido = 1` |
+| `produzidoLf` (E07) | API Catalogo: `FlagSkuProduzidoLojaFisica` | `true` quando `FlagSkuProduzidoLojaFisica = 1` |
 | `ativacaoPricing` (E08) | nao disponivel no GraphQL atual | `null` |
 | `exibicaoSite` (E09) | nao disponivel no GraphQL atual | `null` |
 
-Observacao: nesta ADR, os campos de etapa sem fonte nao serao inferidos como `false`, para evitar falso bloqueio no frontend. O preenchimento definitivo dessas etapas sera definido na proxima ADR de composicao de services.
+> **Atualizado (ADR-003):** E01, E02, E03, E06 e E07 agora sao preenchidos via API Catalogo (`GET /api/v1/produto-sku/selecionar`) como complementacao apos a consulta GraphQL. E04 (agendamento) foi adicionado ao contrato. Ver [[ADR-003-complementacao-dados-api-catalogo]].
+
+Observacao: para as etapas E04, E05, E08 e E09 sem fonte confirmada, os campos retornam `null`. O preenchimento definitivo dessas etapas sera definido em ADRs futuras.
 
 ### 4. Escopo explicito desta ADR
 
@@ -165,11 +171,13 @@ Inclui:
 - uso da fonte GraphQL como base de listagem;
 - definicao do contrato de entrada/saida da API na fase 1 com suporte a busca por SKU e por nome;
 - mapeamento de cobertura parcial para colunas do PRD;
-- estrategia de query GraphQL por tipo de busca (`tipoBusca`).
+- estrategia de query GraphQL por tipo de busca (`tipoBusca`);
+- campo `agendamento` (E04) no contrato de saida para alinhamento com pipeline de 9 etapas;
+- complementacao de E01, E02, E03, E06 e E07 via API Catalogo (ver [[ADR-003-complementacao-dados-api-catalogo]]).
 
 Nao inclui:
-- composicao com novas services por etapa do tracking;
-- regras finais de consolidacao para E02-E09;
+- composicao com novas services para E04, E05, E08, E09;
+- regras finais de consolidacao para E04, E05, E08, E09;
 - contrato final da tela de detalhe do SKU.
 
 ## Simplificacao da query GraphQL (o que nao usar nesta fase)

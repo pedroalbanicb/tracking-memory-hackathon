@@ -1,12 +1,12 @@
 ---
-tags: [tracking, pipeline, etapa, produzido, produzido-loja, admin, conteudo]
+tags: [tracking, pipeline, etapa, produzido, produzido-loja, admin, conteudo, catalogo]
 etapa: 7
 titulo: Produzido Loja Física
-status: mapeado-parcialmente
-origem: Admin
+status: integrado
+origem: API Catálogo (campo FlagSkuProduzidoLojaFisica)
 escopo: 1P apenas
-updated: 2026-04-09
-fonte: Juliana Dos Santos
+updated: 2026-04-15
+fonte: API Catálogo, composição Mercadorias.Geral.FlagSkuProduzidoLojaFisica
 ---
 
 # E07 — Produzido Loja Física
@@ -20,12 +20,14 @@ fonte: Juliana Dos Santos
 | Atributo | Valor |
 |----------|-------|
 | Etapa | 7 de 9 |
-| Sistema de Origem | **Admin** |
-| Status do Mapeamento | Sistema identificado — integração a mapear |
+| Sistema de Origem | **Admin** (escreve) / **API Catálogo** (leitura) |
+| Interface de Leitura | ✅ `GET /api/v1/produto-sku/selecionar` — campo `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` |
+| Escopo | **1P apenas** |
+| Status do Mapeamento | **Integrado — campo confirmado via API Catálogo** |
 | Etapa anterior | [[E06-produzido]] |
 | Próxima etapa | [[E08-ativacao-pricing]] |
 
-> ℹ️ **Fonte: Juliana Dos Santos (2026-04-09).** Sistema confirmado como **Admin**. Método de acesso ainda não definido.
+> ℹ️ **Fonte: ADR-003 (2026-04-15).** Interface de leitura confirmada como **API Catálogo** via campo `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica`.
 
 ---
 
@@ -33,10 +35,16 @@ fonte: Juliana Dos Santos
 
 | Método | Detalhe |
 |--------|---------|
-| Sistema | **Admin** |
-| Interface | ⚠️ A definir — API REST, banco, ou evento? |
+| Sistema de Origem | **Admin** — responsável por gravar a flag de produção |
+| Interface de Leitura | ✅ **API CATÁLOGO** — mesmo endpoint das etapas E01, E02, E03 e E06 |
+| Endpoint | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar` |
+| Autenticação | Header `apikey: [API_KEY_ENV]` |
+| Parâmetro chave | `idSkuSite={id_sku}` ou `idSkuLoja={id_sku}` |
+| Campo na composição | `Mercadorias.Geral.FlagSkuProduzidoLojaFisica` |
 | Frequência de atualização | Por evento — quando flag de produção de loja é atualizada |
-| Chave de rastreamento | `id_sku` |
+| Chave de rastreamento | `idSkuSite` ou `idSkuLoja` |
+
+> ℹ️ **Fonte: ADR-003 (2026-04-15).** Interface de leitura confirmada como **API Catálogo** via campo `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica`. O Admin continua sendo o sistema de origem; a API Catálogo é a interface de leitura. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
 ---
 
@@ -44,9 +52,11 @@ fonte: Juliana Dos Santos
 
 | Campo | Tipo | Descrição | Obrigatório |
 |-------|------|-----------|-------------|
-| `id_sku` | string | Identificador do SKU | Sim |
-| `produzido_loja_fisica` | enum (`S`/`N`) | Conteúdo produzido para loja física | Sim |
+| `idSkuSite` ou `idSkuLoja` | string | Identificador do SKU | Sim |
+| `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` | int (0/1) | `0` = não produzido, `1` = produzido para loja física | Sim |
 | `data_producao_loja` | datetime | Data em que o conteúdo da loja foi finalizado | Não |
+
+> ℹ️ **Mapeamento para o Tracking (ADR-003):** `FlagSkuProduzidoLojaFisica = 1` → `produzidoLf: true`; `= 0` → `produzidoLf: false`.
 
 ### O que significa "Produzido" para Loja Física
 

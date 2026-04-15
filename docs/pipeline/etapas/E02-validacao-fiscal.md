@@ -35,10 +35,10 @@ fonte: Juliana Dos Santos
 | Interface de Leitura | ✅ **API CATÁLOGO** — mesmo endpoint da [[E01-cadastro-inicial]] |
 | Endpoint | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar` |
 | Autenticação | Header `apikey: [API_KEY_ENV]` |
-| Parâmetro chave | `IdSkuSite={id_sku}` |
-| Seleção de campos | `composicao=...;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.DadosBasicos.FlagVendaBloqueada` |
+| Parâmetro chave | `idSkuSite={id_sku}` ou `idSkuLoja={id_sku}` |
+| Seleção de campos | `composicao=...;Mercadorias.DadosBasicos.FlagCompraBloqueada` |
 | Frequência de atualização | Por evento (quando a flag muda no Tax Web) |
-| Chave de rastreamento | `IdSkuSite` |
+| Chave de rastreamento | `idSkuSite` ou `idSkuLoja` |
 
 > ℹ️ **Fonte: Juliana Dos Santos (2026-04-09).** Sistema de origem confirmado como **Tax Web**. Interface de leitura confirmada como **API Catálogo** via curl testado em 2026-04-09.
 > ℹ️ Tax Web **escreve** as flags; API Catálogo é a **interface de leitura** — ambas as informações estão corretas.
@@ -64,6 +64,8 @@ fonte: Juliana Dos Santos
 | `FlagVendaBloqueada` | `1` | Venda **bloqueada** |
 
 > ℹ️ **Mapeamento com modelo anterior (legado):** a documentação anterior referia `ok_fiscal = 'S'/'N'` — isso era nomenclatura conceitual. Os campos reais na API são `FlagCompraBloqueada` e `FlagVendaBloqueada` com valores inteiros 0/1.
+
+> ℹ️ **Mapeamento para o Tracking (ADR-003):** O BFF utiliza `FlagCompraBloqueada` para preencher a coluna `validacaoFiscal` do contrato de tracking: `true` quando `FlagCompraBloqueada = 0` (liberado), `false` quando `= 1` (bloqueado). A composição completa da API Catálogo retorna este campo junto com os dados de outras etapas (E01, E03, E06, E07) em uma única chamada. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
 ---
 

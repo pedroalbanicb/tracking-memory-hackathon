@@ -39,11 +39,11 @@ Cad.   Fiscal  Comercial  Agend.  Estoque  Prod.Site  Prod.Loja  Pricing  Exibi�
 |---|-------|-------------------|-----------|--------|-----|
 | 1 | **Cadastro Inicial** | GO / API Catálogo | ✅ `GET /api/v1/produto-sku/selecionar` | Integrado | `docs/pipeline/etapas/E01-cadastro-inicial.md` |
 | 2 | **Validação Fiscal** | Tax Web → API Catálogo | ✅ Mesmo endpoint E01 | Integrado | `docs/pipeline/etapas/E02-validacao-fiscal.md` |
-| 3 | **Proposta Comercial** | LN (Infor) → API Catálogo | ⚠️ `ContratoLiberado` (null se sem contrato) | Parcial | `docs/pipeline/etapas/E03-proposta-comercial.md` |
+| 3 | **Proposta Comercial** | LN (Infor) → API Catálogo | ✅ `FlagContratoLiberado` (null se sem contrato) | Integrado | `docs/pipeline/etapas/E03-proposta-comercial.md` |
 | 4 | **Agendamento** | LN / Neogrid | 🔴 Integração a mapear | Pendente | `docs/pipeline/etapas/E04-agendamento.md` |
 | 5 | **Estoque** | Banco Inventario (SQL) | ⚠️ Query SQL confirmada — API a definir | Regras mapeadas | `docs/pipeline/etapas/E05-estoque.md` |
-| 6 | **Produzido Site** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E06-produzido.md` |
-| 7 | **Produzido Loja Física** | Admin | ⚠️ Sistema confirmado — interface a definir | Parcial | `docs/pipeline/etapas/E07-produzido-loja.md` |
+| 6 | **Produzido Site** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzido` via API Catálogo | Integrado | `docs/pipeline/etapas/E06-produzido.md` |
+| 7 | **Produzido Loja Física** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzidoLojaFisica` via API Catálogo | Integrado | `docs/pipeline/etapas/E07-produzido-loja.md` |
 | 8 | **Ativação Pricing** | GO/Admin → SQL (SkuLojista) | ⚠️ Flags SQL confirmadas — interface a definir | Flags confirmadas | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
 | 9 | **Exibição Site/Loja** | SQL Corp / MONGOS (MongoDB de Pricing) | ⚠️ Flags mapeadas — decisão API vs SQL pendente | Flags expandidas | `docs/pipeline/etapas/E09-exibicao-site-loja.md` |
 
@@ -113,16 +113,28 @@ Inventario.SaldoEstoqueRestricao.QuantidadeDisponivel > 0
 
 ---
 
-## API Confirmada — Catálogo (E01, E02, E03)
+## API Confirmada — Catálogo (E01, E02, E03, E06, E07)
 
 ```
 GET /api/v1/produto-sku/selecionar
 Host: gestaoproduto-catalogo-{env}.viavarejo.com.br
 Header: apikey: [API_KEY_ENV]
-Query: IdSkuSite={id_sku}&composicao=Geral.Nome;Mercadorias.DadosBasicos.*
+Query: idSkuSite={id_sku} (ou idSkuLoja={id_sku})
+       &composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.Controle.DataCadastro;Mercadorias.DadosBasicos.FlagContratoLiberado;Mercadorias.Geral.FlagSkuProduzido;Mercadorias.Geral.FlagSkuProduzidoLojaFisica
 ```
 
-Campos disponíveis: `Geral.Nome`, `DataCadastro`, `NomeTipoSku`, `FlagCompraBloqueada`, `FlagVendaBloqueada`, `FlagCrossDocking`, `ContratoLiberado`.
+Campos disponíveis e mapeamento para etapas do tracking:
+
+| Campo | Etapa | Regra |
+|-------|-------|-------|
+| `Geral.Nome` | E01 | Nome do produto |
+| `Mercadorias[].Controle.DataCadastro` | E01 | Data de cadastro |
+| `Mercadorias[].DadosBasicos.NomeTipoSku` | E01 | Tipo de produto |
+| `Mercadorias[].DadosBasicos.FlagCrossDocking` | E01 | Flag crossdocking |
+| `Mercadorias[].DadosBasicos.FlagCompraBloqueada` | E02 | `0` = validado fiscalmente |
+| `Mercadorias[].DadosBasicos.FlagContratoLiberado` | E03 | `true` = contrato emitido |
+| `Mercadorias[].Geral.FlagSkuProduzido` | E06 | `1` = produzido para site |
+| `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` | E07 | `1` = produzido para loja física |
 
 ---
 
@@ -130,10 +142,9 @@ Campos disponíveis: `Geral.Nome`, `DataCadastro`, `NomeTipoSku`, `FlagCompraBlo
 
 | Decisão | Status | Doc |
 |---------|--------|-----|
-| Fonte de dados: API vs SQL direto | 🔴 Em aberto | `docs/conceitos/decisao-fonte-dados-tracking.md` |
+| Fonte de dados: API vs SQL direto | � Parcialmente resolvido (E01-E03, E06, E07 via API Catálogo) | `docs/conceitos/decisao-fonte-dados-tracking.md` |
 | Integração agendamento (LN/Neogrid) | 🔴 Em aberto | `docs/pipeline/etapas/E04-agendamento.md` |
 | Método integração estoque (API vs banco) | 🔴 Em aberto | `docs/pipeline/etapas/E05-estoque.md` |
-| Método integração Admin (E06/E07) | 🔴 Em aberto | `docs/pipeline/etapas/E06-produzido.md` |
 | Endpoint leitura flags pricing | 🔴 Em aberto | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
 
 ---

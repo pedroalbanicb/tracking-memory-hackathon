@@ -208,6 +208,75 @@ Estimativa sugerida: 2 SP
 6. Task 6
 7. Task 7
 
+---
+
+## Tasks adicionais — ADR-003 (Complementacao API Catalogo)
+
+> Tasks criadas a partir da [[ADR-003-complementacao-dados-api-catalogo]], que define a complementacao de dados via API Catalogo para E01, E02, E03, E06 e E07, e a inclusao do campo `agendamento` (E04) no contrato.
+
+### 8) Atualizar composicao API Catalogo — novos campos E03/E06/E07
+
+- Jira: **TCD-9947** (Tarefa)
+- Labels: `tracking`, `hackathon`, `api-catalogo`
+- Dependencia: nenhuma
+
+Descricao:
+- Atualizar composicao com `FlagContratoLiberado`, `FlagSkuProduzido`, `FlagSkuProduzidoLojaFisica`
+- Remover `FlagVendaBloqueada` (nao utilizada)
+- Aceitar `idSkuSite` ou `idSkuLoja` como parametro chave
+
+Estimativa sugerida: 2 SP
+
+### 9) Implementar complementacao de dados via API Catalogo no service
+
+- Jira: **TCD-9948** (Tarefa)
+- Labels: `tracking`, `hackathon`, `service`
+- Dependencia: TCD-9947
+
+Descricao:
+- Chamar API Catalogo para cada item do GraphQL
+- Mapear flags para booleanos do contrato (E01=true, E02=FlagCompraBloqueada, E03=FlagContratoLiberado, E06=FlagSkuProduzido, E07=FlagSkuProduzidoLojaFisica)
+
+Estimativa sugerida: 5 SP
+
+### 10) Adicionar campo agendamento (E04) ao contrato de saida
+
+- Jira: **TCD-9949** (Tarefa)
+- Labels: `tracking`, `hackathon`, `contract`
+- Dependencia: nenhuma
+
+Descricao:
+- Adicionar campo `agendamento` (boolean/null) ao response model
+- Valor fixo `null` nesta fase
+
+Estimativa sugerida: 1 SP
+
+### 11) Atualizar testes unitarios para complementacao e agendamento
+
+- Jira: **TCD-9950** (Tarefa)
+- Labels: `tracking`, `hackathon`, `tests`
+- Dependencia: TCD-9948, TCD-9949
+
+Descricao:
+- Cobrir mapeamento E02/E03/E06/E07 via API Catalogo
+- Cenarios de erro (API indisponivel, timeout)
+- Campo `agendamento` sempre `null`
+
+Estimativa sugerida: 3 SP
+
+### 12) Adicionar coluna Agendamento e ajustar tracking no frontend
+
+- Jira: **TCD-9951** (Tarefa)
+- Labels: `tracking`, `hackathon`, `frontend`
+- Dependencia: TCD-9949
+
+Descricao:
+- Renderizar coluna Agendamento (E04) na tabela
+- Tratar `null` como icone cinza
+- Confirmar mapeamento de icones para E02/E03/E06/E07
+
+Estimativa sugerida: 3 SP
+
 ## Backlog da proxima fase (nao criar agora como parte do Epic acima)
 
 - ADR de composicao de services por etapa E02-E09.

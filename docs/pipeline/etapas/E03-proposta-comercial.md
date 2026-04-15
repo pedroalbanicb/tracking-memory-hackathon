@@ -2,11 +2,11 @@
 tags: [tracking, pipeline, etapa, comercial, ln, infor, baan, catalogo]
 etapa: 3
 titulo: Proposta Comercial
-status: integrado-parcialmente
+status: integrado
 origem: API Catálogo / LN (Infor)
 escopo: 1P apenas
-updated: 2026-04-09
-fonte: curl testado em 2026-04-09; API Catálogo (campo ContratoLiberado)
+updated: 2026-04-15
+fonte: curl testado em 2026-04-09; API Catálogo (campo FlagContratoLiberado)
 ---
 
 # E03 — Proposta Comercial
@@ -19,7 +19,7 @@ fonte: curl testado em 2026-04-09; API Catálogo (campo ContratoLiberado)
 |----------|-------|
 | Etapa | 3 de 9 |
 | Sistema de Origem | API Catálogo / LN (Infor) |
-| Interface confirmada | ✅ `GET /api/v1/produto-sku/selecionar` — campo `Mercadorias[].DadosBasicos.ContratoLiberado` |
+| Interface confirmada | ✅ `GET /api/v1/produto-sku/selecionar` — campo `Mercadorias[].DadosBasicos.FlagContratoLiberado` |
 | Escopo | **1P apenas** |
 | Status do Mapeamento | **Interface confirmada — campo null em SKUs novos (sem contrato)** |
 | Etapa anterior | [[E02-validacao-fiscal]] |
@@ -35,13 +35,15 @@ fonte: curl testado em 2026-04-09; API Catálogo (campo ContratoLiberado)
 | Interface | ✅ **API CATÁLOGO** — mesmo endpoint das etapas 1 e 2 |
 | Endpoint | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar` |
 | Autenticação | Header `apikey: [API_KEY_ENV]` |
-| Parâmetro chave | `IdSkuSite={id_sku}` |
-| Campo na composição | `Mercadorias.DadosBasicos.ContratoLiberado` |
+| Parâmetro chave | `idSkuSite={id_sku}` ou `idSkuLoja={id_sku}` |
+| Campo na composição | `Mercadorias.DadosBasicos.FlagContratoLiberado` |
 | Origin no ERP | LN (Infor) — tabelas BAAN — Workbench: Mapa de Comercialização → Contrato de Compras |
 | Frequência de atualização | Por evento — quando o contrato é emitido/alterado |
-| Chave de rastreamento | `IdSkuSite` |
+| Chave de rastreamento | `idSkuSite` ou `idSkuLoja` |
 
-> ⚠️ **Observação (testado em 2026-04-09):** O campo `Mercadorias[].DadosBasicos.ContratoLiberado` foi solicitado via `composicao` mas **não apareceu na resposta** do SKU `55072185` (Samsung Galaxy S26+ 5G 512GB, cadastrado em 2026-02-13). Isso indica que o campo retorna `null` / ausente quando o contrato ainda não foi gerado no LN para aquele SKU. O campo **existe** na API, mas só é populado após a emissão do contrato.
+> ⚠️ **Observação (testado em 2026-04-09):** O campo `Mercadorias[].DadosBasicos.FlagContratoLiberado` foi solicitado via `composicao` mas **não apareceu na resposta** do SKU `55072185` (Samsung Galaxy S26+ 5G 512GB, cadastrado em 2026-02-13). Isso indica que o campo retorna `null` / ausente quando o contrato ainda não foi gerado no LN para aquele SKU. O campo **existe** na API, mas só é populado após a emissão do contrato.
+
+> ℹ️ **Mapeamento para o Tracking (ADR-003):** Este campo é retornado na mesma chamada à API Catálogo que retorna dados de E01, E02, E06 e E07. O BFF mapeia `FlagContratoLiberado = true` → `propostaComercial: true`; `false` → `false`; `null/ausente` → `null`. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
 ---
 
@@ -49,7 +51,7 @@ fonte: curl testado em 2026-04-09; API Catálogo (campo ContratoLiberado)
 
 | Campo API | Campo Interno | Tipo | Descrição | Obrigatório |
 |-----------|---------------|------|-----------|-------------|
-| `Mercadorias[].DadosBasicos.ContratoLiberado` | `contrato_liberado` | boolean (null quando sem contrato) | Indica se o contrato de compra foi gerado no LN | Sim |
+| `Mercadorias[].DadosBasicos.FlagContratoLiberado` | `contrato_liberado` | boolean (null quando sem contrato) | Indica se o contrato de compra foi gerado no LN | Sim |
 | `data_emissao_contrato` | `data_emissao_contrato` | datetime | Data/hora do primeiro contrato emitido | Sim |
 | `id_mapa_comercializacao` | `id_mapa_comercializacao` | string | Referência ao mapa comercial no LN | Sim |
 | `fornecedor` | `fornecedor` | string | Fornecedor vinculado ao contrato | Não |
