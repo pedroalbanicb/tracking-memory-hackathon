@@ -80,10 +80,10 @@ Fonte: Guilherme Maesta Domke de Thomaz, 2026-04-15.
         "validacaoFiscal": true,
         "propostaComercial": null,
         "agendamento": null,
-        "estoque": null,
+        "estoque": true,
         "produzidoSite": false,
         "produzidoLf": false,
-        "ativacaoPricing": null,
+        "ativacaoPricing": true,
         "exibicaoSite": null
       }
     ],
@@ -100,10 +100,10 @@ Fonte: Guilherme Maesta Domke de Thomaz, 2026-04-15.
 | `validacaoFiscal` (E02) | `Mercadorias[].DadosBasicos.FlagCompraBloqueada` | boolean | `true` se `FlagCompraBloqueada = 0`; `false` se `= 1` |
 | `propostaComercial` (E03) | `Mercadorias[].DadosBasicos.FlagContratoLiberado` | boolean/null | `true` se `FlagContratoLiberado = true`; `false` se `= false`; `null` se campo ausente/null |
 | `agendamento` (E04) | — (fonte não integrada) | null | `null` — LN/Neogrid pendente |
-| `estoque` (E05) | — (fonte não integrada) | null | `null` — Banco Inventário pendente |
+| `estoque` (E05) | **API Oferta**: `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` | boolean | `true` quando `DisponibilidadeEstoque = true`. Ver [[ADR-004-integracao-api-oferta-e05-e08]] |
 | `produzidoSite` (E06) | `Mercadorias[].Geral.FlagSkuProduzido` | boolean | `true` se `FlagSkuProduzido = 1`; `false` se `= 0` |
 | `produzidoLf` (E07) | `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` | boolean | `true` se `FlagSkuProduzidoLojaFisica = 1`; `false` se `= 0` |
-| `ativacaoPricing` (E08) | — (fonte não integrada) | null | `null` — SQL SkuLojista pendente |
+| `ativacaoPricing` (E08) | **API Oferta**: `Valido` (raiz) | boolean | `true` quando `Valido = true`. Ver [[ADR-004-integracao-api-oferta-e05-e08]] |
 | `exibicaoSite` (E09) | — (fonte não integrada) | null | `null` — SQL Corp / MONGOS pendente |
 
 ### 4. Campo `agendamento` (E04) no contrato
@@ -127,9 +127,9 @@ Inclui:
 
 Não inclui:
 - Integração com LN/Neogrid para agendamento (E04)
-- Integração com Banco Inventário para estoque (E05)
-- Integração com SQL SkuLojista para pricing (E08)
 - Integração com SQL Corp / MONGOS para exibição (E09)
+
+> **Nota:** E05 (estoque) e E08 (ativacaoPricing) agora cobertos pela [[ADR-004-integracao-api-oferta-e05-e08]].
 
 ---
 
@@ -177,4 +177,5 @@ Não inclui:
 - [[E04-agendamento]] — Etapa 4
 - [[E06-produzido]] — Etapa 6
 - [[E07-produzido-loja]] — Etapa 7
+- [[ADR-004-integracao-api-oferta-e05-e08]] — E05 e E08 via API Oferta
 - [[sku-lifecycle]] — Pipeline completo
