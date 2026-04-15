@@ -64,3 +64,8 @@ Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de
   - `[TCD-9910] - Adiciona ADR-001 implementação services pipeline`
 - Sem task associada: `[NO-JIRA] - Descrição`
 - Descrição em português, imperativo, sem ponto final
+
+## Hackathon
+
+- **Label Jira:** `hackathon` em todas as issues relacionadas ao hackathon
+- **Tag Obsidian:** adicionar `hackathon` no frontmatter `tags` de todo doc gerado durante o hackathon
