@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const DEFAULT_INPUT = path.resolve(__dirname, "output", "tracking-mock-inputs.json");
 const DEFAULT_OUTPUT = path.resolve(__dirname, "output", "tracking-large-mock.generated.json");
@@ -130,12 +130,12 @@ function buildRecord(sourceItem, index) {
     skuOn: syntheticSkuOn,
     skuOff: syntheticSkuOff,
     mercadoria: sourceItem.mercadoria || `SKU MOCK ${sourceItem.skuOn}`,
-    tipoNegociacao: sourceItem.graphql && sourceItem.graphql.tipoMercadoria ? String(sourceItem.graphql.tipoMercadoria).toUpperCase() : "NORMAL",
+    tipoNegociacao: sourceItem.graphql?.tipoMercadoria ? String(sourceItem.graphql.tipoMercadoria).toUpperCase() : "NORMAL",
     mockControl: {
       scenario: scenario.key,
       sourceSkuOn: sourceItem.skuOn,
       generatedIndex: index,
-      enabledByFlag: "TRACKING_USE_BIG_MOCKS"
+      enabledByFlag: "TRACKING_PRESENTATION_MOCK_ENABLED"
     },
     ...scenario.stageValues,
     disponibilidade: sourceItem.disponibilidade,
@@ -163,20 +163,16 @@ function main() {
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    purpose: "Dataset auxiliar para futura implementacao de mocks em larga escala no tracking",
+    purpose: "Dataset auxiliar para mock temporario de apresentacao no tracking",
     featureFlags: {
-      enabledFlag: "TRACKING_USE_BIG_MOCKS",
-      modeFlag: "TRACKING_MOCK_MODE",
-      sourcePathFlag: "TRACKING_MOCK_SOURCE_PATH",
+      enabledFlag: "TRACKING_PRESENTATION_MOCK_ENABLED",
       defaults: {
-        TRACKING_USE_BIG_MOCKS: false,
-        TRACKING_MOCK_MODE: "passthrough",
-        TRACKING_MOCK_SOURCE_PATH: "scripts/output/tracking-large-mock.generated.json"
+        TRACKING_PRESENTATION_MOCK_ENABLED: false
       }
     },
     safeguards: {
-      defaultBehavior: "passthrough",
-      note: "Sem flag ativa, o consumidor futuro deve continuar chamando os servicos reais sem alteracao de comportamento."
+      defaultBehavior: "real-service",
+      note: "Sem a flag ativa, o consumidor futuro deve continuar chamando os servicos reais sem alteracao de comportamento."
     },
     servicesToMock: [
       "POST /api/v1/tracking/skus/listar",
