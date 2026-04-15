@@ -19,14 +19,6 @@
       overflow: hidden;
     }
 
-    /* ── TOKEN BANNER ────────────────────────────── */
-    .token-banner { background: #fff8e1; border-bottom: 1px solid #ffe082; padding: 8px 16px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; flex-shrink: 0; }
-    .token-banner.ok { background: #f0fff4; border-color: #9ae6b4; }
-    .token-banner input { flex: 1; padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 5px; font-size: 12px; font-family: monospace; }
-    .token-banner button { padding: 5px 12px; border-radius: 5px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; }
-    .token-save { background: #003087; color: #fff; }
-    .token-clear { background: #e2e8f0; color: #4a5568; }
-
     /* ── TOP BAR ──────────────────────────────── */
     .topbar { background: #5b21b6; color: #fff; height: 44px; display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; z-index: 100; }
     .topbar .logo { background: #fff; color: #5b21b6; font-weight: 800; font-size: 11px; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
@@ -159,14 +151,6 @@
 </head>
 <body>
 
-<!-- ── TOKEN BANNER ──────────────────────────────────────────── -->
-<div class="token-banner" id="tokenBanner">
-  <span id="tokenStatus">⚠️ JWT não configurado — cole o token para habilitar as chamadas à API local:</span>
-  <input type="password" id="tokenInput" placeholder="Cole aqui o JWT (sem 'Bearer ')" />
-  <button class="token-save" onclick="saveToken()">Salvar</button>
-  <button class="token-clear" onclick="clearToken()" style="display:none" id="btnClear">Limpar</button>
-</div>
-
 <!-- ── TOP BAR ──────────────────────────────────────────────── -->
 <div class="topbar">
   <span class="logo">CB</span>
@@ -217,47 +201,8 @@ const STAGES = [
   { key: 'exibicao',    apiField: 'exibicaoSite',      label: 'Exibição Site/Loja',    etapa: 'E09', sistema: 'SQL Corp/MONGOS',  area: 'Site / Loja Física',   origemType: 'blue',   detalhe: 'FlagAtiva (SKU · Produto · Marca · Categoria)' },
 ];
 
-// ═══════════════════════════════════════════════════════════════
-// JWT TOKEN (armazenado em localStorage)
-// ═══════════════════════════════════════════════════════════════
-function getToken() { return localStorage.getItem('gp_jwt') || ''; }
-
-function saveToken() {
-  const raw = document.getElementById('tokenInput').value.trim();
-  if (!raw) return;
-  const token = raw.startsWith('Bearer ') ? raw : 'Bearer ' + raw;
-  localStorage.setItem('gp_jwt', token);
-  updateTokenBanner();
-}
-
-function clearToken() {
-  localStorage.removeItem('gp_jwt');
-  document.getElementById('tokenInput').value = '';
-  updateTokenBanner();
-}
-
-function updateTokenBanner() {
-  const token = getToken();
-  const banner   = document.getElementById('tokenBanner');
-  const status   = document.getElementById('tokenStatus');
-  const btnClear = document.getElementById('btnClear');
-  const input    = document.getElementById('tokenInput');
-  if (token) {
-    banner.className = 'token-banner ok';
-    status.textContent = '✅ JWT configurado — chamadas à API local em ' + API_BASE;
-    input.value = token.substring(0, 30) + '…';
-    btnClear.style.display = '';
-  } else {
-    banner.className = 'token-banner';
-    status.textContent = '⚠️ JWT não configurado — cole o token para habilitar as chamadas à API local:';
-    btnClear.style.display = 'none';
-  }
-}
-
 function authHeaders() {
-  const token = getToken();
-  const h = { 'Content-Type': 'application/json' };
-  if (token) h['Authorization'] = token;
+  return { 'Content-Type': 'application/json' };
   return h;
 }
 
@@ -745,7 +690,6 @@ function renderDetailPage(trackItem, d) {
 // ═══════════════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════════════
-updateTokenBanner();
 showTrackingPage();
 </script>
 </body>
