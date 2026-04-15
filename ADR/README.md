@@ -7,7 +7,7 @@ Registro permanente de decisões técnicas e arquiteturais tomadas pelo time.
 | #   | Título                                                                                              | Status   | Data       |
 | --- | --------------------------------------------------------------------------------------------------- | -------- | ---------- |
 | 001 | [[ADR-001-implementacao-services-pipeline-steps\|Implementação de Services para Steps do Pipeline]] | Proposed | 2026-04-14 |
-| 002 | ADR de Front-end — Contrato de API para Tabela de Tracking                                          | Proposed | 2026-04-14 |
+| 002 | [[ADR-002-contrato-api-tracking-skus-fase-1-graphql\|Contrato de API de Tracking (Lista de SKUs) com Fonte Inicial GraphQL]] | Proposed | 2026-04-14 |
 
 ## Sobre ADRs
 

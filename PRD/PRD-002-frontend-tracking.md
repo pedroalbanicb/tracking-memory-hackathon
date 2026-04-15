@@ -19,7 +19,7 @@ prd-relacionado: "[[PRD-001-tracking-sku-lifecycle]]"
 
 ## 1. Problema
 
-Os analistas GO e gestores de categoria não possuem uma interface visual centralizada para acompanhar o ciclo de vida de um SKU 1P. O status de cada etapa do pipeline — fiscal, estoque, produção, pricing e exibição — está fragmentado em múltiplos sistemas (GO, TAX-WEB, LN, ADMIN, SQL), exigindo consultas manuais e dependência de pessoas específicas para diagnóstico.
+Os analistas GO e gestores de categoria não possuem uma interface visual centralizada para acompanhar o ciclo de vida de um SKU 1P. O status de cada etapa do tracking de produtos — fiscal, estoque, produção, pricing e exibição — está fragmentado em múltiplos sistemas (GO, TAX-WEB, LN, ADMIN, SQL), exigindo consultas manuais e dependência de pessoas específicas para diagnóstico.
 
 Ver contexto de negócio completo em [[PRD-001-tracking-sku-lifecycle]].
 
@@ -27,7 +27,7 @@ Ver contexto de negócio completo em [[PRD-001-tracking-sku-lifecycle]].
 
 Entregar um módulo de interface integrado ao sistema GO que permita:
 
-- Consultar e filtrar SKUs 1P pelo status de cada etapa do pipeline de forma unificada
+- Consultar e filtrar SKUs 1P pelo status de cada etapa do tracking de produtos de forma unificada
 - Identificar rapidamente quais etapas estão bloqueando um SKU
 - Acessar o detalhamento completo de um SKU com sua ficha cadastral e resumo visual de etapas
 
@@ -37,11 +37,11 @@ Entregar um módulo de interface integrado ao sistema GO que permita:
 | -------------------- | ----------------------------------------------------------------------------------- |
 | Analista GO          | Ver em qual etapa um SKU específico está bloqueado e quais campos causam o bloqueio |
 | Gerente de Categoria | Acompanhar o status de múltiplos SKUs de uma categoria de forma visual              |
-| TI / Suporte         | Identificar padrões de falha sistêmica por etapa do pipeline                        |
+| TI / Suporte         | Identificar padrões de falha sistêmica por etapa do tracking de produtos            |
 
 ## 4. Contexto
 
-Este PRD cobre exclusivamente os **requisitos de interface** do Tracking. Os requisitos de negócio, fontes de dados e regras do pipeline estão documentados em:
+Este PRD cobre exclusivamente os **requisitos de interface** do Tracking. Os requisitos de negócio, fontes de dados e regras do tracking de produtos estão documentados em:
 
 - [[PRD-001-tracking-sku-lifecycle]] — visão geral do produto
 - [[sku-lifecycle]] — pipeline de 9 etapas com fontes e campos por etapa
@@ -68,7 +68,7 @@ Ao clicar no item, o usuário é direcionado à tela de lista de produtos (§ 5.
 
 ### 5.2 Tela 1 — Lista de Produtos
 
-Tela principal do módulo. Exibe a lista de SKUs com o status de cada etapa do pipeline visível diretamente na tabela.
+Tela principal do módulo. Exibe a lista de SKUs com o status de cada etapa do tracking de produtos visível diretamente na tabela.
 
 #### 5.2.1 Toolbar
 
@@ -103,7 +103,7 @@ A tabela exibe as seguintes colunas, nesta ordem:
 | 13  | Detalhes           | Ícone 👁 | Abre a tela de detalhe do SKU (§ 5.3)                                              |
 
 > **E04 (Agendamento) não é exibido como coluna da tabela** — omitido do design conforme [Figma IC-Table](https://www.figma.com/design/QNFpM0akFGXYC2gfcjkHba/Tracking?node-id=122-5896).  
-> As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do pipeline [[sku-lifecycle]].  
+> As colunas **Cadastro** a **Exibição Site** representam as etapas exibidas do tracking de produtos [[sku-lifecycle]].  
 > Ver sistema de ícones em § 6.1.
 
 #### 5.2.4 Contrato de API — Listagem da Tabela
@@ -231,9 +231,9 @@ Ver detalhamento dos campos em [[E01-cadastro-inicial]].
 | Descrição Modelo                |
 | Código Produto Fornecedor (SKU) |
 
-#### 5.3.5 Seção — Status das Etapas do Pipeline
+#### 5.3.5 Seção — Status das Etapas do Tracking de Produtos
 
-Seção exibida após os dados do fabricante, listando as 9 etapas do pipeline. Cada etapa é apresentada como um **card/linha com background colorido** conforme seu estado:
+Seção exibida após os dados do fabricante, listando as 9 etapas do tracking de produtos. Cada etapa é apresentada como um **card/linha com background colorido** conforme seu estado:
 
 | Estado    | Background | Ícone | Significado      |
 | --------- | ---------- | ----- | ---------------- |

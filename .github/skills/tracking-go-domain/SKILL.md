@@ -1,6 +1,6 @@
 ---
 name: tracking-go-domain
-description: "Domínio Tracking GO — pipeline de 9 etapas do ciclo de vida do SKU 1P, regras de negócio, schemas, flags de exibição, integrações. USE quando: qualquer agent precisar de contexto de domínio para implementar, testar ou diagnosticar o sistema de tracking de produtos. Fonte de verdade: este repositório."
+description: "Domínio Tracking GO — tracking de produtos com 9 etapas do ciclo de vida do SKU 1P, regras de negócio, schemas, flags de exibição, integrações. USE quando: qualquer agent precisar de contexto de domínio para implementar, testar ou diagnosticar o sistema de tracking de produtos. Fonte de verdade: este repositório."
 ---
 
 # Skill: Tracking GO — Domínio de Produto
@@ -20,7 +20,7 @@ Esta skill expõe o conhecimento de domínio do tracking para que **qualquer age
 
 ## Quando Ativar
 
-- Menção a: tracking de produtos, ciclo de vida SKU, pipeline GO, etapas E01-E09
+- Menção a: tracking de produtos, ciclo de vida SKU, tracking GO, etapas E01-E09
 - Menção a: flags de exibição, SkuLojista, MONGOS, estoque/inventário
 - Menção a: produzido site/loja, ativação pricing, API Catálogo
 - Qualquer decisão sobre fontes de dados do tracking (API vs SQL)

@@ -1,0 +1,7272 @@
+{
+  "__schema": {
+    "queryType": {
+      "name": "RegistredQuerysType"
+    },
+    "mutationType": null,
+    "types": [
+      {
+        "kind": "OBJECT",
+        "name": "__Directive",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "locations",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          },
+          {
+            "name": "args",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          },
+          {
+            "name": "isRepeatable",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "onOperation",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "onFragment",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "onField",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "__DirectiveLocation",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__EnumValue",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "isDeprecated",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "deprecationReason",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Field",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "args",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "__Type",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "isDeprecated",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "deprecationReason",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__InputValue",
+        "fields": [
+          {
+            "name": "name",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "type",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "__Type",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "defaultValue",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "isDeprecated",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "deprecationReason",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Schema",
+        "fields": [
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "types",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          },
+          {
+            "name": "queryType",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "__Type",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mutationType",
+            "type": {
+              "kind": "OBJECT",
+              "name": "__Type",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subscriptionType",
+            "type": {
+              "kind": "OBJECT",
+              "name": "__Type",
+              "ofType": null
+            }
+          },
+          {
+            "name": "directives",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "__Type",
+        "fields": [
+          {
+            "name": "kind",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "ENUM",
+                "name": "__TypeKind",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "name",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "description",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fields",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "__Field"
+                }
+              }
+            }
+          },
+          {
+            "name": "interfaces",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "__Type"
+                }
+              }
+            }
+          },
+          {
+            "name": "possibleTypes",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "__Type"
+                }
+              }
+            }
+          },
+          {
+            "name": "enumValues",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "__EnumValue"
+                }
+              }
+            }
+          },
+          {
+            "name": "inputFields",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "__InputValue"
+                }
+              }
+            }
+          },
+          {
+            "name": "ofType",
+            "type": {
+              "kind": "OBJECT",
+              "name": "__Type",
+              "ofType": null
+            }
+          },
+          {
+            "name": "specifiedByURL",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "ENUM",
+        "name": "__TypeKind",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "String",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Boolean",
+        "fields": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "ApplyPolicy",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "RegistredQuerysType",
+        "fields": [
+          {
+            "name": "mercadorias",
+            "type": {
+              "kind": "OBJECT",
+              "name": "MercadoriasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "eans",
+            "type": {
+              "kind": "OBJECT",
+              "name": "EansCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "diretorias",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DiretoriasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "categorias",
+            "type": {
+              "kind": "OBJECT",
+              "name": "CategoriasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subCategorias",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubCategoriasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "especies",
+            "type": {
+              "kind": "OBJECT",
+              "name": "EspeciesCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subEspecies",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubEspeciesCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marcas",
+            "type": {
+              "kind": "OBJECT",
+              "name": "MarcasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tiposDeFornecedor",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TiposDeFornecedorCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "origens",
+            "type": {
+              "kind": "OBJECT",
+              "name": "OrigensCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tipoDeUnidades",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TipoDeUnidadesCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "modalidades",
+            "type": {
+              "kind": "OBJECT",
+              "name": "ModalidadesCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "atributos",
+            "type": {
+              "kind": "OBJECT",
+              "name": "AtributosCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "telefonias",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TelefoniasCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fabricantes",
+            "type": {
+              "kind": "OBJECT",
+              "name": "FabricantesCollectionSegment",
+              "ofType": null
+            }
+          },
+          {
+            "name": "telefoniaOperadoras",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TelefoniaOperadorasCollectionSegment",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MercadoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EanMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EanMercadoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DiretoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DiretoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CategoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubCategoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EspecieFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EspecieSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubEspecieFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubEspecieSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MarcaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MarcaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoFornecedorFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoFornecedorSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrigemFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "OrigemSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoUnidadeFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoUnidadeSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ModalidadeEntregaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ModalidadeEntregaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FabricanteFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FabricanteSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaOperadoraFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaOperadoraSortInput",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MercadoriasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Mercadoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Int",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EansCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EanMercadoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DiretoriasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Diretoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CategoriasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Categoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubCategoriasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SubCategoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EspeciesCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Especie"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubEspeciesCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SubEspecie"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MarcasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Marca"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TiposDeFornecedorCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "TipoFornecedor"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "OrigensCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Origem"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoDeUnidadesCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "TipoUnidade"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ModalidadesCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ModalidadeEntrega"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AtributosCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Atributo"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TelefoniasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Telefonia"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FabricantesCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Fabricante"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TelefoniaOperadorasCollectionSegment",
+        "fields": [
+          {
+            "name": "pageInfo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CollectionSegmentInfo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "items",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "TelefoniaOperadora"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "LongOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EstruturaGerencialFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EstruturaVitrineFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "StringOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoProdutoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ByteOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "IntOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CanalVendaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SituacaoCompraFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ModeloFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "BooleanOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ShortOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FiscalTributarioFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FornecedorMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "LogisticaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UnidadeFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PreVendaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CustoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SituacaoComercialFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfEanMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfImagemFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfArquivoMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfVideoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfSeoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfMercadoriaAtributoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfAgrupamentoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "SortEnumType",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaMercadoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EstruturaGerencialSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EstruturaVitrineSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoProdutoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoMercadoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CanalVendaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SituacaoCompraSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ModeloSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FiscalTributarioSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FornecedorMercadoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "LogisticaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "UnidadeSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "PreVendaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CustoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SituacaoComercialSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "GtinFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoEanFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateTimeOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "GtinSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoEanSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaDiretoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaDiretoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfAgrupamentoCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfEstruturaGerencialFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaCategoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaSubCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaSubCategoriaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaEspecieFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaEspecieSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaSubEspecieFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaSubEspecieSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MarcaAtributoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListFilterInputTypeOfMarcaFornecedorFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaMarcaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MarcaAtributoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DeParaMarcaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "BandeiraFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoGrupoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoCampoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoValorFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "BandeiraSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoGrupoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoCampoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AtributoValorSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaRegiaoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TelefoniaRegiaoSortInput",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CollectionSegmentInfo",
+        "fields": [
+          {
+            "name": "hasNextPage",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "hasPreviousPage",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Mercadoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaMercadoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEstruturaGerencial",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estruturaGerencial",
+            "type": {
+              "kind": "OBJECT",
+              "name": "EstruturaGerencial",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEstruturaVitrine",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estruturaVitrine",
+            "type": {
+              "kind": "OBJECT",
+              "name": "EstruturaVitrine",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idTipoProduto",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tipoProduto",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TipoProduto",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idTipoMercadoria",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Byte",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tipoMercadoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "TipoMercadoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idCanalVenda",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "canalVenda",
+            "type": {
+              "kind": "OBJECT",
+              "name": "CanalVenda",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idMarca",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marca",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Marca",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idMarcaFornecedor",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marcaFornecedor",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Marca",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSituacaoCompra",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "situacaoCompra",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SituacaoCompra",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idTelefonia",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "telefonia",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Telefonia",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idModelo",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "modelo",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Modelo",
+              "ofType": null
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fiscalTributario",
+            "type": {
+              "kind": "OBJECT",
+              "name": "FiscalTributario",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fornecedorMercadoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "FornecedorMercadoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "logistica",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Logistica",
+              "ofType": null
+            }
+          },
+          {
+            "name": "unidade",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Unidade",
+              "ofType": null
+            }
+          },
+          {
+            "name": "preVenda",
+            "type": {
+              "kind": "OBJECT",
+              "name": "PreVenda",
+              "ofType": null
+            }
+          },
+          {
+            "name": "custo",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Custo",
+              "ofType": null
+            }
+          },
+          {
+            "name": "situacaoCadastral",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SituacaoComercial",
+              "ofType": null
+            }
+          },
+          {
+            "name": "eans",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EanMercadoria"
+                }
+              }
+            }
+          },
+          {
+            "name": "imagens",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Imagem"
+                }
+              }
+            }
+          },
+          {
+            "name": "arquivos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ArquivoMercadoria"
+                }
+              }
+            }
+          },
+          {
+            "name": "videos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Video"
+                }
+              }
+            }
+          },
+          {
+            "name": "conteudos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Seo"
+                }
+              }
+            }
+          },
+          {
+            "name": "atributos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MercadoriaAtributo"
+                }
+              }
+            }
+          },
+          {
+            "name": "agrupamentos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Agrupamento"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EanMercadoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idGtin",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "gtin",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Gtin",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoEan",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoEan",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoEan",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagMotivo",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "vigenciaInicial",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "vigenciaFinal",
+            "type": {
+              "kind": "SCALAR",
+              "name": "DateTime",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Diretoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaDiretoria",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Categoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaCategoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "agrupamentos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AgrupamentoCategoria"
+                }
+              }
+            }
+          },
+          {
+            "name": "estruturas",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EstruturaGerencial"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubCategoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaSubCategoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estruturas",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EstruturaGerencial"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Especie",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaEspecie",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estruturas",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EstruturaGerencial"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubEspecie",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaSubEspecie",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estruturas",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "EstruturaGerencial"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Marca",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMarcaAtributo",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marcaAtributo",
+            "type": {
+              "kind": "OBJECT",
+              "name": "MarcaAtributo",
+              "ofType": null
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fornecedores",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "MarcaFornecedor"
+                }
+              }
+            }
+          },
+          {
+            "name": "dePara",
+            "type": {
+              "kind": "OBJECT",
+              "name": "DeParaMarca",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoFornecedor",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Origem",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoUnidade",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ModalidadeEntrega",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Atributo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idAtributoGrupo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "atributoGrupo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AtributoGrupo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idAtributoCampo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "atributoCampo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AtributoCampo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idAtributoValor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "atributoValor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "AtributoValor",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Telefonia",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idOperadora",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "operadora",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TelefoniaOperadora",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idRegiao",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "regiao",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TelefoniaRegiao",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Fabricante",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TelefoniaOperadora",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Long",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CategoriaVitrineFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubCategoriaVitrineFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EspecieVitrineFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Byte",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Short",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DecimalOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FornecedorFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoGarantiaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "DateOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TimeSpanOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoSituacaoCadastralFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ImagemFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ArquivoMercadoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "VideoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SeoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MercadoriaAtributoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AgrupamentoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "CategoriaVitrineSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "SubCategoriaVitrineSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "EspecieVitrineSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "FornecedorSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoGarantiaSortInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoSituacaoCadastralSortInput",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "DateTime",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "AgrupamentoCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "MarcaFornecedorFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Decimal",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "Date",
+        "fields": null
+      },
+      {
+        "kind": "SCALAR",
+        "name": "TimeSpan",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ArquivoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoAgrupamentoFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "GrupoCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "ListByteOperationFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "INPUT_OBJECT",
+        "name": "TipoGrupoCategoriaFilterInput",
+        "fields": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EstruturaGerencial",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idDiretoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "diretoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Diretoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Categoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idSubCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "subCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SubCategoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idEspecie",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "especie",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Especie",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idSubEspecie",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subEspecie",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubEspecie",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaMercadoria",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSkuLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSkuOn",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idKitLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tipo",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EstruturaVitrine",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoriaVitrine",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "categoriaVitrine",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "CategoriaVitrine",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idSubCategoriaVitrine",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "subCategoriaVitrine",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "SubCategoriaVitrine",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idEspecieVitrine",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "especieVitrine",
+            "type": {
+              "kind": "OBJECT",
+              "name": "EspecieVitrine",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoProduto",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoMercadoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CanalVenda",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SituacaoCompra",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Modelo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMarca",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marca",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Marca",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idFabricante",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "fabricante",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Fabricante",
+              "ofType": null
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FiscalTributario",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idOrigem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "origem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Origem",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoFornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoFornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoFornecedor",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "taxaIPI",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Decimal",
+              "ofType": null
+            }
+          },
+          {
+            "name": "codigoExcecaoTaxaIPI",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ncm",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "cest",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "portaria",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "flagPPB",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagMpDoBem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagBrinde",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "FornecedorMercadoria",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "fornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Fornecedor",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoGarantia",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoGarantia",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoGarantia",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "quantidadeGarantia",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "codigoSkuFornecedor",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Logistica",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idModalidadeEntrega",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "modalidadeEntrega",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ModalidadeEntrega",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "quantidadeVolume",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "pesoBruto",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "embalagemAltura",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "embalagemLargura",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "embalagemComprimento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "pesoLiquido",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "produtoAltura",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "produtoLargura",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "produtoComprimento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "cubagem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagControleLote",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Unidade",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoUnidade",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoUnidade",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoUnidade",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "quantidadeUnitario",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "quantidadeCaixa",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "PreVenda",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "data",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Date",
+              "ofType": null
+            }
+          },
+          {
+            "name": "hora",
+            "type": {
+              "kind": "SCALAR",
+              "name": "TimeSpan",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Custo",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "precoSugestao",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "precoAnuncio",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Decimal",
+              "ofType": null
+            }
+          },
+          {
+            "name": "precoLimite",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Decimal",
+              "ofType": null
+            }
+          },
+          {
+            "name": "custoAVista",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Decimal",
+              "ofType": null
+            }
+          },
+          {
+            "name": "custoFornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Decimal",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SituacaoComercial",
+        "fields": [
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoSituacaoCadastral",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoSituacaoCadastral",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoSituacaoCadastral",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoSituacaoComercial",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagSkuProduzido",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagCompraSuspensa",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "flagSomenteVendaConjunto",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            }
+          },
+          {
+            "name": "flagCompraProibida",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Imagem",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoImagem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "extensao",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "link",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ArquivoMercadoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idArquivo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "arquivo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Arquivo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "link",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Video",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "compartilhador",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "link",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Seo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nomeVitrine",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "tituloSite",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "palavraChave",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "texto",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "metaTagDescription",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MercadoriaAtributo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idAtributo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "atributo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Atributo",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Agrupamento",
+        "fields": [
+          {
+            "name": "idAgrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "mercadoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Mercadoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoAgrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoAgrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoAgrupamento",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMercadoriaPai",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "mercadoriaPai",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Mercadoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idMercadoriaAgrupador",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Long",
+              "ofType": null
+            }
+          },
+          {
+            "name": "mercadoriaAgrupador",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Mercadoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Gtin",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoGtin",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoEan",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaDiretoria",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idDiretoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idDiretoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "diretoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Diretoria",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaCategoria",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Categoria",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AgrupamentoCategoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idGrupoCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "grupoCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "GrupoCategoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Categoria",
+                "ofType": null
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaSubCategoria",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Categoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subCategoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubCategoria",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaEspecie",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Categoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subCategoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubCategoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEspecieHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEspecieLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "especie",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Especie",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaSubEspecie",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "categoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Categoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubCategoriaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subCategoria",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubCategoria",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEspecieHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idEspecieLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "especie",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Especie",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubEspecieHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idSubEspecieLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "subEspecie",
+            "type": {
+              "kind": "OBJECT",
+              "name": "SubEspecie",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MarcaAtributo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idBandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "bandeira",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Bandeira",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nomeVitrine",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "telefone",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "email",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "observacaoSAC",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "exibe",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "MarcaFornecedor",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMarca",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "marca",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Marca",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "fornecedor",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Fornecedor",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ordem",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "DeParaMarca",
+        "fields": [
+          {
+            "name": "agrupamento",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idMarcaHub",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "idMarcaLoja",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Int",
+              "ofType": null
+            }
+          },
+          {
+            "name": "marca",
+            "type": {
+              "kind": "OBJECT",
+              "name": "Marca",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Bandeira",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AtributoGrupo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AtributoCampo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "AtributoValor",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TelefoniaRegiao",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "GrupoCategoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idTipoGrupoCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "tipoGrupoCategoria",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TipoGrupoCategoria",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          },
+          {
+            "name": "agrupamentos",
+            "type": {
+              "kind": "LIST",
+              "name": null,
+              "ofType": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "AgrupamentoCategoria"
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoAgrupamento",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Arquivo",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Long",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "extensao",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "binario",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoSituacaoCadastral",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoGarantia",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Byte",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "Fornecedor",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "cpfCnpj",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "inscricaoEstadual",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "cep",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "logradouro",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "numero",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "complemento",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "bairro",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "municipio",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "estado",
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EspecieVitrine",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "SubCategoriaVitrine",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "CategoriaVitrine",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      },
+      {
+        "kind": "OBJECT",
+        "name": "TipoGrupoCategoria",
+        "fields": [
+          {
+            "name": "id",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Short",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "nome",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "ativo",
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              }
+            }
+          },
+          {
+            "name": "idFuncionario",
+            "type": {
+              "kind": "SCALAR",
+              "name": "Short",
+              "ofType": null
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -9,7 +9,7 @@ updated: 2026-04-09
 
 # E01 — Cadastro Inicial do Produto
 
-> Primeira etapa do pipeline de tracking. Um SKU nasce aqui — sem essa etapa, não existe nas etapas seguintes.
+> Primeira etapa do tracking de produtos. Um SKU nasce aqui — sem essa etapa, não existe nas etapas seguintes.
 
 ## Visão Geral
 
@@ -85,7 +85,7 @@ curl --request GET \
 | **1P** | SKU nasce como **SKU OFF** (backoffice); SKU ON é criado separadamente para o site |
 | ~~3P~~ | ~~Fora do escopo do tracking~~                                                     |
 
-- O pipeline de tracking opera sobre o **SKU OFF** (backoffice / portal GO)
+- O tracking de produtos opera sobre o **SKU OFF** (backoffice / portal GO)
 - A carga inicial do painel usa os SKUs já existentes no portal GO
 - Para 1P: SKU OFF é o SKU do backoffice; SKU ON é o que aparece no site para o cliente
 

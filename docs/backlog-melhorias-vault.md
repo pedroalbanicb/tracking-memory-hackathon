@@ -17,7 +17,7 @@ autor: Pedro Martins
 **Arquivos:** [[E06-produzido]], [[E07-produzido-loja]]
 **Problema:** Ambos têm estrutura completa mas quase zero informação confirmada. A maioria dos campos é hipotética. São as etapas menos mapeadas do vault.
 **Ação:** Após discovery do Admin (Juliana / Time Conteúdo), preencher ou condensar em um único doc com duas seções (Site vs Loja).
-**Impacto:** Médio — etapas do pipeline que precisam de dados reais.
+**Impacto:** Médio — etapas do tracking de produtos que precisam de dados reais.
 **Depende de:** PENDENCIAS S1, S2, S3.
 
 ---

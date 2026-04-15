@@ -1,0 +1,42 @@
+{
+  "mercadorias": {
+    "pageInfo": {
+      "hasNextPage": false,
+      "hasPreviousPage": false
+    },
+    "items": [
+      {
+        "id": 293448,
+        "nome": "MOEDOR DE CAFE MONDIAL MCF-01-BI PT/INOX 220V",
+        "dePara": {
+          "idSkuLoja": 5368715,
+          "idSkuOn": 55072185,
+          "idKitLoja": null
+        },
+        "tipoMercadoria": {
+          "id": 1,
+          "nome": "Normal"
+        },
+        "situacaoCompra": {
+          "id": "A",
+          "nome": "Em Linha",
+          "ativo": true
+        },
+        "estruturaGerencial": {
+          "categoria": {
+            "id": 14,
+            "nome": "PORTATEIS"
+          }
+        },
+        "situacaoCadastral": {
+          "tipoSituacaoCadastral": {
+            "nome": "OK"
+          },
+          "flagCompraSuspensa": false,
+          "flagCompraProibida": false
+        },
+        "preVenda": null
+      }
+    ]
+  }
+}

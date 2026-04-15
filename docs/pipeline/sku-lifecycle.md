@@ -4,14 +4,14 @@ tipo: indice-pipeline
 updated: 2026-04-09
 ---
 
-# Pipeline — Ciclo de Vida do SKU
+# Tracking de Produtos — Ciclo de Vida do SKU
 
 > Fonte original: Whiteboard GO - Tracking de Produtos (Confluence CDPO)
 > Migrado para repositório em: 2026-04-09
 
 ## Objetivo
 
-Mapear em qual **estado** um SKU se encontra em cada ponto de verificação do pipeline — desde o **cadastramento inicial** até a **disponibilidade para compra** no site ou loja física.
+Mapear em qual **estado** um SKU se encontra em cada ponto de verificação do tracking de produtos — desde o **cadastramento inicial** até a **disponibilidade para compra** no site ou loja física.
 
 > ⚠️ **Modelo de Steps Independentes (atualizado 10/04/2026)**
 >
@@ -39,7 +39,7 @@ Para um SKU aparecer no tracking, ele deve atender:
 
 ---
 
-## Etapas do Pipeline
+## Etapas do Tracking de Produtos
 
 > Cada etapa é um **checkpoint de estado independente**. A numeração é ordenação lógica, não dependência sequencial. Cada step consulta um sistema diferente para verificar o estado do SKU naquele ponto.
 

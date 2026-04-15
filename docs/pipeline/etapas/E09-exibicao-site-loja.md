@@ -21,7 +21,7 @@ fonte: Juliana Dos Santos; Ricardo Tadeu Lima; Douglas Souza Wolff — reunião 
 | Sistema de Origem    | **SkuLojista / SKU / Produto (SQL Corp) → MONGOS (MongoDB de Pricing)** |
 | Status do Mapeamento | **Regras mapeadas — método de integração a definir**          |
 | Etapa anterior       | [[E08-ativacao-pricing]]                                      |
-| Próxima etapa        | ✅ SKU ATIVO — fim do pipeline                                 |
+| Próxima etapa        | ✅ SKU ATIVO — fim do tracking de produtos                     |
 
 > ℹ️ **Fonte: Juliana Dos Santos (2026-04-09)** — sistema confirmado: Corp (SQL Server corporativo — banco compartilhado). **Ricardo Tadeu Lima (09/04/2026)** — flags, fluxo de propagação e dependência do MongoDB (MONGOS) mapeados. **Pedro Martins (10/04/2026)** — "Corp" confirmado como SQL Server corporativo, não API nem time.
 

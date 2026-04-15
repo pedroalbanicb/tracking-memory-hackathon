@@ -37,7 +37,7 @@ updated: 2026-04-09
 Para produtos **1P**, o SKU ON e o SKU OFF podem ter dados divergentes:
 - Preço pode estar diferente (promoção aplicada só no site)
 - Status de disponibilidade pode divergir entre canais
-- O pipeline de tracking foca no **SKU OFF** (origem dos dados)
+- O tracking de produtos foca no **SKU OFF** (origem dos dados)
 
 ### 3P — Dados Unificados
 
@@ -48,7 +48,7 @@ Para produtos **3P** (marketplace):
 
 ---
 
-## Impacto no Pipeline de Tracking
+## Impacto no Tracking de Produtos
 
 | Etapa | Impacto 1P | Impacto 3P |
 |-------|------------|------------|
@@ -72,6 +72,6 @@ Para produtos **3P** (marketplace):
 
 ## Referências
 
-- [[sku-lifecycle]] — Pipeline completo
+- [[sku-lifecycle]] — Tracking completo
 - [[PRD-001-tracking-sku-lifecycle]] — Requisitos do produto
 - [[E01-cadastro-inicial]] — Etapa de cadastro (origem do SKU)

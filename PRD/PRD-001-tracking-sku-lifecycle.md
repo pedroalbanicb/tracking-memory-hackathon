@@ -27,7 +27,7 @@ Isso gera:
 
 ## Objetivo
 
-Fornecer uma **visão unificada do status de um SKU** em todas as etapas do pipeline, desde o cadastro inicial até a disponibilidade para compra no site/loja física.
+Fornecer uma **visão unificada do status de um SKU** em todas as etapas do tracking de produtos, desde o cadastro inicial até a disponibilidade para compra no site/loja física.
 
 ## Usuários
 
@@ -37,7 +37,7 @@ Fornecer uma **visão unificada do status de um SKU** em todas as etapas do pipe
 | Gerente de Categoria | Acompanhar % de SKUs ativos por categoria |
 | TI / Suporte | Identificar falhas sistêmicas por etapa |
 
-## Pipeline de Etapas
+## Etapas do Tracking de Produtos
 
 Ver detalhamento completo em [[sku-lifecycle]].
 
