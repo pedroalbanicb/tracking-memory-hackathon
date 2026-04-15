@@ -1,6 +1,6 @@
 ---
 tags: [tracking, adr, api, catalogo, complementacao, hackathon]
-status: proposed
+status: accepted
 data: 2026-04-15
 autores: [Guilherme Maesta Domke de Thomaz]
 rfc-relacionada:
@@ -9,7 +9,7 @@ updated: 2026-04-15
 
 # ADR-003 — Complementação de Dados via API Catálogo para Etapas E01–E07
 
-**Status:** Proposed  
+**Status:** Accepted (implementado em 2026-04-15)  
 **Data:** 2026-04-15  
 **Autores:** Guilherme Maesta Domke de Thomaz  
 **RFC relacionada:** N/A  
