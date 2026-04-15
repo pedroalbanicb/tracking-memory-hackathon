@@ -2,15 +2,14 @@
 tags: [tracking, discovery, status, hackathon, consolidado]
 tipo: tracker
 status: ativo
-updated: 2026-04-10
+updated: 2026-04-15
 autor: Pedro Martins
 ---
 
 # Discovery Status — Tracking GO (Hackathon)
 
 > Visão consolidada do progresso do discovery por etapa, gaps bloqueantes e próximas ações.
-> **Deadline: 10/04/2026** — o que falta para fechar o mapeamento do pipeline.
-> Varredura completa do vault concluída. Redundância removida.
+> **Atualizado em 2026-04-15**: E05 e E08 implementados via API Oferta (ADR-004). ADRs 002–006 finalizadas.
 
 ---
 
@@ -19,35 +18,40 @@ autor: Pedro Martins
 | Métrica | Valor |
 |---------|-------|
 | Etapas totais | 9 |
-| ✅ Integradas (endpoint + campos testados) | 5 (E01, E02, E03, E06, E07) |
-| ⚠️ Parcialmente mapeadas (fonte confirmada, integração pendente) | 2 (E04, E05) |
-| 🟡 Flags confirmadas — interface a definir | 2 (E08, E09) |
+| ✅ Implementadas (endpoint funcional) | 7 (E01, E02, E03, E05, E06, E07, E08) |
+| ⚠️ Stubs (endpoint existe, retorna 501/dados parciais) | 2 (E04, E09) |
 | 🔴 Totalmente sem mapeamento | 0 |
 | RFCs abertas | 0 |
-| ADRs registradas | 2 (ADR-002, ADR-003) |
-| Decisões arquiteturais em aberto | 1 (API vs SQL — [[decisao-fonte-dados-tracking]]) |
+| ADRs registradas | 5 (ADR-002 a ADR-006) |
+| Decisões arquiteturais em aberto | 0 — decidido API Oferta para E05/E08 (ADR-004) |
 
 ---
 
 ## Status por Etapa
 
-### ✅ Prontas para implementação
+### ✅ Implementadas
 
-| # | Etapa | Status | Fonte de Dados | Interface Testada | Gaps Abertos |
-|---|-------|--------|----------------|-------------------|-------------|
-| 1 | [[E01-cadastro-inicial]] | ✅ Integrado | API Catálogo | `GET /api/v1/produto-sku/selecionar` — testado via curl | 3 (nenhum bloqueante) |
-| 2 | [[E02-validacao-fiscal]] | ✅ Integrado | Tax Web → API Catálogo | Mesmo endpoint E01 — `FlagCompraBloqueada` confirmado | 3 (nenhum bloqueante) |
-| 3 | [[E03-proposta-comercial]] | ✅ Integrado | API Catálogo / LN (Infor) | Mesmo endpoint — `FlagContratoLiberado` confirmado | 4 (nenhum bloqueante) |
-| 6 | [[E06-produzido]] | ✅ Integrado | Admin (escrita) / API Catálogo (leitura) | Mesmo endpoint — `FlagSkuProduzido` confirmado | 3 (nenhum bloqueante) |
-| 7 | [[E07-produzido-loja]] | ✅ Integrado | Admin (escrita) / API Catálogo (leitura) | Mesmo endpoint — `FlagSkuProduzidoLojaFisica` confirmado | 4 (nenhum bloqueante) |
+| # | Etapa | Status | Fonte de Dados | Implementação | Notas |
+|---|-------|--------|----------------|--------------|-------|
+| 1 | [[E01-cadastro-inicial]] | ✅ Implementado | API Catálogo | `TrackingCadastroService` + `TrackingCatalogoRepositorio` | Via listagem (`POST /tracking/skus/listar`) e analise-ia |
+| 2 | [[E02-validacao-fiscal]] | ✅ Implementado | API Catálogo | `TrackingValidacaoFiscalService` | `FlagCompraBloqueada` do endpoint E01 |
+| 3 | [[E03-proposta-comercial]] | ✅ Implementado | API Catálogo | `TrackingPropostaComercialService` | `FlagContratoLiberado` — retorna null quando sem contrato |
+| 5 | [[E05-estoque]] | ✅ Implementado | API Oferta | `TrackingOfertaRepositorio` | `DisponibilidadeEstoque` em `PrecoSkus[0].PrecoVenda` |
+| 6 | [[E06-produzido]] | ✅ Implementado | API Catálogo | `TrackingProduzidoSiteService` | `FlagSkuProduzido` |
+| 7 | [[E07-produzido-loja]] | ✅ Implementado | API Catálogo | `TrackingProduzidoLojaService` | `FlagSkuProduzidoLojaFisica` |
+| 8 | [[E08-ativacao-pricing]] | ✅ Implementado | API Oferta | `TrackingOfertaRepositorio` | `Valido` na raiz da response da API Oferta |
 
-### ⚠️ Fonte confirmada — integração a definir
+### ⚠️ Stubs (pendente de integração)
 
-| # | Etapa | Status | Fonte de Dados | O que temos | O que falta | Gaps Bloqueantes |
-|---|-------|--------|----------------|-------------|-------------|-----------------|
-| 3 | [[E03-proposta-comercial]] | ⚠️ Parcial | API Catálogo / LN | Campo `ContratoLiberado` na API (null quando sem contrato) | `data_emissao_contrato` path na composição; múltiplos contratos? | 4 abertos |
-| 4 | [[E04-agendamento]] | ⚠️ Parcial | LN → Neogrid | Sistemas confirmados (Juliana). **Falta documentar info do Alonso Dias Assuncao** (fluxo, Databricks, query SQL) | Método de integração pendente | 5 abertos |
-| 5 | [[E05-estoque]] | ⚠️ Regras mapeadas | Banco Inventario (SQL) | Query SQL completa, schema `Inventario`, 14 campos confirmados | Método integração (API vs banco direto); valores `TipoEstoque` | 7 abertos (1 🔴) |
+| # | Etapa | Status | Blocker | ADR/Decisão |
+|---|-------|--------|---------|-------------|
+| 4 | [[E04-agendamento]] | ⚠️ Stub (501) | Falta documentação do fluxo LN/Neogrid (Alonso Dias Assuncao) | Nenhuma — aguardando discovery |
+| 9 | [[E09-exibicao-site-loja]] | ⚠️ Stub | Decisão API vs SQL Corp vs MONGOS pendente (Douglas Wolff, Ricardo Tadeu) | [[decisao-fonte-dados-tracking]] |
+
+### 🟡 Sistema identificado — sem interface
+
+> Nenhuma etapa nesta categoria. E06 e E07 foram promovidas para ✅ após confirmação via API Catálogo (ADR-003).
+> E05 e E08 foram promovidas para ✅ via API Oferta (ADR-004, 2026-04-15).
 | 8 | [[E08-ativacao-pricing]] | ⚠️ Flags confirmadas | SQL: `SkuLojista` / `SkuLojistaPreço` | `FlagAtiva` em ambas tabelas; pricing exclusivo do site | Interface de leitura (SQL Corp direto ou via API); decisão [[decisao-fonte-dados-tracking]] | 5 abertos (1 🔴) |
 | 9 | [[E09-exibicao-site-loja]] | ⚠️ Regras mapeadas | SQL Corp → MONGOS (MongoDB de Pricing) | 14+ flags em 5 grupos (SkuLojista, Sku, Produto, Marca, Categoria), fluxo Rundeck | Endpoint API/MONGOS; coleção MongoDB; decisão SQL Corp vs MONGOS | 8 abertos (3 🔴) |
 
@@ -59,24 +63,26 @@ autor: Pedro Martins
 
 ## Decisões Arquiteturais Pendentes
 
+## Decisões Arquiteturais
+
 | Decisão | Impacta | Status | Doc | Responsáveis |
 |---------|---------|--------|-----|-------------|
-| API (MongoDB) vs SQL direto para flags de exibição | E08, E09 | 🔴 Em aberto | [[decisao-fonte-dados-tracking]] | Douglas Wolff, Ricardo Tadeu, William |
+| ~~API (MongoDB) vs SQL direto para flags E08~~ | E08 | ✅ **Resolvido** — API Oferta (ADR-004) | [[ADR-004-integracao-api-oferta-e05-e08]] | Guilherme Maesta |
+| API (MongoDB) vs SQL direto para flags de exibição E09 | E09 | 🔴 Em aberto | [[decisao-fonte-dados-tracking]] | Douglas Wolff, Ricardo Tadeu, William |
 | SQL ↔ MongoDB divergência (V2) | E09 | Posicionado como V2 | [[validacao-sincronizacao-sql-mongo]] | Time Plataforma |
 
 ---
 
 ## Gaps Bloqueantes (🔴 Críticos)
 
-> Estes gaps impedem o avanço da implementação e precisam ser resolvidos com urgência.
+> Gaps que impedem a implementação. E05 e E08 foram desbloqueados via ADR-004.
 
 | # | Etapa | Gap | Quem pode responder | Ação |
 |---|-------|-----|---------------------|------|
-| 1 | E05 | Método de integração: API ou banco direto `Inventario`? | **Time Plataforma** | Agendar conversa |
-| 2 | E08 | Interface de leitura das flags `SkuLojista`/`SkuLojistaPreço` | **Time Oferta / Plataforma** | Depende da decisão API vs SQL |
-| 3 | E09 | Qual API/endpoint acessa as flags SQL para integração? | **Time Oferta** | Depende da decisão API vs SQL |
-| 4 | E09 | Qual collection/endpoint do MongoDB (MONGOS)? | **Time Plataforma** | Agendar conversa |
-| 5 | E09 | Tracking via API ou SQL direto? (decisão arquitetural) | **Douglas Wolff / Ricardo Tadeu / William** | Decisão pendente |
+| 1 | E04 | Método de integração com LN/Neogrid; fluxo Databricks/SQL | Alonso Dias Assuncao | Documentar info já recebida |
+| 2 | E09 | Qual API/endpoint acessa as flags SQL para integração? | **Time Oferta** | Depende da decisão API vs SQL |
+| 3 | E09 | Qual collection/endpoint do MongoDB (MONGOS)? | **Time Plataforma** | Agendar conversa |
+| 4 | E09 | Tracking via API ou SQL direto? (decisão arquitetural) | **Douglas Wolff / Ricardo Tadeu / William** | Decisão pendente |
 
 ---
 
@@ -86,13 +92,12 @@ autor: Pedro Martins
 |--------|------|---------------------|-----------|
 | **Priscila Pipolo Santiago** | Supply | Fluxo ponta a ponta de agendamento, crossdocking | 🔴 Alta — E04 |
 | **Jessica Fernando de Camargo** | Supply | Complemento do fluxo de agendamento | 🟡 Média — E04 |
-| **Douglas Souza Wolff** | SRE IC + Pricing | Decisão API vs SQL, flags, estrutura tabelas | 🔴 Alta — E08/E09 |
+| **Douglas Souza Wolff** | SRE IC + Pricing | Decisão API vs SQL, flags, estrutura tabelas | 🔴 Alta — E09 |
 | **Ricardo Tadeu Lima** | Plataforma | MONGOS, replicação, checkout, OMS | 🔴 Alta — E09 |
 | **Carmen Stoiko** | Dados / Datalake | Ingestão agenda no Databricks | 🟡 Média — E04 |
-| **Alonso Dias Assuncao** | SRE IC + Pricing | Databricks agendamento, views de custo estoque | ✅ Info recebida — documentar |
-| **Juliana Dos Santos** | GO | Sistemas por etapa (já contribuiu para E01-E09) | 🟡 Confirmar E06/E07 detalhes |
+| **Alonso Dias Assuncao** | SRE IC + Pricing | Databricks agendamento, views de custo estoque | 🟡 Documentar info recebida — E04 |
+| **Juliana Dos Santos** | GO | Sistemas por etapa (já contribuiu para E01-E09) | ✅ Contribuição concluída |
 | **Time Catálogo** | Catálogo | `composicao` paths, eventos Kafka, campo `ContratoLiberado` | 🟡 Média — E03 |
-| **Time Admin / Conteúdo** | Admin | Flags `produzido_site`/`produzido_loja_fisica`, API | 🔴 Alta — E06/E07 |
 
 ---
 
