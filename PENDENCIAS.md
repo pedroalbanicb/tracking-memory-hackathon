@@ -147,7 +147,7 @@ WHERE m.IdSkuOrigem = @IdSku
 
 ```python
 # E01 + E02 + E03 numa única chamada
-GET /api/v1/produto-sku/selecionar
+GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar
   ?IdSkuSite={id_sku}
   &composicao=Geral.Nome;
     Mercadorias.DadosBasicos.NomeTipoSku;

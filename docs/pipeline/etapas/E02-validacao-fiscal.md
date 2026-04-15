@@ -5,7 +5,7 @@ titulo: Validação Fiscal
 status: integrado
 origem: Tax Web (via API Catálogo)
 escopo: 1P apenas
-updated: 2026-04-09
+updated: 2026-04-15
 fonte: Juliana Dos Santos
 ---
 

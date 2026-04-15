@@ -4,7 +4,7 @@ etapa: 1
 titulo: Cadastro Inicial do Produto
 status: integrado
 origem: API Catálogo
-updated: 2026-04-09
+updated: 2026-04-15
 ---
 
 # E01 — Cadastro Inicial do Produto
@@ -33,7 +33,7 @@ updated: 2026-04-09
 | Sistema                   | Portal GO / Catálogo                                                                                                                                                                                                              |
 | Interface                 | ✅ **API CATÁLOGO — confirmado**                                                                                                                                                                                                   |
 | Endpoint                  | `GET https://gestaoproduto-catalogo-hlg.viavarejo.com.br/api/v1/produto-sku/selecionar`                                                                                                                                           |
-| Autenticação              | Header `apikey: [API_KEY_ENV]`                                                                                                                                                                                                    |
+| Autenticação              | Header `apikey: [API_KEY_HLG]`                                                                                                                                                                                   |
 | Parâmetro chave           | `idSkuSite={id_sku}` ou `idSkuLoja={id_sku}`                                                                                                                                                                                                              |
 | Seleção de campos         | `composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.Controle.DataCadastro;Mercadorias.DadosBasicos.FlagContratoLiberado;Mercadorias.Geral.FlagSkuProduzido;Mercadorias.Geral.FlagSkuProduzidoLojaFisica` |
 | Frequência de atualização | Por evento (quando SKU é cadastrado)                                                                                                                                                                                              |
