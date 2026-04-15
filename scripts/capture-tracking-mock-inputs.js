@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 const { MongoClient } = require("mongodb");
 
 const DEFAULT_SKU_FILE = path.resolve(__dirname, "..", "docs", "db_oferta_disponibilidade.DisponibilidadeSkuListaRegiao.json");
@@ -41,8 +41,10 @@ const MONGO_QUERY_PATHS = [
   "IdSku",
   "idSku",
   "idSkuSite",
+  "idSkuOrigemKit",
   "sku",
   "skuSite",
+  "skuExibicao",
   "dePara.idSkuOn",
   "mercadorias.idSkuSite",
   "skus.idSkuSite",
@@ -64,39 +66,45 @@ function parseArgs() {
     mongoCollection: process.env.MONGO_COLLECTION || "produto"
   };
 
+  const handlers = {
+    "--sku-file": (value) => {
+      options.skuFile = path.resolve(value);
+    },
+    "--out": (value) => {
+      options.outFile = path.resolve(value);
+    },
+    "--limit": (value) => {
+      options.limit = Number(value);
+    },
+    "--graphql-url": (value) => {
+      options.graphqlUrl = value;
+    },
+    "--graphql-key": (value) => {
+      options.graphqlKey = value;
+    },
+    "--oferta-base-url": (value) => {
+      options.ofertaBaseUrl = value;
+    },
+    "--oferta-token": (value) => {
+      options.ofertaToken = value;
+    },
+    "--uri": (value) => {
+      options.mongoUri = value;
+    },
+    "--db": (value) => {
+      options.mongoDb = value;
+    },
+    "--collection": (value) => {
+      options.mongoCollection = value;
+    }
+  };
+
   for (let index = 0; index < args.length; index += 1) {
     const current = args[index];
     const next = args[index + 1];
 
-    if (current === "--sku-file" && next) {
-      options.skuFile = path.resolve(next);
-      index += 1;
-    } else if (current === "--out" && next) {
-      options.outFile = path.resolve(next);
-      index += 1;
-    } else if (current === "--limit" && next) {
-      options.limit = Number(next);
-      index += 1;
-    } else if (current === "--graphql-url" && next) {
-      options.graphqlUrl = next;
-      index += 1;
-    } else if (current === "--graphql-key" && next) {
-      options.graphqlKey = next;
-      index += 1;
-    } else if (current === "--oferta-base-url" && next) {
-      options.ofertaBaseUrl = next;
-      index += 1;
-    } else if (current === "--oferta-token" && next) {
-      options.ofertaToken = next;
-      index += 1;
-    } else if (current === "--uri" && next) {
-      options.mongoUri = next;
-      index += 1;
-    } else if (current === "--db" && next) {
-      options.mongoDb = next;
-      index += 1;
-    } else if (current === "--collection" && next) {
-      options.mongoCollection = next;
+    if (handlers[current] && next) {
+      handlers[current](next);
       index += 1;
     }
   }
@@ -111,7 +119,7 @@ function readSourceSkus(filePath, limit) {
   const items = [];
 
   parsed.forEach((entry) => {
-    const sku = String(entry.IdSku && entry.IdSku.$numberLong ? entry.IdSku.$numberLong : entry.IdSku);
+    const sku = String(entry.IdSku?.$numberLong ?? entry.IdSku);
     if (!sku || seen.has(sku) || items.length >= limit) {
       return;
     }
@@ -123,7 +131,7 @@ function readSourceSkus(filePath, limit) {
         nacional: Boolean(entry.Nacional),
         totalRegioes: Array.isArray(entry.Regioes) ? entry.Regioes.length : 0,
         totalRegioesRetira: Array.isArray(entry.RegioesRetira) ? entry.RegioesRetira.length : 0,
-        atualizadoEm: entry.DataAlteracaoSku && entry.DataAlteracaoSku.$date ? entry.DataAlteracaoSku.$date : null
+        atualizadoEm: entry.DataAlteracaoSku?.$date ?? null
       }
     });
   });
@@ -161,9 +169,7 @@ async function fetchGraphQLSku(graphqlUrl, graphqlKey, sku) {
     };
   }
 
-  const item = payload.data && payload.data.mercadorias && payload.data.mercadorias.items
-    ? payload.data.mercadorias.items[0]
-    : null;
+  const item = payload.data?.mercadorias?.items?.[0] ?? null;
 
   return item
     ? {
@@ -173,9 +179,7 @@ async function fetchGraphQLSku(graphqlUrl, graphqlKey, sku) {
         skuOff: item.dePara ? item.dePara.idSkuLoja : null,
         skuOn: item.dePara ? item.dePara.idSkuOn : null,
         tipoMercadoria: item.tipoMercadoria ? item.tipoMercadoria.nome : null,
-        situacaoCadastral: item.situacaoCadastral && item.situacaoCadastral.tipoSituacaoCadastral
-          ? item.situacaoCadastral.tipoSituacaoCadastral.nome
-          : null
+        situacaoCadastral: item.situacaoCadastral?.tipoSituacaoCadastral?.nome ?? null
       }
     : { ok: true, notFound: true };
 }
@@ -211,8 +215,8 @@ async function fetchOfertaSku(ofertaBaseUrl, ofertaToken, sku) {
   const precoSku = payload && Array.isArray(payload.PrecoSkus) ? payload.PrecoSkus[0] : null;
   return {
     ok: true,
-    temEstoque: Boolean(precoSku && precoSku.PrecoVenda && precoSku.PrecoVenda.DisponibilidadeEstoque),
-    precificadoSite: Boolean(payload && payload.Valido),
+    temEstoque: Boolean(precoSku?.PrecoVenda?.DisponibilidadeEstoque),
+    precificadoSite: Boolean(payload?.Valido),
     payload
   };
 }
@@ -301,10 +305,12 @@ async function main() {
         fetchMongoSku(collection, sourceItem.skuOn)
       ]);
 
+      const mercadoria = mongo?.descricao || (graphql?.ok ? graphql.nome : null);
+
       items.push({
         skuOn: sourceItem.skuOn,
-        skuOff: graphql && graphql.ok ? graphql.skuOff : null,
-        mercadoria: mongo && mongo.descricao ? mongo.descricao : graphql && graphql.ok ? graphql.nome : null,
+        skuOff: graphql?.ok ? graphql.skuOff : null,
+        mercadoria,
         disponibilidade: sourceItem.disponibilidade,
         graphql,
         oferta,
