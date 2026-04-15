@@ -91,10 +91,10 @@ Fonte: payload/query GraphQL compartilhado na discussao tecnica, 2026-04-14.
         "validacaoFiscal": true,
         "propostaComercial": null,
         "agendamento": null,
-        "estoque": null,
+        "estoque": true,
         "produzidoSite": false,
         "produzidoLf": false,
-        "ativacaoPricing": null,
+        "ativacaoPricing": true,
         "exibicaoSite": null
       }
     ],
@@ -155,15 +155,17 @@ where: {
 | `validacaoFiscal` (E02) | API Catalogo: `FlagCompraBloqueada` | `true` quando `FlagCompraBloqueada = 0` |
 | `propostaComercial` (E03) | API Catalogo: `FlagContratoLiberado` | `true` quando `FlagContratoLiberado = true`, `false` quando `false`, `null` quando ausente |
 | `agendamento` (E04) | nao disponivel — integracao a mapear | `null` |
-| `estoque` (E05) | nao disponivel no GraphQL atual | `null` |
+| `estoque` (E05) | API Oferta: `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` | `true` quando `DisponibilidadeEstoque = true`. Ver [[ADR-004-integracao-api-oferta-e05-e08]] |
 | `produzidoSite` (E06) | API Catalogo: `FlagSkuProduzido` | `true` quando `FlagSkuProduzido = 1` |
 | `produzidoLf` (E07) | API Catalogo: `FlagSkuProduzidoLojaFisica` | `true` quando `FlagSkuProduzidoLojaFisica = 1` |
-| `ativacaoPricing` (E08) | nao disponivel no GraphQL atual | `null` |
+| `ativacaoPricing` (E08) | API Oferta: `Valido` (raiz da resposta) | `true` quando `Valido = true`. Ver [[ADR-004-integracao-api-oferta-e05-e08]] |
 | `exibicaoSite` (E09) | nao disponivel no GraphQL atual | `null` |
 
 > **Atualizado (ADR-003):** E01, E02, E03, E06 e E07 agora sao preenchidos via API Catalogo (`GET /api/v1/produto-sku/selecionar`) como complementacao apos a consulta GraphQL. E04 (agendamento) foi adicionado ao contrato. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
-Observacao: para as etapas E04, E05, E08 e E09 sem fonte confirmada, os campos retornam `null`. O preenchimento definitivo dessas etapas sera definido em ADRs futuras.
+Observacao: para as etapas E04 e E09 sem fonte confirmada, os campos retornam `null`. O preenchimento definitivo dessas etapas sera definido em ADRs futuras.
+
+> **Atualizado (ADR-004):** E05 (estoque) e E08 (ativacaoPricing) agora sao preenchidos via API Oferta (`GET /v1/Preco/Sku/PrecoVenda`). Ver [[ADR-004-integracao-api-oferta-e05-e08]].
 
 ### 4. Escopo explicito desta ADR
 
@@ -176,9 +178,11 @@ Inclui:
 - complementacao de E01, E02, E03, E06 e E07 via API Catalogo (ver [[ADR-003-complementacao-dados-api-catalogo]]).
 
 Nao inclui:
-- composicao com novas services para E04, E05, E08, E09;
-- regras finais de consolidacao para E04, E05, E08, E09;
+- composicao com novas services para E04, E09;
+- regras finais de consolidacao para E04, E09;
 - contrato final da tela de detalhe do SKU.
+
+> **Nota:** E05 e E08 agora cobertos por [[ADR-004-integracao-api-oferta-e05-e08]].
 
 ## Simplificacao da query GraphQL (o que nao usar nesta fase)
 
@@ -298,7 +302,7 @@ query GetMercadoriasPorNome($skip: Int!, $take: Int!, $search: String!) {
 | # | Pergunta | Responsavel | Status |
 |---|---|---|---|
 | 1 | O contrato publico da API mantera `null` temporario para etapas ou adotara campo auxiliar de cobertura? | Lucas Rocha / Guilherme Thomaz | 🟡 A confirmar |
-| 2 | Quais services complementares entrarao primeiro para cobrir E02-E09? | Squad TCD | 🔴 Nao mapeado |
+| 2 | ~~Quais services complementares entrarao primeiro para cobrir E02-E09?~~ | Squad TCD | ✅ Resolvido — E01-E03, E06-E07 via API Catalogo ([[ADR-003-complementacao-dados-api-catalogo]]); E05, E08 via API Oferta ([[ADR-004-integracao-api-oferta-e05-e08]]). Pendentes: E04, E09 |
 | 3 | ~~A busca em lote aceitara somente SKU ON ou tambem SKU OFF na mesma entrada?~~ | Lucas Rocha | ✅ Resolvido — aceita ambos (SKU ON e SKU OFF). O filtro GraphQL usa `or` entre `dePara.idSkuLoja` e `dePara.idSkuOn`. |
 | 4 | O filtro `nome: { contains }` do GraphQL HotChocolate e case-insensitive por default? Confirmar com o time do Hub Catalogo. | Squad TCD | 🟡 A confirmar |
 | 5 | Limite minimo de caracteres para busca por nome (proposto: 3). Confirmar com UX. | Lucas Rocha | 🟡 A confirmar |
@@ -308,4 +312,6 @@ query GetMercadoriasPorNome($skip: Int!, $take: Int!, $search: String!) {
 - [[PRD-002-frontend-tracking]]
 - [[PRD-001-tracking-sku-lifecycle]]
 - [[sku-lifecycle]]
+- [[ADR-003-complementacao-dados-api-catalogo]]
+- [[ADR-004-integracao-api-oferta-e05-e08]]
 - [Figma IC-Table](https://www.figma.com/design/QNFpM0akFGXYC2gfcjkHba/Tracking?node-id=122-5896)
