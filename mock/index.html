@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GO — Tracking de Produtos</title>
+  <!-- API local: http://localhost:5131  — sem data.js, tudo via fetch() -->
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,15 +19,20 @@
       overflow: hidden;
     }
 
+    /* ── TOKEN BANNER ────────────────────────────── */
+    .token-banner { background: #fff8e1; border-bottom: 1px solid #ffe082; padding: 8px 16px; display: flex; align-items: center; gap: 10px; font-size: 12.5px; flex-shrink: 0; }
+    .token-banner.ok { background: #f0fff4; border-color: #9ae6b4; }
+    .token-banner input { flex: 1; padding: 6px 10px; border: 1px solid #e2e8f0; border-radius: 5px; font-size: 12px; font-family: monospace; }
+    .token-banner button { padding: 5px 12px; border-radius: 5px; border: none; cursor: pointer; font-size: 12px; font-weight: 600; }
+    .token-save { background: #003087; color: #fff; }
+    .token-clear { background: #e2e8f0; color: #4a5568; }
+
     /* ── TOP BAR ──────────────────────────────── */
-    .topbar {
-      background: #003087; color: #fff; height: 44px;
-      display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; z-index: 100;
-    }
-    .topbar .logo { background: #fff; color: #003087; font-weight: 800; font-size: 11px; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
-    .topbar .app-name { font-weight: 600; font-size: 14px; color: #b3c8f0; }
-    .topbar-right { margin-left: auto; font-size: 12px; color: #b3c8f0; display: flex; align-items: center; gap: 10px; }
-    .topbar-avatar { width: 28px; height: 28px; border-radius: 50%; background: #4a90d9; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
+    .topbar { background: #5b21b6; color: #fff; height: 44px; display: flex; align-items: center; padding: 0 16px; gap: 12px; flex-shrink: 0; z-index: 100; }
+    .topbar .logo { background: #fff; color: #5b21b6; font-weight: 800; font-size: 11px; padding: 3px 7px; border-radius: 4px; letter-spacing: 0.5px; }
+    .topbar .app-name { font-weight: 600; font-size: 14px; }
+    .topbar-right { margin-left: auto; font-size: 12px; color: #ddd6fe; display: flex; align-items: center; gap: 10px; }
+    .topbar-avatar { width: 28px; height: 28px; border-radius: 50%; background: #7c3aed; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; }
 
     /* ── LAYOUT ───────────────────────────────── */
     .layout { display: flex; flex: 1; overflow: hidden; }
@@ -34,8 +40,8 @@
     /* ── SIDEBAR ──────────────────────────────── */
     .sidebar { width: 220px; background: #fff; border-right: 1px solid #e2e8f0; overflow-y: auto; flex-shrink: 0; }
     .sidebar-item { display: flex; align-items: center; gap: 8px; padding: 10px 16px; cursor: pointer; color: #4a5568; font-size: 13px; border-left: 3px solid transparent; transition: background 0.15s; }
-    .sidebar-item:hover { background: #eaf0fb; color: #003087; }
-    .sidebar-item.active { background: #dce8f8; color: #003087; border-left-color: #003087; font-weight: 600; }
+    .sidebar-item:hover { background: #f3e8ff; color: #5b21b6; }
+    .sidebar-item.active { background: #ede9fe; color: #5b21b6; border-left-color: #5b21b6; font-weight: 600; }
     .sidebar-item.parent { font-weight: 600; color: #2d3748; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; padding-top: 14px; }
     .sidebar-item.sub { padding-left: 32px; font-size: 12.5px; }
     .sidebar-icon { font-size: 15px; opacity: 0.75; }
@@ -48,117 +54,132 @@
 
     /* ── BREADCRUMB ───────────────────────────── */
     .breadcrumb { font-size: 12px; color: #718096; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-    .breadcrumb a { color: #003087; text-decoration: none; cursor: pointer; }
+    .breadcrumb a { color: #5b21b6; text-decoration: none; cursor: pointer; }
     .breadcrumb a:hover { text-decoration: underline; }
 
     /* ── PAGE TITLE ───────────────────────────── */
     .page-title { font-size: 18px; font-weight: 700; color: #1a202c; display: flex; align-items: center; gap: 10px; }
-    .btn-back { padding: 6px 14px; border-radius: 6px; border: 1px solid #cbd5e0; background: #fff; color: #2d3748; cursor: pointer; font-size: 12.5px; font-weight: 500; transition: background 0.15s; }
-    .btn-back:hover { background: #eaf0fb; color: #003087; border-color: #003087; }
+    .btn-back { padding: 6px 14px; border-radius: 6px; border: 1px solid #cbd5e0; background: #fff; color: #2d3748; cursor: pointer; font-size: 12.5px; font-weight: 500; }
+    .btn-back:hover { background: #f3e8ff; color: #5b21b6; border-color: #5b21b6; }
 
-    /* ── BUTTONS ──────────────────────────────── */
-    .toolbar { display: flex; align-items: center; gap: 8px; }
-    .search-wrap { position: relative; flex: 1; max-width: 380px; }
-    .search-wrap input { width: 100%; padding: 8px 12px 8px 36px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; }
-    .search-wrap input:focus { border-color: #003087; box-shadow: 0 0 0 3px #ccdaf5; }
-    .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #a0aec0; font-size: 15px; }
-    .btn { padding: 7px 14px; border-radius: 6px; border: none; cursor: pointer; font-size: 12.5px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
-    .btn:hover { opacity: 0.88; }
-    .btn-primary { background: #003087; color: #fff; }
-    .btn-outline { background: #fff; color: #003087; border: 1px solid #003087; }
-    .btn-ghost { background: #f7f8fa; color: #4a5568; border: 1px solid #e2e8f0; }
-
-    /* ── LIST TABLE ───────────────────────────── */
+    /* ── TABLE ────────────────────────────────── */
     .table-wrap { background: #fff; border-radius: 8px; border: 1px solid #e2e8f0; overflow: hidden; }
     .table-count { padding: 10px 16px; font-size: 12px; color: #718096; border-bottom: 1px solid #f0f0f0; }
     table { width: 100%; border-collapse: collapse; }
     thead tr { background: #f7f8fa; }
     th { padding: 10px 12px; text-align: left; font-size: 11.5px; font-weight: 600; color: #4a5568; text-transform: uppercase; letter-spacing: 0.4px; border-bottom: 2px solid #e2e8f0; white-space: nowrap; }
     td { padding: 10px 12px; border-bottom: 1px solid #f2f2f2; font-size: 12.5px; color: #2d3748; }
-    tr:hover td { background: #f0f5fd; cursor: pointer; }
+    tr:hover td { background: #f3e8ff; cursor: pointer; }
     tr:last-child td { border-bottom: none; }
 
+    /* ── BADGE ────────────────────────────────── */
     .badge { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
     .badge-green  { background: #c6f6d5; color: #22543d; }
     .badge-red    { background: #fed7d7; color: #742a2a; }
     .badge-yellow { background: #fefcbf; color: #744210; }
     .badge-gray   { background: #e2e8f0; color: #4a5568; }
-    .badge-blue   { background: #dce8f8; color: #003087; }
 
     .action-btns { display: flex; gap: 6px; }
     .action-btn { background: none; border: none; cursor: pointer; color: #a0aec0; font-size: 16px; padding: 2px 4px; border-radius: 4px; }
-    .action-btn:hover { color: #003087; }
+    .action-btn:hover { color: #5b21b6; }
 
     /* ── DETAIL SECTIONS ──────────────────────── */
     .detail-section { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-    .detail-section-title { padding: 12px 20px; font-size: 13px; font-weight: 700; color: #003087; border-bottom: 1px solid #e2e8f0; background: #f7faff; }
+    .detail-section-title { padding: 12px 20px; font-size: 13px; font-weight: 700; color: #5b21b6; border-bottom: 1px solid #e2e8f0; background: #faf5ff; }
     .detail-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); }
     .detail-field { padding: 14px 20px; border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
     .detail-label { font-size: 11px; color: #a0aec0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
     .detail-value { font-size: 13px; color: #1a202c; font-weight: 500; }
-    .detail-value.sku { font-size: 18px; font-weight: 700; color: #003087; }
+    .detail-value.sku { font-size: 18px; font-weight: 700; color: #5b21b6; }
 
-    /* ── PIPELINE STEPS ───────────────────────── */
+    /* ── PIPELINE ─────────────────────────────── */
     .pipeline-steps-wrap { padding: 24px 20px; overflow-x: auto; }
     .pipeline-steps { display: flex; align-items: flex-start; min-width: max-content; }
     .step-item { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 115px; }
-    .step-circle { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; border: 2px solid; position: relative; z-index: 1; font-weight: 700; }
-    .step-circle.done    { background: #c6f6d5; border-color: #38a169; color: #22543d; }
-    .step-circle.fail    { background: #fed7d7; border-color: #e53e3e; color: #c53030; }
-    .step-circle.na      { background: #e2e8f0; border-color: #a0aec0; color: #718096; }
-    .step-circle.pending { background: #fefcbf; border-color: #d69e2e; color: #744210; }
+    .step-circle { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 17px; border: 2px solid; z-index: 1; font-weight: 700; }
+    .step-circle.done { background: #c6f6d5; border-color: #38a169; color: #22543d; }
+    .step-circle.fail { background: #fed7d7; border-color: #e53e3e; color: #c53030; }
+    .step-circle.na   { background: #e2e8f0; border-color: #a0aec0; color: #718096; }
     .step-label { font-size: 10.5px; text-align: center; color: #2d3748; line-height: 1.35; font-weight: 600; }
     .step-sub   { font-size: 10px; text-align: center; color: #718096; line-height: 1.3; }
-    .step-sys   { font-size: 9.5px; text-align: center; font-weight: 700; color: #fff; background: #003087; padding: 1px 6px; border-radius: 8px; white-space: nowrap; }
+    .step-sys   { font-size: 9.5px; text-align: center; font-weight: 700; color: #fff; background: #5b21b6; padding: 1px 6px; border-radius: 8px; white-space: nowrap; }
     .step-connector { flex: 1; height: 2px; margin-top: 20px; min-width: 16px; background: #e2e8f0; }
     .step-connector.done { background: #38a169; }
 
     /* ── TRACKING TABLE ───────────────────────── */
     .tracking-table-wrap { overflow-x: auto; }
     .tracking-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 680px; }
-    .tracking-table th { padding: 10px 14px; background: #003087; color: #fff; font-size: 11px; font-weight: 600; text-align: left; border: 1px solid #1a4faa; white-space: nowrap; }
+    .tracking-table th { padding: 10px 14px; background: #5b21b6; color: #fff; font-size: 11px; font-weight: 600; text-align: left; border: 1px solid #6d28d9; white-space: nowrap; }
     .tracking-table th.center { text-align: center; }
     .tracking-table td { padding: 10px 14px; border: 1px solid #e8edf5; vertical-align: middle; }
     .tracking-table td.center { text-align: center; }
-    .tracking-table tr.stripe { background: #f7faff; }
-    .tracking-table tr:hover td { background: #edf3fc; }
+    .tracking-table tr.stripe { background: #faf5ff; }
+    .tracking-table tr:hover td { background: #f3e8ff; }
 
-    .status-sim  { color: #22543d; font-weight: 700; }
-    .status-nao  { color: #c53030; font-weight: 700; }
-    .status-na   { color: #718096; font-style: italic; }
-    .status-date { color: #2d3748; font-size: 12px; }
+    .status-sim { color: #22543d; font-weight: 700; }
+    .status-nao { color: #c53030; font-weight: 700; }
+    .status-na  { color: #718096; font-style: italic; }
 
     .ofensor-count { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 11px; font-weight: 700; }
     .ofensor-count.has  { background: #fed7d7; color: #c53030; }
     .ofensor-count.none { background: #c6f6d5; color: #22543d; }
 
-    .source-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; background: #dce8f8; color: #003087; }
+    .source-tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10.5px; font-weight: 600; background: #ede9fe; color: #5b21b6; }
     .source-tag.orange { background: #fef3c7; color: #92400e; }
 
     /* ── TRACKING DOTS ──────────────────────────── */
     .track-dots { display: flex; gap: 3px; align-items: center; }
     .track-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; flex-shrink: 0; }
-    .track-dot.sim  { background: #c6f6d5; color: #22543d; }
-    .track-dot.nao  { background: #fed7d7; color: #c53030; }
-    .track-dot.na   { background: #e2e8f0; color: #718096; }
-    .track-dot.base { background: #dce8f8; color: #003087; }
-    .track-dot-lbl  { font-size: 8.5px; color: #a0aec0; text-align: center; line-height: 1.2; white-space: nowrap; }
+    .track-dot.sim { background: #c6f6d5; color: #22543d; }
+    .track-dot.nao { background: #fed7d7; color: #c53030; }
+    .track-dot.na  { background: #e2e8f0; color: #718096; }
+    .track-dot-lbl { font-size: 8.5px; color: #a0aec0; text-align: center; line-height: 1.2; white-space: nowrap; }
     .track-step-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
     .th-step { font-size: 9.5px !important; text-align: center !important; padding: 6px 4px !important; min-width: 38px; }
+
+    /* ── LOADING / ERROR ───────────────────────── */
+    .loading-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; gap: 16px; color: #718096; }
+    .spinner { width: 36px; height: 36px; border: 4px solid #e2e8f0; border-top-color: #5b21b6; border-radius: 50%; animation: spin 0.75s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .error-box { background: #fff5f5; border: 1px solid #fc8181; border-radius: 8px; padding: 20px 24px; color: #c53030; font-size: 13px; max-width: 600px; margin: 40px auto; line-height: 1.7; }
+
+    /* ── SEARCH PAGE ───────────────────────────── */
+    .search-page { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    .search-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+    .radio-group { display: flex; gap: 20px; align-items: center; }
+    .radio-group label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 13px; }
+    .search-row { display: flex; align-items: center; gap: 8px; }
+    .search-row input { flex: 1; padding: 9px 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 13px; outline: none; }
+    .search-row input:focus { border-color: #5b21b6; box-shadow: 0 0 0 3px #ede9fe; }
+    .btn-search { background: #5b21b6; color: #fff; border: none; border-radius: 6px; padding: 9px 18px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-search:hover { background: #4c1d95; }
+    .btn-refresh { background: #f3f4f6; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px; cursor: pointer; font-size: 16px; }
+    .btn-refresh:hover { background: #e5e7eb; }
   </style>
 </head>
 <body>
 
+<!-- ── TOKEN BANNER ──────────────────────────────────────────── -->
+<div class="token-banner" id="tokenBanner">
+  <span id="tokenStatus">⚠️ JWT não configurado — cole o token para habilitar as chamadas à API local:</span>
+  <input type="password" id="tokenInput" placeholder="Cole aqui o JWT (sem 'Bearer ')" />
+  <button class="token-save" onclick="saveToken()">Salvar</button>
+  <button class="token-clear" onclick="clearToken()" style="display:none" id="btnClear">Limpar</button>
+</div>
+
+<!-- ── TOP BAR ──────────────────────────────────────────────── -->
 <div class="topbar">
   <span class="logo">CB</span>
-  <span class="app-name">GO — Gestão de Operações</span>
+  <span style="font-weight:800;font-size:13px;color:#ddd6fe">GO</span>
+  <span class="app-name">Gestão de Produtos</span>
   <div class="topbar-right">
-    <span>JULIANA DOS SANTOS PAIVA GALINI</span>
-    <div class="topbar-avatar">JG</div>
+    <span id="userLabel">svc_gp-u</span>
+    <div class="topbar-avatar">SU</div>
     <span style="font-size:18px;cursor:pointer">↗</span>
   </div>
 </div>
 
+<!-- ── LAYOUT ────────────────────────────────────────────────── -->
 <div class="layout">
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">🏠</span> Início</div>
@@ -167,247 +188,565 @@
     <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">🕓</span> Histórico de Atualizações</div>
     <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">📥</span> Cadastro Massivo</div>
     <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">📋</span> Registros de Massivo</div>
-    <div class="sidebar-item sub active" id="navProdutos" onclick="navigate(this); showList()"><span class="sidebar-icon">🔍</span> Produtos Cadastrados</div>
+    <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">🔍</span> Produtos Cadastrados</div>
     <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">🏷️</span> Consulta de EANs</div>
     <div class="sidebar-item sub" onclick="navigate(this)"><span class="sidebar-icon">💰</span> Oficialização Massiva de Preços</div>
     <div class="sidebar-divider"></div>
-    <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">📊</span> Tracking de Produtos</div>
-    <div class="sidebar-item" onclick="navigate(this)"><span class="sidebar-icon">🔄</span> Histórico de Atualizações</div>
+    <div class="sidebar-item active" id="navTracking" onclick="navigate(this); showTrackingPage()"><span class="sidebar-icon">📊</span> Tracking</div>
   </nav>
 
   <main class="main" id="mainContent"></main>
 </div>
 
-<script src="./data.js"></script>
 <script>
-const { products, stages: STAGES } = DATA;
+// ═══════════════════════════════════════════════════════════════
+// CONFIG
+// ═══════════════════════════════════════════════════════════════
+const API_BASE = 'http://localhost:5131';
 
-let currentSearch = 'samsung';
-let filtered = [...products];
+// Metadata estático das etapas — a fonte da verdade são os booleanos da API
+const STAGES = [
+  { key: 'cadastro',    apiField: 'cadastro',          label: 'Cadastro',              etapa: 'E01', sistema: 'GO',               area: 'Cadastro',             origemType: 'blue',   detalhe: 'Existência do SKU no catálogo' },
+  { key: 'fiscal',      apiField: 'validacaoFiscal',   label: 'Validação Fiscal',      etapa: 'E02', sistema: 'TAX-WEB',          area: 'Fiscal e Tributário',  origemType: 'orange', detalhe: 'FlagCompraBloqueada · FlagVendaBloqueada' },
+  { key: 'comercial',   apiField: 'propostaComercial', label: 'Proposta Comercial',    etapa: 'E03', sistema: 'LN',               area: 'Comercial',            origemType: 'orange', detalhe: 'Contrato Liberado · Data Emissão' },
+  { key: 'agendamento', apiField: 'agendamento',       label: 'Agendamento',           etapa: 'E04', sistema: 'LN/Neogrid',       area: 'Supply',               origemType: 'orange', detalhe: 'Em alguns casos será N/A (Fase 1)' },
+  { key: 'estoque',     apiField: 'estoque',           label: 'Estoque',               etapa: 'E05', sistema: 'Inventario (SQL)', area: 'Logística',            origemType: 'orange', detalhe: 'DisponibilidadeEstoque · Físico · Crossdocking' },
+  { key: 'produzidoSite', apiField: 'produzidoSite',   label: 'Produzido Site',        etapa: 'E06', sistema: 'ADMIN',            area: 'Produção de Conteúdo', origemType: 'blue',   detalhe: 'FlagSkuProduzido = 1' },
+  { key: 'produzidoLoja', apiField: 'produzidoLf',     label: 'Produzido Loja Física', etapa: 'E07', sistema: 'ADMIN',            area: 'Produção de Conteúdo', origemType: 'blue',   detalhe: 'FlagSkuProduzidoLojaFisica = 1' },
+  { key: 'pricing',     apiField: 'ativacaoPricing',   label: 'Ativação Pricing',      etapa: 'E08', sistema: 'GO/ADMIN',         area: 'Pricing',              origemType: 'blue',   detalhe: 'Valido = true (API Oferta)' },
+  { key: 'exibicao',    apiField: 'exibicaoSite',      label: 'Exibição Site/Loja',    etapa: 'E09', sistema: 'SQL Corp/MONGOS',  area: 'Site / Loja Física',   origemType: 'blue',   detalhe: 'FlagAtiva (SKU · Produto · Marca · Categoria)' },
+];
+
+// ═══════════════════════════════════════════════════════════════
+// JWT TOKEN (armazenado em localStorage)
+// ═══════════════════════════════════════════════════════════════
+function getToken() { return localStorage.getItem('gp_jwt') || ''; }
+
+function saveToken() {
+  const raw = document.getElementById('tokenInput').value.trim();
+  if (!raw) return;
+  const token = raw.startsWith('Bearer ') ? raw : 'Bearer ' + raw;
+  localStorage.setItem('gp_jwt', token);
+  updateTokenBanner();
+}
+
+function clearToken() {
+  localStorage.removeItem('gp_jwt');
+  document.getElementById('tokenInput').value = '';
+  updateTokenBanner();
+}
+
+function updateTokenBanner() {
+  const token = getToken();
+  const banner   = document.getElementById('tokenBanner');
+  const status   = document.getElementById('tokenStatus');
+  const btnClear = document.getElementById('btnClear');
+  const input    = document.getElementById('tokenInput');
+  if (token) {
+    banner.className = 'token-banner ok';
+    status.textContent = '✅ JWT configurado — chamadas à API local em ' + API_BASE;
+    input.value = token.substring(0, 30) + '…';
+    btnClear.style.display = '';
+  } else {
+    banner.className = 'token-banner';
+    status.textContent = '⚠️ JWT não configurado — cole o token para habilitar as chamadas à API local:';
+    btnClear.style.display = 'none';
+  }
+}
+
+function authHeaders() {
+  const token = getToken();
+  const h = { 'Content-Type': 'application/json' };
+  if (token) h['Authorization'] = token;
+  return h;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════════════════════
+
+/** Converte booleano/null da API para label de exibição */
+function trackVal(item, stage) {
+  if (stage.key === 'cadastro') return item.cadastro === true ? 'Sim' : 'Não';
+  const v = item[stage.apiField];
+  if (v === null || v === undefined) return 'N/A';
+  return v ? 'Sim' : 'Não';
+}
+
+function dotClass(val) { return val === 'Sim' ? 'sim' : val === 'Não' ? 'nao' : 'na'; }
+function dotIcon(val)  { return val === 'Sim' ? '✓'  : val === 'Não' ? '✕'  : '—'; }
+
+function renderLoading() {
+  return '<div class="loading-wrap"><div class="spinner"></div><span>Consultando API…</span></div>';
+}
+
+function renderError(msg) {
+  return '<div class="error-box">⚠️ ' + msg + '</div>';
+}
 
 function navigate(el) {
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
 }
 
-// ─── LIST ────────────────────────────────────────────────────
-function showList() {
-  filtered = products.filter(p =>
-    p.skuOff.includes(currentSearch) || p.skuOn.includes(currentSearch) ||
-    p.mercadoria.toLowerCase().includes(currentSearch.toLowerCase()) ||
-    p.categoria.toLowerCase().includes(currentSearch.toLowerCase())
-  );
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let currentItems = [];
+let tipoBusca = 'sku';
 
-  const rows = filtered.map((p, i) => {
-    const trackDots = STAGES.map(s => {
-      const val = p.track[s.key];
-      let cls = 'base', icon = s.etapa.replace('E0','').replace('E','');
-      if (s.key === 'cadastro')  { cls = 'sim'; icon = '✓'; }
-      else if (val === 'Sim')    { cls = 'sim'; icon = '✓'; }
-      else if (val === 'Não')    { cls = 'nao'; icon = '✕'; }
-      else if (val === 'N/A')    { cls = 'na';  icon = '—'; }
-      return `<div class="track-step-col"><div class="track-dot ${cls}" title="${s.label}: ${val||s.key==='cadastro'?val:''}">${icon}</div><div class="track-dot-lbl">${s.sistema}</div></div>`;
-    }).join('');
-    const fails = STAGES.slice(1).filter(s => p.track[s.key] === 'Não').length;
-    return `<tr onclick="showDetail(${i})">
-      <td><strong>${p.skuOff}</strong></td>
-      <td>${p.skuOn}</td>
-      <td>${p.mercadoria}</td>
-      <td><span class="badge badge-gray">${p.tipo}</span></td>
-      <td>${p.categoria}</td>
-      <td>${p.status==='EM LINHA'?'<span class="badge badge-green">EM LINHA</span>':'<span class="badge badge-red">FORA DE LINHA</span>'}</td>
-      <td>${p.situacao==='OK'?'<span class="badge badge-gray">OK</span>':'<span class="badge badge-yellow">'+p.situacao+'</span>'}</td>
-      <td><div class="track-dots">${trackDots}</div></td>
-      <td>
-        <div class="action-btns">
-          <button class="action-btn" title="Detalhe" onclick="event.stopPropagation();showDetail(${i})">🔍</button>
-          <button class="action-btn" title="Site" onclick="event.stopPropagation()">👁</button>
-          <button class="action-btn" title="Editar" onclick="event.stopPropagation()">✏</button>
-        </div>
-      </td>
-    </tr>`;
-  }).join('');
-
-  document.getElementById('mainContent').innerHTML = `
-    <div class="page">
-      <div class="breadcrumb"><a onclick="showList()">🏠</a> › <a onclick="showList()">Gestão de Produtos</a> › <strong>Produtos Cadastrados</strong></div>
-      <div class="page-title">← Produtos Cadastrados</div>
-      <div class="toolbar">
-        <div class="search-wrap">
-          <span class="search-icon">🔍</span>
-          <input type="text" value="${currentSearch}" placeholder="Buscar por SKU OFF, SKU ON ou Mercadoria…"
-            oninput="currentSearch=this.value;showList()" id="searchInput"/>
-        </div>
-        <button class="btn btn-ghost">🔄 Atualizar</button>
-        <button class="btn btn-primary">+ Cadastrar Produto</button>
-        <button class="btn btn-outline">⚙ Filtro</button>
-      </div>
-      <div class="table-wrap">
-        <div class="table-count">Exibindo ${filtered.length} produto(s) — apenas 1P</div>
-        <table>
-          <thead><tr>
-            <th>SKU OFF</th><th>SKU ON</th><th>Mercadoria</th><th>Tipo</th>
-            <th>Categoria</th><th>Status</th><th>Situação Cadastral</th>
-            <th colspan="9" style="text-align:center;background:#1a4088">Tracking de Produtos</th>
-            <th>Ações</th>
-          </tr>
-          <tr style="background:#1a4088">
-            <th colspan="7" style="background:#f7f8fa"></th>
-            ${STAGES.map(s=>`<th class="th-step">${s.sistema}<br><span style="font-weight:400;font-size:8.5px">${s.area}</span></th>`).join('')}
-            <th style="background:#f7f8fa"></th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>`;
+// ═══════════════════════════════════════════════════════════════
+// TELA DE BUSCA (screenshot 1 — Tracking com radio SKU/Nome)
+// ═══════════════════════════════════════════════════════════════
+function showTrackingPage() {
+  document.getElementById('mainContent').innerHTML =
+    '<div class="search-page">' +
+      '<div class="breadcrumb">' +
+        '<a onclick="showTrackingPage()">🏠</a> › ' +
+        '<a onclick="showTrackingPage()">Gestão de Produtos</a> › ' +
+        '<strong>Tracking</strong>' +
+      '</div>' +
+      '<div style="display:flex;align-items:center;gap:10px">' +
+        '<button class="btn-back" onclick="showTrackingPage()">←</button>' +
+        '<div class="page-title">Tracking</div>' +
+      '</div>' +
+      '<div class="search-card">' +
+        '<div style="font-weight:600;font-size:14px">Tracking</div>' +
+        '<div class="radio-group">' +
+          '<label><input type="radio" name="tipoBusca" value="sku" checked ' +
+            'onchange="tipoBusca=this.value;atualizarPlaceholder()"> SKU</label>' +
+          '<label><input type="radio" name="tipoBusca" value="nome" ' +
+            'onchange="tipoBusca=this.value;atualizarPlaceholder()"> Nome / Descrição</label>' +
+        '</div>' +
+        '<div class="search-row">' +
+          '<input type="text" id="searchInput" placeholder="55072185, 55052266 (máx. 50)" ' +
+            'onkeydown="if(event.key===\'Enter\') buscarTracking()" />' +
+          '<button class="btn-search" onclick="buscarTracking()">🔍</button>' +
+          '<button class="btn-refresh" onclick="buscarTracking()" title="Atualizar">🔄</button>' +
+        '</div>' +
+      '</div>' +
+      '<div id="resultArea"></div>' +
+    '</div>';
 }
 
-// ─── DETAIL ──────────────────────────────────────────────────
-function showDetail(idx) {
-  const p = filtered[idx];
-  if (!p) return;
+function atualizarPlaceholder() {
+  const el = document.getElementById('searchInput');
+  if (!el) return;
+  el.placeholder = tipoBusca === 'sku'
+    ? '55072185, 55052266 (máx. 50)'
+    : 'Ex: MOEDOR DE CAFE (mín. 3 caracteres)';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CHAMADA — POST /api/v1/tracking/skus/listar
+// ═══════════════════════════════════════════════════════════════
+async function buscarTracking() {
+  const searchInput = document.getElementById('searchInput');
+  const val = searchInput ? searchInput.value.trim() : '';
+  const resultArea = document.getElementById('resultArea');
+  if (!resultArea) return;
+  if (!val) { resultArea.innerHTML = renderError('Informe ao menos um SKU ou termo de busca.'); return; }
+
+  let body;
+  if (tipoBusca === 'sku') {
+    const skus = val.split(/[\s,;]+/).map(s => parseInt(s.trim(), 10)).filter(n => !isNaN(n));
+    if (!skus.length) { resultArea.innerHTML = renderError('Informe ao menos um SKU numérico válido.'); return; }
+    if (skus.length > 50) { resultArea.innerHTML = renderError('Máximo de 50 SKUs por busca.'); return; }
+    body = { tipoBusca: 'sku', skus: skus, pagina: 1, take: 50 };
+  } else {
+    if (val.length < 3) { resultArea.innerHTML = renderError('Informe ao menos 3 caracteres para buscar por nome.'); return; }
+    body = { tipoBusca: 'nome', nome: val, pagina: 1, take: 50 };
+  }
+
+  resultArea.innerHTML = renderLoading();
+
+  try {
+    const res = await fetch(API_BASE + '/api/v1/tracking/skus/listar', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: JSON.stringify(body),
+    });
+
+    if (res.status === 422) {
+      const json = await res.json();
+      const erros = (json.list || []).join('<br>');
+      resultArea.innerHTML = renderError('Erro de validação:<br>' + (erros || json.message));
+      return;
+    }
+    if (!res.ok) {
+      const json = await res.json().catch(() => ({}));
+      resultArea.innerHTML = renderError('Erro ' + res.status + ': ' + (json.message || res.statusText));
+      return;
+    }
+
+    const json = await res.json();
+    if (!json.isOk) { resultArea.innerHTML = renderError(json.message || 'Erro retornado pela API.'); return; }
+
+    currentItems = json.data && json.data.items ? json.data.items : [];
+    renderTrackingList(resultArea, json.data && json.data.total != null ? json.data.total : currentItems.length);
+
+  } catch (err) {
+    resultArea.innerHTML = renderError(
+      'Falha ao conectar em <strong>' + API_BASE + '</strong>.<br>' +
+      'Verifique se a API está rodando e se o JWT está configurado.<br>' +
+      'Detalhe: ' + err.message
+    );
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// RENDER — LISTA DE RESULTADOS (tabela com dots de tracking)
+// ═══════════════════════════════════════════════════════════════
+function renderTrackingList(containerEl, total) {
+  if (!currentItems.length) {
+    containerEl.innerHTML = renderError('Nenhum produto encontrado para os critérios informados.');
+    return;
+  }
+
+  const rows = currentItems.map(function(item, i) {
+    const trackDots = STAGES.map(function(s) {
+      const val = trackVal(item, s);
+      return '<div class="track-step-col">' +
+        '<div class="track-dot ' + dotClass(val) + '" title="' + s.label + ': ' + val + '">' + dotIcon(val) + '</div>' +
+        '<div class="track-dot-lbl">' + s.etapa + '</div>' +
+        '</div>';
+    }).join('');
+
+    const fails = STAGES.slice(1).filter(function(s) { return trackVal(item, s) === 'Não'; }).length;
+    const statusBadge = fails === 0
+      ? '<span class="badge badge-green">✓ Ativo</span>'
+      : '<span class="badge badge-red">⚠ ' + fails + ' bloqueio(s)</span>';
+
+    return '<tr onclick="showDetail(' + i + ')">' +
+      '<td><strong>' + (item.skuOff || '—') + '</strong></td>' +
+      '<td>' + (item.skuOn || '—') + '</td>' +
+      '<td>' + (item.mercadoria || '—') + '</td>' +
+      '<td><span class="badge badge-gray">' + (item.tipoNegociacao || '—') + '</span></td>' +
+      '<td>' + statusBadge + '</td>' +
+      '<td><div class="track-dots">' + trackDots + '</div></td>' +
+      '<td><div class="action-btns">' +
+        '<button class="action-btn" title="Detalhe" onclick="event.stopPropagation();showDetail(' + i + ')">🔍</button>' +
+      '</div></td>' +
+    '</tr>';
+  }).join('');
+
+  const stageHeaders = STAGES.map(function(s) {
+    return '<th class="th-step">' + s.etapa + '<br><span style="font-weight:400;font-size:8px">' + s.sistema + '</span></th>';
+  }).join('');
+
+  containerEl.innerHTML =
+    '<div class="table-wrap">' +
+      '<div class="table-count">Exibindo ' + currentItems.length + ' de ' + total + ' produto(s) — apenas 1P</div>' +
+      '<table>' +
+        '<thead>' +
+          '<tr>' +
+            '<th>SKU OFF</th><th>SKU ON</th><th>Mercadoria</th><th>Tipo</th>' +
+            '<th>Status</th>' +
+            '<th colspan="9" style="text-align:center;background:#4c1d95">Tracking (E01 → E09)</th>' +
+            '<th>Ações</th>' +
+          '</tr>' +
+          '<tr style="background:#4c1d95">' +
+            '<th colspan="5" style="background:#f7f8fa"></th>' +
+            stageHeaders +
+            '<th style="background:#f7f8fa"></th>' +
+          '</tr>' +
+        '</thead>' +
+        '<tbody>' + rows + '</tbody>' +
+      '</table>' +
+    '</div>';
+}
+
+// ═══════════════════════════════════════════════════════════════
+// DETALHE — GET /api/v1/mercadoria/DetalheProduto + pipeline
+// ═══════════════════════════════════════════════════════════════
+async function showDetail(idx) {
+  const trackItem = currentItems[idx];
+  if (!trackItem) return;
+
+  const main = document.getElementById('mainContent');
+  main.innerHTML = renderLoading();
+  main.scrollTop = 0;
+
+  // Tenta buscar dados completos do produto
+  let detalhe = null;
+  try {
+    const url = API_BASE + '/api/v1/mercadoria/DetalheProduto?SkuOff=' + (trackItem.skuOff || '') + '&SkuOn=' + (trackItem.skuOn || '');
+    const res = await fetch(url, { headers: authHeaders() });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.isOk && json.data) detalhe = json.data;
+    }
+  } catch (_) { /* silencia — renderiza apenas com dado de tracking */ }
+
+  renderDetailPage(trackItem, detalhe);
+}
+
+function fieldHtml(label, value, span) {
+  const v = (value !== null && value !== undefined && value !== '') ? value : '—';
+  return '<div class="detail-field"' + (span > 1 ? ' style="grid-column:span ' + span + '"' : '') + '>' +
+    '<div class="detail-label">' + label + '</div>' +
+    '<div class="detail-value">' + v + '</div>' +
+    '</div>';
+}
+
+function renderDetailPage(trackItem, d) {
+  const main = document.getElementById('mainContent');
 
   // Pipeline visual
   let stepsHtml = '';
-  STAGES.forEach((s, i) => {
-    const val = p.track[s.key];
-    let cls = 'na', icon = '—';
-    if (s.key==='cadastro')  { cls='done'; icon='✓'; }
-    else if (val==='Sim')    { cls='done'; icon='✓'; }
-    else if (val==='Não')    { cls='fail'; icon='✕'; }
-    else if (val==='N/A')    { cls='na';   icon='—'; }
-    const prevOk = STAGES.slice(0,i).every(ps => p.track[ps.key] !== 'Não');
-    if (i > 0) stepsHtml += `<div class="step-connector ${prevOk && cls==='done'?'done':''}"></div>`;
-    stepsHtml += `<div class="step-item">
-      <div class="step-circle ${cls}">${icon}</div>
-      <div class="step-label">${s.etapa} — ${s.label}</div>
-      <div class="step-sub">${s.key==='cadastro'?val:(val||'—')}</div>
-      <div class="step-sys">${s.sistema}</div>
-    </div>`;
+  STAGES.forEach(function(s, i) {
+    const val = trackVal(trackItem, s);
+    const cls  = val === 'Sim' ? 'done' : val === 'Não' ? 'fail' : 'na';
+    const icon = val === 'Sim' ? '✓'   : val === 'Não' ? '✕'   : '—';
+    const prevOk = STAGES.slice(0, i).every(function(ps) { return trackVal(trackItem, ps) !== 'Não'; });
+    if (i > 0) stepsHtml += '<div class="step-connector ' + (prevOk && cls === 'done' ? 'done' : '') + '"></div>';
+    stepsHtml +=
+      '<div class="step-item">' +
+        '<div class="step-circle ' + cls + '">' + icon + '</div>' +
+        '<div class="step-label">' + s.etapa + ' — ' + s.label + '</div>' +
+        '<div class="step-sub">' + val + '</div>' +
+        '<div class="step-sys">' + s.sistema + '</div>' +
+      '</div>';
   });
 
-  // Tracking table
-  const tRows = STAGES.map((s,i) => {
-    const val = p.track[s.key];
+  // Tracking table rows
+  const tRows = STAGES.map(function(s, i) {
+    const val = trackVal(trackItem, s);
     let sc;
-    if (s.key==='cadastro') sc=`<td class="center status-date">${val}</td>`;
-    else if (val==='Sim')   sc=`<td class="center status-sim">✓ Sim</td>`;
-    else if (val==='Não')   sc=`<td class="center status-nao">✕ Não</td>`;
-    else                    sc=`<td class="center status-na">N/A</td>`;
-    const oCount = filtered.filter(pr => pr.track[s.key]==='Não').length;
-    const oc = s.key==='cadastro'
-      ? `<td class="center" style="color:#a0aec0">—</td>`
-      : `<td class="center"><span class="ofensor-count ${oCount>0?'has':'none'}">${oCount>0?oCount:'✓'}</span></td>`;
-    return `<tr class="${i%2===0?'stripe':''}">
-      <td style="font-weight:700;color:#003087">${s.etapa}</td>
-      <td>${s.label}</td>
-      <td><span class="source-tag ${s.origemType==='orange'?'orange':''}">${s.sistema}</span></td>
-      <td style="color:#718096;font-size:11.5px">${s.area}</td>
-      <td style="color:#718096;font-size:11.5px">${s.detalhe}</td>
-      ${sc}${oc}
-    </tr>`;
+    if (val === 'Sim')      sc = '<td class="center status-sim">✓ Sim</td>';
+    else if (val === 'Não') sc = '<td class="center status-nao">✕ Não</td>';
+    else                    sc = '<td class="center status-na">N/A <span style="font-size:10px;color:#a0aec0">(Fase 1)</span></td>';
+
+    const oCount = currentItems.filter(function(it) { return trackVal(it, s) === 'Não'; }).length;
+    const oc = s.key === 'cadastro'
+      ? '<td class="center" style="color:#a0aec0">—</td>'
+      : '<td class="center"><span class="ofensor-count ' + (oCount > 0 ? 'has' : 'none') + '">' + (oCount > 0 ? oCount : '✓') + '</span></td>';
+
+    return '<tr class="' + (i % 2 === 0 ? 'stripe' : '') + '">' +
+      '<td style="font-weight:700;color:#5b21b6">' + s.etapa + '</td>' +
+      '<td>' + s.label + '</td>' +
+      '<td><span class="source-tag ' + (s.origemType === 'orange' ? 'orange' : '') + '">' + s.sistema + '</span></td>' +
+      '<td style="color:#718096;font-size:11.5px">' + s.area + '</td>' +
+      '<td style="color:#718096;font-size:11.5px">' + s.detalhe + '</td>' +
+      sc + oc +
+    '</tr>';
   }).join('');
 
-  const fails = STAGES.slice(1).filter(s => p.track[s.key]==='Não').length;
-  const overallBadge = fails===0
-    ? `<span class="badge badge-green" style="padding:4px 12px;font-size:13px">✓ SKU ATIVO — Pipeline Completo</span>`
-    : `<span class="badge badge-red" style="padding:4px 12px;font-size:13px">⚠ ${fails} etapa(s) bloqueada(s)</span>`;
+  const fails = STAGES.slice(1).filter(function(s) { return trackVal(trackItem, s) === 'Não'; }).length;
+  const overallBadge = fails === 0
+    ? '<span class="badge badge-green" style="padding:4px 12px;font-size:13px">✓ SKU ATIVO — Pipeline Completo</span>'
+    : '<span class="badge badge-red" style="padding:4px 12px;font-size:13px">⚠ ' + fails + ' etapa(s) bloqueada(s)</span>';
 
-  document.getElementById('mainContent').innerHTML = `
-    <div class="page">
+  // Campos de identificação (prioridade: detalhe da API Catálogo, fallback: dados do tracking)
+  const skuOff  = (d && d.skuLoja) || trackItem.skuOff || '—';
+  const skuOn   = (d && d.skuSite) || trackItem.skuOn  || '—';
+  const descSku = (d && d.descricaoSku) || trackItem.mercadoria || '—';
+  const tipo    = d ? ((d.idTipoMercadoria || '') + (d.idTipoMercadoria && d.tipoMercadoria ? ' - ' : '') + (d.tipoMercadoria || '')).replace(/^[ -]+/, '') : (trackItem.tipoNegociacao || '—');
+  const situacao = (d && d.situacaoComercial) || '—';
 
-      <div class="breadcrumb">
-        <a onclick="showList()">🏠</a> ›
-        <a onclick="showList()">Gestão de Produtos</a> ›
-        <a onclick="showList()">Produtos Cadastrados</a> ›
-        <strong>Detalhes SKU OFF : ${p.skuOff} | SKU ON : ${p.skuOn}</strong>
-      </div>
+  // Seções de detalhe completo (disponíveis apenas se DetalheProduto retornou dados)
+  let detalheCompleto = '';
+  if (d) {
+    detalheCompleto =
+      // CATEGORIZAÇÃO
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Categorização</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Diretoria', d.idDiretoria ? d.idDiretoria + ' - ' + (d.diretoria || '') : d.diretoria, 2) +
+          fieldHtml('Categoria', d.idCategoria ? d.idCategoria + ' - ' + (d.categoria || '') : d.categoria) +
+          fieldHtml('Sub categoria', d.subCategoria) +
+          fieldHtml('Espécie', d.especie) +
+          fieldHtml('Sub espécie', d.subEspecie) +
+        '</div>' +
+      '</div>' +
 
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-        <button class="btn-back" onclick="showList()">← Voltar</button>
-        <div class="page-title">Detalhes SKU OFF : ${p.skuOff} | SKU ON : ${p.skuOn}</div>
-        ${overallBadge}
-      </div>
+      // DADOS FABRICANTE
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Dados fabricante</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('CNPJ fornecedor', d.cNPJFornecedor) +
+          fieldHtml('Nome fornecedor', d.nomeFornecedor, 2) +
+          fieldHtml('Marca comercial', d.idMarca ? d.idMarca + ' - ' + (d.nomeMarca || '') : d.nomeMarca) +
+          fieldHtml('Garantia fabricante', d.mesGarantia ? d.mesGarantia + ' meses' : null) +
+        '</div>' +
+        '<div class="detail-grid" style="border-top:1px solid #f0f0f0">' +
+          fieldHtml('Modelo', d.modelo) +
+          fieldHtml('Descrição modelo', d.descricaoModelo) +
+          fieldHtml('Código produto fornecedor (SKU)', d.codigoProdutoFornecedor) +
+        '</div>' +
+      '</div>' +
 
-      <!-- DADOS GERAIS -->
-      <div class="detail-section">
-        <div class="detail-section-title">Dados gerais</div>
-        <div class="detail-grid">
-          <div class="detail-field"><div class="detail-label">SKU off</div><div class="detail-value sku">${p.skuOff}</div></div>
-          <div class="detail-field"><div class="detail-label">SKU on</div><div class="detail-value sku">${p.skuOn}</div></div>
-          <div class="detail-field"><div class="detail-label">Tipo de mercadoria</div><div class="detail-value">1 - ${p.tipo}</div></div>
-          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Descrição do sku</div><div class="detail-value">${p.mercadoria}</div></div>
-        </div>
-        <div class="detail-grid" style="border-top:1px solid #f0f0f0">
-          <div class="detail-field"><div class="detail-label">EAN tributário</div><div class="detail-value">${p.eanTributario}</div></div>
-          <div class="detail-field"><div class="detail-label">EAN master</div><div class="detail-value">${p.eanMaster}</div></div>
-          <div class="detail-field"><div class="detail-label">EAN operacional</div><div class="detail-value">${p.eanOperacional}</div></div>
-          <div class="detail-field"><div class="detail-label">Situação cadastral</div><div class="detail-value"><span class="badge ${p.situacao==='OK'?'badge-green':'badge-yellow'}">${p.situacao}</span></div></div>
-        </div>
-      </div>
+      // NEGOCIAÇÃO
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Negociação</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Marca fornecedor', d.marcaFornecedor) +
+          fieldHtml('Tipo de distribuidor', d.tipoDistribuidor) +
+          fieldHtml('Preço sugestão', d.precoSugestao) +
+          fieldHtml('Preço anúncio', d.precoAnuncio) +
+          fieldHtml('Custo à vista', d.custoAVista) +
+          fieldHtml('Preço limite', d.precoLimite) +
+          fieldHtml('Preço unitário fornecedor', d.precounitarioFornecedor) +
+        '</div>' +
+      '</div>' +
 
-      <!-- CATEGORIZAÇÃO -->
-      <div class="detail-section">
-        <div class="detail-section-title">Categorização</div>
-        <div class="detail-grid">
-          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Diretoria</div><div class="detail-value">${p.diretoria}</div></div>
-          <div class="detail-field"><div class="detail-label">Categoria</div><div class="detail-value">${p.categoria2}</div></div>
-          <div class="detail-field"><div class="detail-label">Sub categoria</div><div class="detail-value">${p.subCategoria}</div></div>
-          <div class="detail-field"><div class="detail-label">Espécie</div><div class="detail-value">${p.especie}</div></div>
-          <div class="detail-field"><div class="detail-label">Sub espécie</div><div class="detail-value">${p.subEspecie}</div></div>
-        </div>
-      </div>
+      // DADOS TRIBUTÁRIO
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Dados tributário</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Origem da mercadoria', d.idOrigemMercadoria ? d.idOrigemMercadoria + ' - ' + (d.origemMercadoria || '') : d.origemMercadoria, 2) +
+          fieldHtml('Código NCM', d.codigoNCM) +
+          fieldHtml('Taxa Ativação', d.taxaAtivacao) +
+          fieldHtml('Código CEST', d.codigoCEST) +
+          fieldHtml('EX-TIPI', d.eXTIPI) +
+          fieldHtml('Taxa IPI', d.taxaIPI) +
+          fieldHtml('MP do BEM', d.mPBem) +
+          fieldHtml('PPB', d.pPB) +
+          fieldHtml('Portaria (NRO/ANO)', d.portaria) +
+        '</div>' +
+      '</div>' +
 
-      <!-- DADOS FABRICANTE -->
-      <div class="detail-section">
-        <div class="detail-section-title">Dados fabricante</div>
-        <div class="detail-grid">
-          <div class="detail-field"><div class="detail-label">CNPJ fornecedor</div><div class="detail-value">${p.cnpjFornecedor}</div></div>
-          <div class="detail-field" style="grid-column:span 2"><div class="detail-label">Nome fornecedor</div><div class="detail-value">${p.nomeFornecedor}</div></div>
-          <div class="detail-field"><div class="detail-label">Marca comercial</div><div class="detail-value">${p.marcaComercial}</div></div>
-          <div class="detail-field"><div class="detail-label">Garantia fabricante</div><div class="detail-value">${p.garantia} meses</div></div>
-        </div>
-        <div class="detail-grid" style="border-top:1px solid #f0f0f0">
-          <div class="detail-field"><div class="detail-label">Modelo</div><div class="detail-value">${p.modelo}</div></div>
-          <div class="detail-field"><div class="detail-label">Descrição modelo</div><div class="detail-value">${p.descricaoModelo}</div></div>
-          <div class="detail-field"><div class="detail-label">Código produto fornecedor (SKU)</div><div class="detail-value">${p.codigoProduto}</div></div>
-        </div>
-      </div>
+      // DIMENSÕES
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Dimensões</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Altura da embalagem', d.alturaEmbalagem) +
+          fieldHtml('Largura da embalagem', d.larguraEmbalagem) +
+          fieldHtml('Profundidade da embalagem', d.profundidadeEmbalagem) +
+          fieldHtml('Volume da embalagem unitário', d.volumeEmbalagemUnitario) +
+          fieldHtml('Peso líquido', d.pesoLiquido) +
+          fieldHtml('Peso bruto', d.pesoBruto) +
+          fieldHtml('Altura do produto', d.alturaProduto) +
+          fieldHtml('Largura do produto', d.larguraProduto) +
+          fieldHtml('Profundidade do produto', d.profundidadeProduto) +
+          fieldHtml('Cubagem', d.cubagem) +
+        '</div>' +
+      '</div>' +
 
-      <!-- PIPELINE VISUAL -->
-      <div class="detail-section">
-        <div class="detail-section-title">Tracking de Produtos — Etapas 1P (E01 → E09)</div>
-        <div class="pipeline-steps-wrap">
-          <div class="pipeline-steps">${stepsHtml}</div>
-        </div>
-      </div>
+      // UNIDADE
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Unidade</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Unidade de venda', d.unidadeVenda) +
+          fieldHtml('Quantidade caixa master', d.quantidadeCaixaMaster) +
+          fieldHtml('Quantidade unidade dentro do pack', d.quantidadeUnidadePack) +
+        '</div>' +
+      '</div>' +
 
-      <!-- TRACKING TABLE -->
-      <div class="detail-section">
-        <div class="detail-section-title">Detalhamento por Etapa</div>
-        <div class="tracking-table-wrap">
-          <table class="tracking-table">
-            <thead><tr>
-              <th style="width:50px">Etapa</th>
-              <th>Nome</th>
-              <th>Sistema</th>
-              <th>Área</th>
-              <th>Campos</th>
-              <th class="center" style="width:110px">Status — este SKU</th>
-              <th class="center" style="width:110px">Ofensores<br><span style="font-size:10px;font-weight:400">na busca atual</span></th>
-            </tr></thead>
-            <tbody>${tRows}</tbody>
-          </table>
-        </div>
-      </div>
+      // TRANSPORTE
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Transporte/logística</div>' +
+        '<div class="detail-grid">' + fieldHtml('Modalidade', d.modalidade) + '</div>' +
+      '</div>' +
 
-    </div>`;
+      // VENDA
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Venda</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Pré lançamento', d.prelancamento) +
+          fieldHtml('Restringe venda fora do conjunto', d.restringeVendaForaConjunto) +
+          fieldHtml('Compra Suspensa', d.suspenso) +
+          fieldHtml('Compra bloqueada', d.flagCompraBloqueada) +
+          fieldHtml('Canal de venda', d.idCanalVenda ? d.idCanalVenda + ' - ' + (d.canalVenda || '') : d.canalVenda) +
+          fieldHtml('Venda bloqueada', d.flagVendaBloqueada) +
+          fieldHtml('Brinde', d.brinde) +
+          fieldHtml('Crossdocking', d.flagCrossDocking) +
+        '</div>' +
+      '</div>' +
 
-  // scroll to top
-  document.getElementById('mainContent').scrollTop = 0;
+      // ATRIBUTOS
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Atributos</div>' +
+        '<div class="detail-grid">' +
+          fieldHtml('Cor', d.cor) +
+          fieldHtml('Voltagem', d.voltagem) +
+        '</div>' +
+      '</div>';
+  } else {
+    detalheCompleto =
+      '<div style="padding:16px 20px;background:#fff;border:1px solid #e2e8f0;border-radius:8px;color:#718096;font-size:13px">' +
+        '🔒 Dados completos do produto não carregados — <code>GET /api/v1/mercadoria/DetalheProduto</code> retornou sem dados.' +
+        '<br>Verifique se o JWT está configurado e se o SKU existe na API Catálogo.' +
+      '</div>';
+  }
+
+  const situacaoBadge = situacao !== '—'
+    ? '<span class="badge ' + (situacao === 'OK' ? 'badge-green' : 'badge-yellow') + '">' + situacao + '</span>'
+    : '—';
+
+  main.innerHTML =
+    '<div class="page">' +
+
+      '<div class="breadcrumb">' +
+        '<a onclick="showTrackingPage()">🏠</a> › ' +
+        '<a onclick="showTrackingPage()">Gestão de Produtos</a> › ' +
+        '<a onclick="showTrackingPage()">Tracking</a> › ' +
+        '<strong>Detalhes SKU OFF : ' + skuOff + ' | SKU ON : ' + skuOn + '</strong>' +
+      '</div>' +
+
+      '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">' +
+        '<button class="btn-back" onclick="showTrackingPage()">← Voltar</button>' +
+        '<div class="page-title">Detalhes SKU OFF : ' + skuOff + ' | SKU ON : ' + skuOn + '</div>' +
+        overallBadge +
+      '</div>' +
+
+      // DADOS GERAIS
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Dados gerais</div>' +
+        '<div class="detail-grid">' +
+          '<div class="detail-field"><div class="detail-label">SKU off</div><div class="detail-value sku">' + skuOff + '</div></div>' +
+          '<div class="detail-field"><div class="detail-label">SKU on</div><div class="detail-value sku">' + skuOn + '</div></div>' +
+          fieldHtml('Tipo de mercadoria', tipo) +
+          '<div class="detail-field" style="grid-column:span 2"><div class="detail-label">Descrição do sku</div><div class="detail-value">' + descSku + '</div></div>' +
+        '</div>' +
+        '<div class="detail-grid" style="border-top:1px solid #f0f0f0">' +
+          fieldHtml('EAN tributário', d && d.eANTributario) +
+          fieldHtml('EAN master', d && d.eANMaster) +
+          fieldHtml('EAN operacional', d && d.eANOperacional) +
+          fieldHtml('Situação cadastral', situacaoBadge) +
+        '</div>' +
+      '</div>' +
+
+      detalheCompleto +
+
+      // PIPELINE VISUAL
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Tracking de Produtos — Etapas 1P (E01 → E09)</div>' +
+        '<div class="pipeline-steps-wrap"><div class="pipeline-steps">' + stepsHtml + '</div></div>' +
+      '</div>' +
+
+      // TRACKING TABLE
+      '<div class="detail-section">' +
+        '<div class="detail-section-title">Detalhamento por Etapa</div>' +
+        '<div class="tracking-table-wrap">' +
+          '<table class="tracking-table">' +
+            '<thead><tr>' +
+              '<th style="width:50px">Etapa</th>' +
+              '<th>Nome</th>' +
+              '<th>Sistema</th>' +
+              '<th>Área</th>' +
+              '<th>Campos</th>' +
+              '<th class="center" style="width:140px">Status — este SKU</th>' +
+              '<th class="center" style="width:110px">Ofensores<br><span style="font-size:10px;font-weight:400">na busca atual</span></th>' +
+            '</tr></thead>' +
+            '<tbody>' + tRows + '</tbody>' +
+          '</table>' +
+        '</div>' +
+      '</div>' +
+
+      '<div style="padding:0 0 24px 0">' +
+        '<button class="btn-back" onclick="showTrackingPage()">← Voltar</button>' +
+      '</div>' +
+    '</div>';
+
+  main.scrollTop = 0;
 }
 
-showList();
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+updateTokenBanner();
+showTrackingPage();
 </script>
 </body>
 </html>
