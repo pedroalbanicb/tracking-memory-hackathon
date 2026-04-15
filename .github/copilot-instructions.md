@@ -6,7 +6,8 @@ Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de
 
 **Responsável:** Guilherme Maesta Domke de Thomaz (guilherme.thomaz@viavarejo.com.br)
 **Jira:** Projeto TCD — Board [2291](https://casasbahiatech.atlassian.net/jira/software/c/projects/TCD/boards/2291/backlog)
-**Épico Tracking:** [TCD-9910](https://casasbahiatech.atlassian.net/browse/TCD-9910)
+**Épico BACKEND (padrão):** [TCD-9910](https://casasbahiatech.atlassian.net/browse/TCD-9910) — Tracking Pipeline SKU 1P (gestaoproduto-plataforma-api)
+**Épico FRONTEND:** referencia TCD-9910 salvo solicitação explícita de épico diferente
 
 ## Estrutura
 
