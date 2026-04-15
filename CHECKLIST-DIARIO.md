@@ -1,27 +1,27 @@
 ---
 tags: [tracking, checklist, diario]
 status: ativo
-updated: 2026-04-10
+updated: 2026-04-15
 ---
 
 # ✅ Checklist Diário — Tracking GO
 
-> Atualizado em 10/04/2026. Só itens abertos. Pendências detalhadas em [[PENDENCIAS]].
+> Atualizado em 15/04/2026. Só itens abertos. Pendências detalhadas em [[PENDENCIAS]].
 
 ---
 
 ## 🚨 P1 — Aberto (dependem de SMEs)
 
-### Admin Discovery (Juliana)
-- [ ] Identificar sistema Admin real (URL, nome técnico)
-- [ ] Processo E06 (Produzido Site) — manual ou automático?
-- [ ] Processo E07 (Produzido Loja) — mesmo sistema ou diferente?
-- [ ] Query real para verificar flags de produção
-- [ ] Responsáveis e times por etapa
+### ~~Admin Discovery (Juliana)~~ — ✅ Resolvido via API Catálogo (ADR-003)
+- [x] E06/E07: `FlagSkuProduzido` e `FlagSkuProduzidoLojaFisica` lidos via `GET /api/v1/produto-sku/selecionar`
 
-### SQL Confirmações Pendentes (Douglas Wolff)
+### E04 — Agendamento (Alonso Dias Assuncao)
+- [ ] Documentar fluxo LN/Neogrid recebido do Alonso
+- [ ] Confirmar integração via Databricks ou query SQL direta
+
+### E09 — Exibição (Douglas Wolff / Ricardo Tadeu)
+- [ ] Decisão: API vs SQL Corp vs MONGOS para flags de exibição
 - [ ] Verificar se `SkuLojistaPreço` existe (nome com acento)
-- [ ] Test query E09 em DEV environment
 - [ ] Validar aliases: `p2` → `Marca`? `sl` → qual tabela?
 
 ## 🔧 P2 — Research
@@ -41,6 +41,18 @@ updated: 2026-04-10
 - [ ] **OMS** (Plataforma) — qual sistema específico?
 
 ---
+
+## ✅ Concluído em 2026-04-15 (Hackathon)
+
+- E05: implementado via API Oferta (`DisponibilidadeEstoque` em `PrecoSkus[0].PrecoVenda`)
+- E08: implementado via API Oferta (`Valido` na raiz)
+- E06/E07: implementados via API Catálogo (`FlagSkuProduzido`, `FlagSkuProduzidoLojaFisica`)
+- ADR-002, ADR-003: promovidas para `Accepted`
+- ADR-004: Oferta E05/E08 — `Accepted`
+- ADR-005: Análise IA Gemini (repo stub, implementação Gemini pendente)
+- ADR-006: Componente frontend AnaliseIA — `Proposed`
+- SKILL.md: tabela de etapas e decisões pendentes atualizadas
+- discovery-status.md: E05/E08 marcadas como ✅ implementado
 
 ## ✅ Concluído em 10/04/2026
 
