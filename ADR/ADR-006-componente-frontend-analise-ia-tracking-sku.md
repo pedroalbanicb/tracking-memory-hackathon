@@ -2,7 +2,7 @@
 tags: [adr, tracking, ia, frontend, gemini, hackathon]
 status: proposed
 data: 2026-04-15
-autores: [guilherme.thomaz@viavarejo.com.br]
+autores: [Guilherme Maesta Domke de Thomaz]
 rfc-relacionada: 
 updated: 2026-04-15
 ---
