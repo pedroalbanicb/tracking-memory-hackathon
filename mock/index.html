@@ -301,7 +301,7 @@ function showDetail(idx) {
     return `<tr class="${i%2===0?'stripe':''}">
       <td style="font-weight:700;color:#003087">${s.etapa}</td>
       <td>${s.label}</td>
-      <td><span class="source-tag ${s.origemType==='orange'?'orange':''">${s.sistema}</span></td>
+      <td><span class="source-tag ${s.origemType==='orange'?'orange':''}">${s.sistema}</span></td>
       <td style="color:#718096;font-size:11.5px">${s.area}</td>
       <td style="color:#718096;font-size:11.5px">${s.detalhe}</td>
       ${sc}${oc}
