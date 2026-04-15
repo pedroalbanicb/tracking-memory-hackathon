@@ -1,7 +1,7 @@
 ---
 tags: [tracking, pipeline, sku, lifecycle, go]
 tipo: indice-pipeline
-updated: 2026-04-09
+updated: 2026-04-15
 ---
 
 # Tracking de Produtos — Ciclo de Vida do SKU
@@ -49,13 +49,13 @@ Para um SKU aparecer no tracking, ele deve atender:
 | 2 | [[E02-validacao-fiscal\|Validação Fiscal]] | **Tax Web** (via API Catálogo) | ✅ Integrado — `FlagCompraBloqueada` e `FlagVendaBloqueada` confirmados |
 | 3 | [[E03-proposta-comercial\|Proposta Comercial]] | API Catálogo / LN (Infor) | ✅ Integrado — `FlagContratoLiberado` confirmado via API Catálogo |
 | 4 | [[E04-agendamento\|Agendamento]] | **LN / Neogrid** | Sistema identificado — integração a mapear |
-| 5 | [[E05-estoque\|Estoque]] | **Banco Inventario (SQL)** | Regras mapeadas — integração a definir |
+| 5 | [[E05-estoque\|Estoque]] | **API Oferta** (`DisponibilidadeEstoque`) | ✅ Integrado — endpoint e campo confirmados |
 | 6 | [[E06-produzido\|Produzido Site]] | **Admin** (escrita) / **API Catálogo** (leitura) | ✅ Integrado — `FlagSkuProduzido` confirmado via API Catálogo |
 | 7 | [[E07-produzido-loja\|Produzido Loja Física]] | **Admin** (escrita) / **API Catálogo** (leitura) | ✅ Integrado — `FlagSkuProduzidoLojaFisica` confirmado via API Catálogo |
-| 8 | [[E08-ativacao-pricing\|Ativação Pricing]] | **GO / Admin** (SQL: `SkuLojista`, `SkuLojistaPreço`) | Flags confirmadas — integração a definir |
+| 8 | [[E08-ativacao-pricing\|Ativação Pricing]] | **API Oferta** (`Valido`) | ✅ Integrado — endpoint e campo confirmados |
 | 9 | [[E09-exibicao-site-loja\|Exibição Site/Loja]] | **SkuLojista / SKU / Produto / MONGOS** | Regras mapeadas — flags e propagação documentados |
 
-> ℹ️ Origens das etapas 2, 4, 5, 6, 7 e 8 confirmadas por **Juliana Dos Santos** em 2026-04-09. Regras de negócio de **E05** (estoque) e **E09** (exibição) mapeadas em reunião com **Ricardo Tadeu Lima e Douglas Souza Wolff** em 09/04/2026. Interface de **E01**, **E02** e **E03** confirmadas via curl testado em 2026-04-09 (endpoint `GET /api/v1/produto-sku/selecionar` da API Catálogo). **E03**, **E06** e **E07** confirmadas via API Catálogo em 2026-04-15 (campos `FlagContratoLiberado`, `FlagSkuProduzido`, `FlagSkuProduzidoLojaFisica`). Ver [[ADR-003-complementacao-dados-api-catalogo]].
+> ℹ️ Origens das etapas 2, 4, 5, 6, 7 e 8 confirmadas por **Juliana Dos Santos** em 2026-04-09. Regras de negócio de **E05** (estoque) e **E09** (exibição) mapeadas em reunião com **Ricardo Tadeu Lima e Douglas Souza Wolff** em 09/04/2026. Interface de **E01**, **E02** e **E03** confirmadas via curl testado em 2026-04-09 (endpoint `GET /api/v1/produto-sku/selecionar` da API Catálogo). **E03**, **E06** e **E07** confirmadas via API Catálogo em 2026-04-15 (campos `FlagContratoLiberado`, `FlagSkuProduzido`, `FlagSkuProduzidoLojaFisica`). **E05** e **E08** integradas via API Oferta (`GET /v1/Preco/Sku/PrecoVenda`) em 2026-04-15. Ver [[ADR-003-complementacao-dados-api-catalogo]].
 
 ---
 

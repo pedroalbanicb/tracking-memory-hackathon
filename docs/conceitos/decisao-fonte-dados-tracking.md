@@ -1,15 +1,14 @@
 ---
-tags: [conceito, decisao, arquitetura, tracking, sql-corp, sql, mongodb, MONGOS]
-tipo: decisao-pendente
-status: em-aberto
-updated: 2026-04-09
+tags: [conceito, decisao, arquitetura, tracking, sql-corp, sql, mongodb, MONGOS, api-oferta]
+tipo: decisao-parcialmente-resolvida
+status: parcialmente-resolvido
+updated: 2026-04-15
 fonte: Douglas Souza Wolff; Ricardo Tadeu Lima; Douglas Willian De Castro — reunião 09/04/2026
 ---
 
 # Decisão — Fonte de Dados do Tracking: API vs SQL Direto
 
-> Debate arquitetural aberto em 09/04/2026. **Sem decisão até o momento.**
-> Impacta a etapa [[E09-exibicao-site-loja]] e todas as flags de exibição.
+> **Atualização 2026-04-15:** E05 (Estoque) e E08 (Ativação Pricing) resolvidos via **API Oferta** (`GET /v1/Preco/Sku/PrecoVenda`). Debate permanece aberto para [[E09-exibicao-site-loja]] e flags de exibição no MongoDB/SQL Corp.
 
 ---
 
@@ -69,15 +68,26 @@ No MVP, o tracking mostra **um** dos dois planos. Na V2, é possível comparar a
 
 ---
 
+## Decisões Tomadas (2026-04-15)
+
+| Etapa | Campo | Endpoint | Status |
+|-------|-------|----------|--------|
+| E05 — Estoque | `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` | `GET /v1/Preco/Sku/PrecoVenda` | ✅ Resolvido via API |
+| E08 — Ativação Pricing | `Valido` (raiz da resposta) | `GET /v1/Preco/Sku/PrecoVenda` | ✅ Resolvido via API |
+
+> Ambas as etapas usam o **mesmo endpoint** da API Oferta. E09 e demais flags de exibição permanecem em aberto.
+
+---
+
 ## Status da Decisão
 
 | Campo | Valor |
 |-------|-------|
-| Status | 🔴 **Em aberto** |
+| Status | � **Parcialmente resolvido** — E05 e E08 via API Oferta; E09 ainda em aberto |
 | Decisão até | — |
 | Responsáveis | Time de Plataforma / Douglas Willian De Castro (arquitetura) / Douglas Souza Wolff (SQL/flags) |
 | Impacto | Arquitetura da integração de [[E09-exibicao-site-loja]] |
-| Relacionado | [[validacao-sincronizacao-sql-mongo]], [[E09-exibicao-site-loja]], [[regras-exibicao-sku]] |
+| Relacionado | [[validacao-sincronizacao-sql-mongo]], [[E09-exibicao-site-loja]], [[regras-exibicao-sku]], [[E05-estoque]], [[E08-ativacao-pricing]] |
 
 ---
 

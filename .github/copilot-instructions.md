@@ -35,10 +35,10 @@ Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de
 | 2 | Validação Fiscal | Tax Web (via API Catálogo) | `E02-validacao-fiscal.md` |
 | 3 | Proposta Comercial | LN (Infor) via API Catálogo | `E03-proposta-comercial.md` |
 | 4 | Agendamento | LN / Neogrid | `E04-agendamento.md` |
-| 5 | Estoque | Banco Inventario (SQL) | `E05-estoque.md` |
+| 5 | Estoque | API Oferta (`DisponibilidadeEstoque`) | `E05-estoque.md` |
 | 6 | Produzido Site | Admin | `E06-produzido.md` |
 | 7 | Produzido Loja Física | Admin | `E07-produzido-loja.md` |
-| 8 | Ativação Pricing | GO / Admin (SQL: SkuLojista) | `E08-ativacao-pricing.md` |
+| 8 | Ativação Pricing | API Oferta (`Valido`) | `E08-ativacao-pricing.md` |
 | 9 | Exibição Site/Loja | SQL Corp / MONGOS (MongoDB de Pricing) | `E09-exibicao-site-loja.md` |
 
 ## Escopo

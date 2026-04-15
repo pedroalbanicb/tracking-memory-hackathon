@@ -1,29 +1,31 @@
 ---
-tags: [tracking, pipeline, etapa, estoque, manhattan, wms, inventario, sql]
+tags: [tracking, pipeline, etapa, estoque, manhattan, wms, inventario, sql, api-oferta]
 etapa: 5
 titulo: Estoque
-status: regras-mapeadas
-origem: Banco Inventario (SQL)
+status: integrado
+origem: API Oferta — GET /v1/Preco/Sku/PrecoVenda (campo PrecoVenda.DisponibilidadeEstoque)
 escopo: 1P apenas
-updated: 2026-04-09
+updated: 2026-04-15
 fonte: Juliana Dos Santos; Query SQL — reunião 09/04/2026
 ---
 
 # E05 — Estoque
 
-> Etapa que verifica a existência de estoque para o SKU. Regras mapeadas via banco de inventário (SQL). Método de integração (API vs. acesso direto ao banco) ainda a definir.
+> Etapa que verifica a existência de estoque para o SKU. **Integração definida:** campo `DisponibilidadeEstoque` dentro de `PrecoSkus[*].PrecoVenda` da **API Oferta** — `GET /v1/Preco/Sku/PrecoVenda?IdsSku={idSku}`. Regras internas escritas no Banco Inventario (Manhattan WMS).
 
 ## Visão Geral
 
 | Atributo | Valor |
 |----------|-------|
 | Etapa | 5 de 9 |
-| Sistema de Origem | **Banco Inventario (SQL)** — acesso via query relacional |
-| Status do Mapeamento | **Regras mapeadas — método de integração a definir** |
+| Sistema de Escrita | **Banco Inventario (SQL)** — Manhattan WMS |
+| Sistema de Leitura | **API Oferta** — `GET /v1/Preco/Sku/PrecoVenda` |
+| Campo de integração | `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` — `true` = com estoque |
+| Status do Mapeamento | ✅ Integrado — endpoint e campo confirmados |
 | Etapa anterior | [[E04-agendamento]] |
 | Próxima etapa | [[E06-produzido]] |
 
-> 🟡 Regras de negócio confirmadas. Integração técnica (API / banco / evento) ainda pendente. Ver [[RFC-003-estoque]] quando criada.
+> ✅ Integração definida via **API Oferta**, campo `DisponibilidadeEstoque` — 2026-04-15. Regras internas do banco Inventario documentadas em [[regras-estoque-inventario]].
 
 ---
 
@@ -31,38 +33,66 @@ fonte: Juliana Dos Santos; Query SQL — reunião 09/04/2026
 
 | Método | Detalhe |
 |--------|---------|
-| Sistema | **Banco Inventario** (schema `Inventario`) |
-| Interface | ⚠️ A definir — acesso direto ao banco ou API intermediária? |
-| Chave de busca | `Modalidade.IdSkuOrigem` (ID do SKU) |
-| Frequência de atualização | Por evento (movimentação de estoque) ou batch |
-| Linked Server | `[CORP_PRD.dc.nova,1310]` — tabela `Filial` corporativa |
+| Endpoint | `GET /v1/Preco/Sku/PrecoVenda?IdsSku={idSku}` |
+| Base URL (CB hlg) | `https://api-oferta-casasbahia-hlg.viavarejo.com.br` |
+| Header | `accept: text/plain` |
+| Campo de decisão | `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` — `true` = tem estoque |
+| Chave de rastreamento | `idSku` (query param) |
+| Frequência de atualização | Por evento (movimentação de estoque) ou batch no Inventario |
 
-> ℹ️ As tabelas ficam no schema `Inventario`. Ver detalhamento completo das tabelas e relacionamentos em [[regras-estoque-inventario]].
+```bash
+curl -X 'GET' \
+  'https://api-oferta-casasbahia-hlg.viavarejo.com.br/v1/Preco/Sku/PrecoVenda?IdsSku={idSku}' \
+  -H 'accept: text/plain'
+```
 
-> ℹ️ **Fonte: Juliana Dos Santos (2026-04-09)** — sistema confirmado como Manhattan WMS. **Query SQL (09/04/2026)** — confirma tabelas relacionais do schema `Inventario` como fonte de dados consultável.
+> ℹ️ A leitura da disponibilidade de estoque é feita via API Oferta (campo `DisponibilidadeEstoque`). O sistema interno que escreve esse dado é o **Manhattan WMS** via **Banco Inventario**. Detalhamento das tabelas SQL em [[regras-estoque-inventario]].
 
 ---
 
 ## Campos / Schema
 
-### Campos Confirmados (via SQL)
+### Campo de Integração — API Oferta
+
+| Caminho no JSON | Tipo | Valor esperado | Descrição | Status |
+|----------------|------|---------------|-----------|--------|
+| `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque` | boolean | `true` | Indica disponibilidade de estoque para o SKU | ✅ Confirmado |
+
+#### Exemplo de Resposta
+
+```json
+{
+  "PrecoSkus": [
+    {
+      "PrecoVenda": {
+        "IdSku": 4132,
+        "DisponibilidadeVenda": true,
+        "DisponibilidadeEstoque": true,
+        ...
+      }
+    }
+  ],
+  "Valido": true,
+  "Mensagens": [],
+  "Protocolo": "947b6f26-f62f-48e7-a0e3-263b0774fffa"
+}
+```
+
+> ℹ️ `DisponibilidadeEstoque` fica dentro de `PrecoSkus[*].PrecoVenda` — **não** na raiz da resposta (o campo raiz `Valido` é usado pelo step E08).
+
+### Background — Campos SQL (Sistema de Escrita Interno)
+
+> O que o Banco Inventario armazena internamente. A API Oferta agrega essas regras no campo `DisponibilidadeEstoque`.
 
 | Campo SQL | Tabela | Descrição | Status |
 |-----------|--------|-----------|--------|
 | `QuantidadeDisponivel` | `SaldoEstoqueRestricao` | **Volume disponível** — regra principal (`> 0`) | ✅ Confirmado |
 | `QuantidadeReservada` | `SaldoEstoqueRestricao` | Estoque reservado para pedidos em aberto | ✅ Confirmado |
-| `QuantidadeTotal` | `SaldoEstoqueRestricao` | Total = Disponível + Reservado | ✅ Confirmado |
-| `er.Tipo` | `EstoqueRestricao` | Tipo de restrição (ex: `'BT'` — significado a confirmar) | ✅ Confirmado |
-| `te.Tipo` / `te.Nome` | `TipoEstoque` | Código e descrição do tipo de estoque | ✅ Confirmado |
-| `ste.PrazoDias` | `SaldoTipoEstoque` | Prazo em dias do tipo de estoque | ✅ Confirmado |
 | `m.DataPrevisaoChegada` | `Modalidade` | Data prevista de chegada (estoque em trânsito) | ✅ Confirmado |
 | `f.Ativa` | `Filial` | Filial precisa estar ativa | ✅ Confirmado |
-| `f.RetiraEmLoja` | `Filial` | Habilita modalidade retirada em loja | ✅ Confirmado |
-| `f.CentroDistribuicao` | `Filial` | Indica se a filial é um CD | ✅ Confirmado |
-| `f.GerarReserva` | `Filial` | Filial gera reserva de estoque | ✅ Confirmado |
-| `f.SeguirComReserva` | `Filial` | Filial mantém reserva no fluxo | ✅ Confirmado |
-| `FCORP.EntregaNacional` | `FCORP (linked server)` | Habilita entrega nacional | ✅ Confirmado |
 | `c.IdCompanhiaOrigem` | `Companhia` | Escopo por bandeira (CB / EX / PF) | ✅ Confirmado |
+
+> Ver detalhamento completo em [[regras-estoque-inventario]].
 
 ### Campos de Domínio (mapeamento conceitual)
 
@@ -118,22 +148,19 @@ fonte: Juliana Dos Santos; Query SQL — reunião 09/04/2026
 
 | # | Pergunta | Responsável | Status |
 |---|----------|-------------|--------|
-| 1 | Qual o método de integração? API ou acesso direto ao banco `Inventario`? | Time Plataforma | 🔴 Crítico |
+| 1 | Quais são os base URLs da API Oferta para EX e PF (hlg e prd)? | Time Oferta | 🟡 CB confirmado — EX/PF a confirmar |
 | 2 | O que significa `er.Tipo = 'BT'`? Backorder Transfer? Quais outros tipos existem? | Time Abastecimento | Aberto |
 | 3 | Quais são os valores de `TipoEstoque.Tipo` para físico, fingido e crossdocking? | Time GO | Aberto |
-| 4 | O linked server CORP_PRD estará disponível para integração? Ou precisa de outra rota? | Time Infra | Aberto |
-| 5 | `DataPrevisaoChegada` vem da Modalidade — é sincronizado com o agendamento do LN/Neogrid? | Time Integração | Aberto |
-| 6 | Como o OMS é consultado para ver estoque regional? Existe API ou é banco? | Time OMS / Plataforma | Aberto |
-| 7 | Quando o saldo nacional = 0 mas OMS mostra estoque regional, o tracking deve sinalizar isso separadamente? | Produto / GO | Aberto |
+| 4 | O linked server CORP_PRD estará disponível para integração? (contexto SQL — opcional para V2) | Time Infra | Aberto |
+| 5 | Quando `DisponibilidadeEstoque = false` na API mas há saldo no Inventario SQL, qual o motivo típico? | Time Oferta | Aberto |
 
 ---
 
 ## Próximos Passos
 
-- [ ] Confirmar método de integração com o banco `Inventario` (API vs. acesso direto) com time de Plataforma
-- [ ] Mapear valores de `TipoEstoque.Tipo` (físico, fingido, crossdocking)
-- [ ] Confirmar significado de `er.Tipo = 'BT'` com time de Abastecimento
-- [ ] Criar RFC-003 para propor estratégia de integração
+- [ ] Confirmar base URLs da API Oferta para EX e PF
+- [ ] Mapear valores de `TipoEstoque.Tipo` (físico, fingido, crossdocking) — para enriquecimento V2
+- [x] **Interface de leitura definida** — API Oferta, campo `DisponibilidadeEstoque` — 2026-04-15
 - [x] Regras de negócio documentadas via query SQL — reunião 09/04/2026
 
 ---
