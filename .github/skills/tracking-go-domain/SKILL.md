@@ -37,15 +37,15 @@ Cad.   Fiscal  Comercial  Agend.  Estoque  Prod.Site  Prod.Loja  Pricing  Exibi�
 
 | # | Etapa | Sistema de Origem | Interface | Status | Doc |
 |---|-------|-------------------|-----------|--------|-----|
-| 1 | **Cadastro Inicial** | GO / API Catálogo | ✅ `GET /api/v1/produto-sku/selecionar` | Integrado | `docs/pipeline/etapas/E01-cadastro-inicial.md` |
-| 2 | **Validação Fiscal** | Tax Web → API Catálogo | ✅ Mesmo endpoint E01 | Integrado | `docs/pipeline/etapas/E02-validacao-fiscal.md` |
-| 3 | **Proposta Comercial** | LN (Infor) → API Catálogo | ✅ `FlagContratoLiberado` (null se sem contrato) | Integrado | `docs/pipeline/etapas/E03-proposta-comercial.md` |
-| 4 | **Agendamento** | LN / Neogrid | 🔴 Integração a mapear | Pendente | `docs/pipeline/etapas/E04-agendamento.md` |
-| 5 | **Estoque** | Banco Inventario (SQL) | ⚠️ Query SQL confirmada — API a definir | Regras mapeadas | `docs/pipeline/etapas/E05-estoque.md` |
-| 6 | **Produzido Site** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzido` via API Catálogo | Integrado | `docs/pipeline/etapas/E06-produzido.md` |
-| 7 | **Produzido Loja Física** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzidoLojaFisica` via API Catálogo | Integrado | `docs/pipeline/etapas/E07-produzido-loja.md` |
-| 8 | **Ativação Pricing** | GO/Admin → SQL (SkuLojista) | ⚠️ Flags SQL confirmadas — interface a definir | Flags confirmadas | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
-| 9 | **Exibição Site/Loja** | SQL Corp / MONGOS (MongoDB de Pricing) | ⚠️ Flags mapeadas — decisão API vs SQL pendente | Flags expandidas | `docs/pipeline/etapas/E09-exibicao-site-loja.md` |
+| 1 | **Cadastro Inicial** | GO / API Catálogo | ✅ `GET /api/v1/produto-sku/selecionar` | ✅ Implementado | `docs/pipeline/etapas/E01-cadastro-inicial.md` |
+| 2 | **Validação Fiscal** | Tax Web → API Catálogo | ✅ Mesmo endpoint E01 (`FlagCompraBloqueada`) | ✅ Implementado | `docs/pipeline/etapas/E02-validacao-fiscal.md` |
+| 3 | **Proposta Comercial** | LN (Infor) → API Catálogo | ✅ `FlagContratoLiberado` (null se sem contrato) | ✅ Implementado | `docs/pipeline/etapas/E03-proposta-comercial.md` |
+| 4 | **Agendamento** | LN / Neogrid | 🔴 Integração pendente — stub 501 | ⚠️ Stub | `docs/pipeline/etapas/E04-agendamento.md` |
+| 5 | **Estoque** | API Oferta | ✅ `DisponibilidadeEstoque` em `PrecoSkus[0].PrecoVenda` — **não** na raiz | ✅ Implementado (ADR-004) | `docs/pipeline/etapas/E05-estoque.md` |
+| 6 | **Produzido Site** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzido` via API Catálogo | ✅ Implementado | `docs/pipeline/etapas/E06-produzido.md` |
+| 7 | **Produzido Loja Física** | Admin (escrita) / API Catálogo (leitura) | ✅ `FlagSkuProduzidoLojaFisica` via API Catálogo | ✅ Implementado | `docs/pipeline/etapas/E07-produzido-loja.md` |
+| 8 | **Ativação Pricing** | API Oferta | ✅ `Valido` na raiz da response (`GET /v1/Preco/Sku/PrecoVenda`) | ✅ Implementado (ADR-004) | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
+| 9 | **Exibição Site/Loja** | SQL Corp / MONGOS (MongoDB de Pricing) | 🔴 Decisão API vs SQL pendente — stub | ⚠️ Stub | `docs/pipeline/etapas/E09-exibicao-site-loja.md` |
 
 ---
 
@@ -113,7 +113,9 @@ Inventario.SaldoEstoqueRestricao.QuantidadeDisponivel > 0
 
 ---
 
-## API Confirmada — Catálogo (E01, E02, E03, E06, E07)
+## APIs Confirmadas e Implementadas
+
+### API Catálogo — E01, E02, E03, E06, E07 (ADR-003)
 
 ```
 GET /api/v1/produto-sku/selecionar
@@ -122,8 +124,6 @@ Header: apikey: [API_KEY_ENV]
 Query: idSkuSite={id_sku} (ou idSkuLoja={id_sku})
        &composicao=Geral.Nome;Mercadorias.DadosBasicos.NomeTipoSku;Mercadorias.DadosBasicos.FlagCrossDocking;Mercadorias.DadosBasicos.FlagCompraBloqueada;Mercadorias.Controle.DataCadastro;Mercadorias.DadosBasicos.FlagContratoLiberado;Mercadorias.Geral.FlagSkuProduzido;Mercadorias.Geral.FlagSkuProduzidoLojaFisica
 ```
-
-Campos disponíveis e mapeamento para etapas do tracking:
 
 | Campo | Etapa | Regra |
 |-------|-------|-------|
@@ -136,16 +136,43 @@ Campos disponíveis e mapeamento para etapas do tracking:
 | `Mercadorias[].Geral.FlagSkuProduzido` | E06 | `1` = produzido para site |
 | `Mercadorias[].Geral.FlagSkuProduzidoLojaFisica` | E07 | `1` = produzido para loja física |
 
+### API Oferta — E05 (estoque) e E08 (pricing) (ADR-004)
+
+```
+GET /v1/Preco/Sku/PrecoVenda?IdsSku={idSku}
+Host: {ApiOferta:BaseUrl} (configurado por ambiente)
+Header: Accept: text/plain
+```
+
+> ⚠️ **Armadilha crítica**: `DisponibilidadeEstoque` está em `PrecoSkus[0].PrecoVenda.DisponibilidadeEstoque` — **não** na raiz da resposta. `Valido` (E08) está na raiz.
+
+| Campo na response | Localização | Etapa | Regra |
+|---|---|---|---|
+| `DisponibilidadeEstoque` | `PrecoSkus[0].PrecoVenda.DisponibilidadeEstoque` | E05 | `true` = tem estoque |
+| `Valido` | Raiz da response | E08 | `true` = precificado e ativo no site |
+
+### GraphQL Hub Catálogo — listagem base (ADR-002)
+
+```
+POST https://gestaoproduto-hub-catalogo-{env}.viavarejo.com.br/graphql/
+Header: x-consumer-username: [KEY_ENV]
+```
+
+> ⚠️ Variáveis declaradas mas não usadas na query causam erro 400 — declarar apenas as efetivamente referenciadas.
+
+Campos usados: `id`, `nome`, `dePara.idSkuLoja`, `dePara.idSkuOn`, `tipoMercadoria.nome`, `situacaoCadastral.tipoSituacaoCadastral.nome`
+
 ---
 
 ## Decisões Pendentes
 
 | Decisão | Status | Doc |
 |---------|--------|-----|
-| Fonte de dados: API vs SQL direto | � Parcialmente resolvido (E01-E03, E06, E07 via API Catálogo) | `docs/conceitos/decisao-fonte-dados-tracking.md` |
-| Integração agendamento (LN/Neogrid) | 🔴 Em aberto | `docs/pipeline/etapas/E04-agendamento.md` |
-| Método integração estoque (API vs banco) | 🔴 Em aberto | `docs/pipeline/etapas/E05-estoque.md` |
-| Endpoint leitura flags pricing | 🔴 Em aberto | `docs/pipeline/etapas/E08-ativacao-pricing.md` |
+| ~~Fonte E01-E03/E06/E07~~ | ✅ API Catálogo (ADR-003) | [[ADR-003-complementacao-dados-api-catalogo]] |
+| ~~Método integração estoque E05~~ | ✅ API Oferta `DisponibilidadeEstoque` (ADR-004) | [[ADR-004-integracao-api-oferta-e05-e08]] |
+| ~~Endpoint leitura flags pricing E08~~ | ✅ API Oferta `Valido` (ADR-004) | [[ADR-004-integracao-api-oferta-e05-e08]] |
+| Integração agendamento E04 (LN/Neogrid) | 🔴 Em aberto | `docs/pipeline/etapas/E04-agendamento.md` |
+| Fonte E09 (API vs SQL Corp vs MONGOS) | 🔴 Em aberto | `docs/conceitos/decisao-fonte-dados-tracking.md` |
 
 ---
 
@@ -170,7 +197,11 @@ tracking-memory-hackathon/
 ├── RFC/                              # Request for Comments
 │   └── archive/                      # RFCs arquivadas (implementadas)
 ├── ADR/                              # Architecture Decision Records
-│   └── (nenhuma ADR ainda)
+│   ├── ADR-002-contrato-api-tracking-skus-fase-1-graphql.md
+│   ├── ADR-003-complementacao-dados-api-catalogo.md
+│   ├── ADR-004-integracao-api-oferta-e05-e08.md
+│   ├── ADR-005-analise-ia-gemini-vertex-tracking-sku.md
+│   └── ADR-006-componente-frontend-analise-ia-tracking-sku.md
 ├── docs/
 │   ├── pipeline/
 │   │   ├── sku-lifecycle.md          # Índice do pipeline (visão geral)
