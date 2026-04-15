@@ -68,5 +68,6 @@ Este é um **vault Obsidian** com a documentação arquitetural do **Tracking de
 
 ## Hackathon
 
-- **Label Jira:** `hackathon` em todas as issues relacionadas ao hackathon
+- **Labels Jira obrigatórias:** toda issue do hackathon deve ter `hackathon` **E** `desenvolveAí` — sempre as duas juntas
+- Agentes Backstage DesenvolveAí adicionam `desenvolveAí` automaticamente; issues criadas manualmente exigem adição manual de ambas
 - **Tag Obsidian:** adicionar `hackathon` no frontmatter `tags` de todo doc gerado durante o hackathon
