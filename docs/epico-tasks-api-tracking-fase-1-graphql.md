@@ -2,9 +2,9 @@
 tags: [tracking, jira, backlog, api, graphql, hackathon]
 tipo: planejamento-jira
 status: draft
-updated: 2026-04-14
+updated: 2026-04-15
 autor: GitHub Copilot
-fonte: "Baseado em [[PRD-002-frontend-tracking]] e [[ADR-002-contrato-api-tracking-skus-fase-1-graphql]]"
+fonte: "Baseado em [[PRD-002-frontend-tracking]], [[ADR-002-contrato-api-tracking-skus-fase-1-graphql]], [[ADR-003-complementacao-dados-api-catalogo]] e [[ADR-004-integracao-api-oferta-e05-e08]]"
 ---
 
 # Preparacao Jira — Epico e Tasks (API Tracking Fase 1 GraphQL)
@@ -195,6 +195,96 @@ Descricao:
 Criterios de aceite:
 - Documentacao revisada e versionada.
 - Lista de lacunas E02-E09 explicitada para backlog da proxima ADR.
+
+Estimativa sugerida: 2 SP
+
+---
+
+## Tasks — Integração API Oferta (E05 Estoque + E08 Pricing) — ADR-004
+
+### 8) Repositório de integração com API Oferta
+
+- Jira: **TCD-10009** (Tarefa)
+- Titulo: Implementar TrackingOfertaRepositorio para E05/E08 via API Oferta
+- Labels: `tracking`, `api-oferta`, `infra`, `hackathon`
+- Dependencia: Task 1 (contrato)
+
+Descricao:
+- Implementar `ITrackingOfertaRepositorio` no domain/Contracts.
+- Implementar `TrackingOfertaRepositorio` na infra usando `IHttpClient`.
+- Endpoint: `GET /v1/Preco/Sku/PrecoVenda?IdsSku={idSku}`.
+- Base URL via `IConfiguration` (por bandeira — iniciar com CB).
+- Modelo de resposta: `PrecoSkuResponse` com `Valido` (raiz) e `PrecoSkus[*].PrecoVenda.DisponibilidadeEstoque`.
+- Tratar erros HTTP (4xx/5xx) e timeout — retornar `null` sem bloquear a listagem.
+- Logs de erro com correlationId.
+
+Criterios de aceite:
+- Repositório chama API Oferta e deserializa resposta corretamente.
+- `DisponibilidadeEstoque` extraído de `PrecoSkus[0].PrecoVenda.DisponibilidadeEstoque`.
+- `Valido` extraído da raiz da resposta.
+- Erro na API Oferta retorna `null` (degradação graceful) com log.
+- URL da API configurável via `IConfiguration`.
+
+Estimativa sugerida: 5 SP
+
+### 9) Composição E05/E08 no TrackingSkuListaService
+
+- Jira: **TCD-10010** (Tarefa)
+- Titulo: Compor estoque e pricing na listagem tracking via API Oferta
+- Labels: `tracking`, `api-oferta`, `service`, `hackathon`
+- Dependencia: Task 8
+
+Descricao:
+- Injetar `ITrackingOfertaRepositorio` no `TrackingSkuListaService`.
+- No método `MapearParaItemAsync`, após a chamada à API Catálogo, chamar `ObterPrecoSkuAsync(skuOn)`.
+- Mapear `PrecoSkus[0].PrecoVenda.DisponibilidadeEstoque` → `Estoque` (E05).
+- Mapear `Valido` (raiz) → `AtivacaoPricing` (E08).
+- Em caso de erro na API Oferta, manter `Estoque = null` e `AtivacaoPricing = null`.
+
+Criterios de aceite:
+- `Estoque` e `AtivacaoPricing` preenchidos com `true`/`false` quando API Oferta responde com sucesso.
+- `Estoque` e `AtivacaoPricing` retornam `null` quando API Oferta falha (sem bloquear a listagem).
+- Mapeamento correto: `DisponibilidadeEstoque` → `Estoque`, `Valido` → `AtivacaoPricing`.
+
+Estimativa sugerida: 3 SP
+
+### 10) Testes unitários da integração API Oferta
+
+- Jira: **TCD-10011** (Tarefa)
+- Titulo: Cobrir integração API Oferta (E05/E08) com testes unitários
+- Labels: `tracking`, `api-oferta`, `tests`, `hackathon`
+- Dependencia: Tasks 8, 9
+
+Descricao:
+- Testes do `TrackingOfertaRepositorio`: sucesso, erro HTTP, timeout, resposta vazia.
+- Testes do `TrackingSkuListaService`: composição com API Oferta ativa, API Oferta em erro (degradação graceful).
+- Verificar mapeamento: `DisponibilidadeEstoque = true` → `Estoque = true`; `Valido = false` → `AtivacaoPricing = false`.
+- Naming: `{Metodo}_Deve{Resultado}_{Condicao}`.
+
+Criterios de aceite:
+- Suite executa sem falhas.
+- Casos minimos: API Oferta sucesso, API Oferta erro 500, API Oferta timeout, SKU sem preço (`Valido = false`), SKU com estoque (`DisponibilidadeEstoque = true`), SKU sem estoque (`DisponibilidadeEstoque = false`).
+- Naming seguindo convenção `{Metodo}_Deve{Resultado}_{Condicao}`.
+
+Estimativa sugerida: 5 SP
+
+### 11) Documentação técnica da integração API Oferta
+
+- Jira: **TCD-10012** (Tarefa)
+- Titulo: Documentar integração API Oferta para E05/E08 no tracking
+- Labels: `tracking`, `api-oferta`, `docs`, `hackathon`
+- Dependencia: Tasks 8, 9
+
+Descricao:
+- Atualizar Swagger com exemplos mostrando `estoque` e `ativacaoPricing` preenchidos.
+- Consolidar ADR-004 no vault Obsidian.
+- Atualizar ADR-002 e ADR-003 com referências cruzadas.
+- Documentar URLs da API Oferta por ambiente no ConfigMap.
+
+Criterios de aceite:
+- Swagger reflete `estoque` e `ativacaoPricing` com valores booleanos (não mais `null`).
+- ADR-004 publicada e referenciada nas ADRs anteriores.
+- ConfigMap documentado com URL da API Oferta.
 
 Estimativa sugerida: 2 SP
 
