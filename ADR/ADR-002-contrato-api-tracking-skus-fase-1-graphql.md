@@ -1,15 +1,15 @@
 ---
 tags: [tracking, adr, api, graphql, bff, hackathon]
-status: draft
+status: accepted
 data: 2026-04-14
 autores: [Lucas Rocha, Guilherme Maesta Domke de Thomaz]
 rfc-relacionada:
-updated: 2026-04-14
+updated: 2026-04-15
 ---
 
 # ADR-002 — Contrato de API de Tracking (Lista de SKUs) com Fonte Inicial GraphQL
 
-**Status:** Proposed  
+**Status:** Accepted (implementado em 2026-04-15)  
 **Data:** 2026-04-14  
 **Autores:** Lucas Rocha, Guilherme Maesta Domke de Thomaz  
 **RFC relacionada:** N/A (fase inicial)
