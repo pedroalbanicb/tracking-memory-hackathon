@@ -2,7 +2,7 @@
 tags: [adr, tracking, ia, gemini, vertex-ai, hackathon]
 status: accepted
 data: 2026-04-15
-autores: [pedro.martins@viavarejo.com.br]
+autores: [Pedro Albani Martins]
 rfc-relacionada: 
 updated: 2026-04-15
 versao: 1.1 — corrigido modelo (gemini-2.5-flash) e lib de auth (Google.Apis.Auth 1.68.0)
