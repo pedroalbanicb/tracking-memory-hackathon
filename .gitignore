@@ -1,4 +1,6 @@
 # Obsidian - config local do editor
 .obsidian/
+node_modules/
+scripts/node_modules/
 scripts/output/
 scripts/.env
