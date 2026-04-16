@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tracking Agent — Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      background: #f4f5f7;
+      color: #1e1e2e;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: #5b21b6;
+      color: #fff;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .topbar .logo {
+      background: #fff;
+      color: #5b21b6;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .topbar .title { font-weight: 600; font-size: 15px; }
+    .topbar .subtitle { font-size: 12px; color: #ddd6fe; margin-left: 4px; }
+    .topbar-right { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 12px; color: #ddd6fe; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
+
+    /* LAYOUT */
+    .layout { display: flex; flex: 1; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 260px;
+      background: #fff;
+      border-right: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .sidebar label { font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .sku-input-wrap { display: flex; gap: 8px; }
+    .sku-input-wrap input {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 13px;
+      outline: none;
+    }
+    .sku-input-wrap input:focus { border-color: #7c3aed; box-shadow: 0 0 0 2px #ede9fe; }
+    .btn-set-sku {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 13px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-set-sku:hover { background: #6d28d9; }
+
+    .sku-badge {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .sku-badge .sku-label { font-size: 11px; color: #7c3aed; font-weight: 600; text-transform: uppercase; }
+    .sku-badge .sku-value { font-size: 18px; font-weight: 700; color: #4c1d95; }
+
+    .etapas-panel { flex: 1; overflow-y: auto; }
+    .etapas-panel .etapa-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      border-bottom: 1px solid #f3f4f6;
+      font-size: 12px;
+    }
+    .etapa-item .dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .dot.ok { background: #4ade80; }
+    .dot.err { background: #f87171; }
+    .dot.pending { background: #d1d5db; }
+
+    .btn-novo {
+      background: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #374151;
+      font-weight: 500;
+      text-align: center;
+    }
+    .btn-novo:hover { background: #e5e7eb; }
+
+    /* CHAT */
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .msg {
+      display: flex;
+      gap: 10px;
+      max-width: 80%;
+    }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .msg.assistant { align-self: flex-start; }
+
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; flex-shrink: 0;
+    }
+    .avatar.agent { background: #7c3aed; color: #fff; }
+    .avatar.user  { background: #e5e7eb; color: #374151; }
+
+    .bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+    .msg.user .bubble {
+      background: #7c3aed;
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .msg.assistant .bubble {
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      color: #1e1e2e;
+      border-bottom-left-radius: 4px;
+    }
+
+    .etapas-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .etapa-tag {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    .typing {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 14px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+    .typing span {
+      width: 6px; height: 6px; border-radius: 50%; background: #9ca3af;
+      animation: blink 1.2s infinite;
+    }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+
+    /* INPUT */
+    .input-bar {
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .input-bar textarea {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+      font-family: inherit;
+      max-height: 120px;
+      line-height: 1.5;
+    }
+    .input-bar textarea:focus { border-color: #7c3aed; box-shadow: 0 0 0 2px #ede9fe; }
+    .btn-send {
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .btn-send:hover { background: #6d28d9; }
+    .btn-send:disabled { background: #d1d5db; cursor: not-allowed; }
+    .btn-send svg { width: 18px; height: 18px; }
+
+    .empty-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: #9ca3af;
+    }
+    .empty-state .icon { font-size: 48px; }
+    .empty-state p { font-size: 14px; text-align: center; max-width: 280px; line-height: 1.5; }
+
+    .suggestions {
+      display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 8px;
+    }
+    .suggestion-chip {
+      background: #f5f3ff;
+      border: 1px solid #ddd6fe;
+      color: #7c3aed;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .suggestion-chip:hover { background: #ede9fe; }
+
+    .error-msg { color: #dc2626; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="logo">GO</span>
+  <span class="title">Tracking Agent</span>
+  <span class="subtitle">— assistente de diagnóstico de SKUs 1P</span>
+  <div class="topbar-right">
+    <span class="status-dot"></span>
+    <span id="api-status">localhost:5131</span>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <label>SKU Site</label>
+    <div class="sku-input-wrap">
+      <input type="number" id="sku-input" placeholder="ex: 55072185" />
+      <button class="btn-set-sku" onclick="setSku()">OK</button>
+    </div>
+
+    <div class="sku-badge" id="sku-badge" style="display:none">
+      <span class="sku-label">SKU Ativo</span>
+      <span class="sku-value" id="sku-display">—</span>
+    </div>
+
+    <div id="etapas-panel" class="etapas-panel" style="display:none">
+      <label style="margin-bottom:8px;display:block">Pipeline</label>
+      <div id="etapas-list"></div>
+    </div>
+
+    <button class="btn-novo" onclick="novaConversa()">+ Nova conversa</button>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat-area">
+    <div class="messages" id="messages">
+      <div class="empty-state" id="empty-state">
+        <div class="icon">🔍</div>
+        <p>Informe um SKU Site e faça uma pergunta ao Tracking Agent.</p>
+        <div class="suggestions">
+          <span class="suggestion-chip" onclick="useSuggestion(this)">Por que esse SKU não aparece no site?</span>
+          <span class="suggestion-chip" onclick="useSuggestion(this)">Resuma o status em 2 linhas</span>
+          <span class="suggestion-chip" onclick="useSuggestion(this)">Quem devo acionar para resolver?</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-bar">
+      <textarea
+        id="msg-input"
+        rows="1"
+        placeholder="Pergunte sobre o SKU..."
+        onkeydown="handleKey(event)"
+        oninput="autoResize(this)"
+      ></textarea>
+      <button class="btn-send" id="btn-send" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API_BASE = 'http://localhost:5131';
+
+  const ETAPAS_NOMES = [
+    'Cadastro Inicial', 'Validação Fiscal', 'Proposta Comercial',
+    'Agendamento', 'Estoque', 'Produzido Site',
+    'Produzido Loja Física', 'Ativação Pricing', 'Exibição Site/Loja'
+  ];
+
+  let skuAtivo = null;
+  let historico = [];
+  let etapasComProblema = [];
+
+  function setSku() {
+    const val = document.getElementById('sku-input').value.trim();
+    if (!val) return;
+    skuAtivo = parseInt(val);
+    document.getElementById('sku-display').textContent = skuAtivo;
+    document.getElementById('sku-badge').style.display = 'flex';
+    novaConversa();
+    document.getElementById('msg-input').focus();
+  }
+
+  function novaConversa() {
+    historico = [];
+    etapasComProblema = [];
+    const msgs = document.getElementById('messages');
+    msgs.innerHTML = '';
+
+    const empty = document.createElement('div');
+    empty.className = 'empty-state';
+    empty.id = 'empty-state';
+    empty.innerHTML = `
+      <div class="icon">🔍</div>
+      <p>${skuAtivo ? `SKU <strong>${skuAtivo}</strong> carregado. Faça sua pergunta.` : 'Informe um SKU Site e faça uma pergunta ao Tracking Agent.'}</p>
+      <div class="suggestions">
+        <span class="suggestion-chip" onclick="useSuggestion(this)">Por que esse SKU não aparece no site?</span>
+        <span class="suggestion-chip" onclick="useSuggestion(this)">Resuma o status em 2 linhas</span>
+        <span class="suggestion-chip" onclick="useSuggestion(this)">Quem devo acionar para resolver?</span>
+      </div>
+    `;
+    msgs.appendChild(empty);
+    renderEtapas([]);
+  }
+
+  function useSuggestion(el) {
+    document.getElementById('msg-input').value = el.textContent;
+    sendMessage();
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  function removeEmptyState() {
+    const el = document.getElementById('empty-state');
+    if (el) el.remove();
+  }
+
+  function appendMsg(role, text, tags = []) {
+    removeEmptyState();
+    const msgs = document.getElementById('messages');
+
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${role}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = `avatar ${role === 'user' ? 'user' : 'agent'}`;
+    avatar.textContent = role === 'user' ? 'OP' : '🤖';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.textContent = text;
+
+    if (tags.length > 0) {
+      const tagsEl = document.createElement('div');
+      tagsEl.className = 'etapas-tags';
+      tags.forEach(t => {
+        const chip = document.createElement('span');
+        chip.className = 'etapa-tag';
+        chip.textContent = '⚠ ' + t;
+        tagsEl.appendChild(chip);
+      });
+      bubble.appendChild(tagsEl);
+    }
+
+    wrap.appendChild(avatar);
+    wrap.appendChild(bubble);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function showTyping() {
+    removeEmptyState();
+    const msgs = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = 'msg assistant';
+    wrap.id = 'typing-indicator';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar agent';
+    avatar.textContent = '🤖';
+
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+
+    wrap.appendChild(avatar);
+    wrap.appendChild(typing);
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function removeTyping() {
+    const el = document.getElementById('typing-indicator');
+    if (el) el.remove();
+  }
+
+  function renderEtapas(problemas) {
+    const panel = document.getElementById('etapas-panel');
+    const list = document.getElementById('etapas-list');
+
+    if (problemas.length === 0 && historico.length === 0) {
+      panel.style.display = 'none';
+      return;
+    }
+
+    panel.style.display = 'block';
+    list.innerHTML = '';
+
+    ETAPAS_NOMES.forEach(nome => {
+      const item = document.createElement('div');
+      item.className = 'etapa-item';
+
+      const dot = document.createElement('div');
+      dot.className = 'dot';
+
+      if (problemas.includes(nome)) {
+        dot.classList.add('err');
+      } else if (historico.length > 0) {
+        dot.classList.add('ok');
+      } else {
+        dot.classList.add('pending');
+      }
+
+      item.appendChild(dot);
+      item.appendChild(document.createTextNode(nome));
+      list.appendChild(item);
+    });
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('msg-input');
+    const mensagem = input.value.trim();
+    if (!mensagem) return;
+
+    if (!skuAtivo) {
+      alert('Informe um SKU Site antes de enviar.');
+      return;
+    }
+
+    input.value = '';
+    input.style.height = 'auto';
+    document.getElementById('btn-send').disabled = true;
+
+    appendMsg('user', mensagem);
+    historico.push({ role: 'user', content: mensagem });
+
+    showTyping();
+
+    try {
+      const res = await fetch(`${API_BASE}/api/v1/tracking/chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          idSkuSite: skuAtivo,
+          mensagem,
+          historico: historico.slice(0, -1) // envia histórico sem a mensagem atual
+        })
+      });
+
+      const json = await res.json();
+      removeTyping();
+
+      if (!res.ok || !json.isOk) {
+        appendMsg('assistant', '❌ Erro ao processar: ' + (json.message || res.statusText));
+        return;
+      }
+
+      const resposta = json.data.resposta;
+      etapasComProblema = json.data.etapasComProblema || [];
+
+      appendMsg('assistant', resposta, etapasComProblema);
+      historico.push({ role: 'assistant', content: resposta });
+      renderEtapas(etapasComProblema);
+
+    } catch (err) {
+      removeTyping();
+      appendMsg('assistant', '❌ Não foi possível conectar à API. Verifique se localhost:5131 está rodando.');
+      console.error(err);
+    } finally {
+      document.getElementById('btn-send').disabled = false;
+      input.focus();
+    }
+  }
+</script>
+</body>
+</html>
