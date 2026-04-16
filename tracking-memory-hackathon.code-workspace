@@ -12,6 +12,10 @@
       "name": "Gestao Produto Plataforma Front-end",
       "path": "../gestaoproduto-plataforma-web",
     },
+    {
+      "name": "Gestao da Oferta — Front-end",
+      "path": "../front-gestao-da-oferta",
+    },
   ],
   "settings": {
     "chat.useAgentsMdFile": true,
